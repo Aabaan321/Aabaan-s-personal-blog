@@ -1,3 +1,4 @@
+// Wait for the page to fully load
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Website loaded successfully!");
 
@@ -7,6 +8,13 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
             document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Read more button functionality
+    document.querySelectorAll(".read-more").forEach(button => {
+        button.addEventListener("click", function () {
+            alert("Full blog post feature coming soon!");
         });
     });
 });
