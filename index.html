@@ -12,7 +12,7 @@
     <!-- Header Section -->
     <header>
         <h1>Welcome to Aabaan's Blog</h1>
-        <p>Chef | Traveler | boxxer | swimmer | Gamer</p>
+        <p>Chef | Traveler | Boxer | Swimmer | Gamer</p>
     </header>
 
     <!-- Navigation Menu -->
@@ -29,7 +29,7 @@
         <div class="profile">
             <img src="https://www.ecoleducasse.com/application/files/8717/1924/7181/ChefDePartieHeader.jpg" alt="Aabaan">
             <h2>Aabaan</h2>
-            <p>Passionate about culinary arts, boxing , swiming , travling , and gaming.</p>
+            <p>Passionate about culinary arts, boxing, swimming, traveling, and gaming.</p>
         </div>
     </section>
 
@@ -39,12 +39,18 @@
         <article class="blog-post">
             <h3>My Journey in Culinary Arts</h3>
             <p>Passionate about the culinary arts, aiming to become a professional chef with expertise in both cooking and hotel management. Plans to attend a 4-year culinary core and hotel management course to refine skills and gain industry experience.</p>
-            <button class="read-more">Read More</button>
+            <button class="read-more" onclick="document.getElementById('culinary-details').style.display = 'block';">Read More</button>
+            <div id="culinary-details" style="display: none;">
+                <p>I’ve always been fascinated by the art of cooking and the science behind flavors and textures. Over the years, I’ve honed my skills by experimenting with different cuisines and techniques, from classical French cooking to modern fusion dishes. My goal is to bring my creativity and passion into a professional kitchen, combining culinary expertise with the knowledge I will gain from a well-rounded hotel management course. This will allow me to run a successful kitchen and hospitality operation in the future.</p>
+            </div>
         </article>
         <article class="blog-post">
             <h3>Exploring New Destinations</h3>
             <p>Loves exploring new destinations, experiencing different cultures, and discovering unique cuisines. Finds inspiration from travel experiences, which influence culinary creativity and broaden perspectives.</p>
-            <button class="read-more">Read More</button>
+            <button class="read-more" onclick="document.getElementById('travel-details').style.display = 'block';">Read More</button>
+            <div id="travel-details" style="display: none;">
+                <p>Traveling has opened my mind to new possibilities, both in my personal life and professional pursuits. I believe that every destination has a story to tell, whether through its food, architecture, or traditions. My travels have inspired me to incorporate international influences into my cooking, experimenting with unique ingredients and techniques that I have encountered during my journeys. In the future, I hope to explore more destinations and immerse myself in their culinary cultures to broaden my knowledge even further.</p>
+            </div>
         </article>
     </section>
 
