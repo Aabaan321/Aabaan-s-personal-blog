@@ -7,48 +7,37 @@ document.addEventListener("DOMContentLoaded", function () {
         anchor.addEventListener('click', function (event) {
             event.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-                history.pushState(null, null, `#${targetId}`); // Update URL without refreshing
-            }
+            document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
         });
     });
 
-    // Read More functionality (expands content instead of alert)
+    // Read more button functionality (opens new pages)
     document.querySelectorAll(".read-more").forEach(button => {
         button.addEventListener("click", function () {
-            const post = this.parentElement;
-            const fullText = post.querySelector(".full-content");
+            const postTitle = this.previousElementSibling.innerText;
+            let pageURL = "";
 
-            if (fullText.style.display === "none" || fullText.style.display === "") {
-                fullText.style.display = "block";
-                this.textContent = "Show Less";
+            if (postTitle.includes("Culinary Arts")) {
+                pageURL = "culinary-journey.html";
+            } else if (postTitle.includes("Exploring New Destinations")) {
+                pageURL = "travel-experiences.html";
+            }
+
+            if (pageURL) {
+                window.open(pageURL, "_blank");
             } else {
-                fullText.style.display = "none";
-                this.textContent = "Read More";
+                alert("This blog post is not available yet.");
             }
         });
     });
 
-    // Optional: Dark Mode Toggle (if you want it)
-    const darkModeToggle = document.createElement("button");
-    darkModeToggle.textContent = "Toggle Dark Mode";
-    darkModeToggle.style.position = "fixed";
-    darkModeToggle.style.bottom = "20px";
-    darkModeToggle.style.right = "20px";
-    darkModeToggle.style.padding = "10px 15px";
-    darkModeToggle.style.background = "#ff9800";
-    darkModeToggle.style.border = "none";
-    darkModeToggle.style.color = "white";
-    darkModeToggle.style.cursor = "pointer";
-    darkModeToggle.style.borderRadius = "5px";
-    
-    document.body.appendChild(darkModeToggle);
-    
-    darkModeToggle.addEventListener("click", function () {
-        document.body.classList.toggle("dark-mode");
+    // Add hover animation to social icons
+    document.querySelectorAll(".social-icons a").forEach(icon => {
+        icon.addEventListener("mouseenter", () => {
+            icon.style.transform = "scale(1.1)";
+        });
+        icon.addEventListener("mouseleave", () => {
+            icon.style.transform = "scale(1)";
+        });
     });
-
 });
