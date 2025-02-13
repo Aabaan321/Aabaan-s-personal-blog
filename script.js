@@ -56,27 +56,44 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("user-input").value = "";
 
         // Call AI for response
-        getAIResponse(userInput);
+        if (userInput.trim()) {
+            getAIResponse(userInput);
+        } else {
+            const aiMessage = document.createElement("div");
+            aiMessage.textContent = "Bot: Please enter a message!";
+            aiMessage.classList.add("bot-message");
+            chatMessages.appendChild(aiMessage);
+        }
     }
 
     async function getAIResponse(userInput) {
-        const response = await fetch('https://api.openai.com/v1/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer YOUR_OPENAI_API_KEY`, // Replace with your OpenAI API key
-            },
-            body: JSON.stringify({
-                model: "text-davinci-003",
-                prompt: userInput,
-                max_tokens: 100,
-            }),
-        });
+        try {
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer YOUR_OPENAI_API_KEY`, // Replace with your OpenAI API key
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo", // or "gpt-4"
+                    messages: [{ role: "user", content: userInput }],
+                    max_tokens: 100,
+                }),
+            });
 
-        const data = await response.json();
-        const aiMessage = document.createElement("div");
-        aiMessage.textContent = "Bot: " + data.choices[0].text.trim();
-        aiMessage.classList.add("bot-message");
-        document.getElementById("chat-messages").appendChild(aiMessage);
+            const data = await response.json();
+            if (response.ok) {
+                const aiMessage = document.createElement("div");
+                aiMessage.textContent = "Bot: " + data.choices[0].message.content.trim();
+                aiMessage.classList.add("bot-message");
+                document.getElementById("chat-messages").appendChild(aiMessage);
+            } else {
+                console.error('Error from API:', data);
+                alert('Failed to get response from the bot.');
+            }
+        } catch (error) {
+            console.error('Error making API request:', error);
+            alert('Error making the request.');
+        }
     }
 });
