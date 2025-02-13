@@ -1,43 +1,36 @@
-// Wait for the page to fully load
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Website loaded successfully!");
 
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function (event) {
-            event.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
-        });
+    // Toggle settings panel
+    const settingsIcon = document.getElementById("settings-icon");
+    const settingsPanel = document.getElementById("settings-panel");
+
+    settingsIcon.addEventListener("click", function () {
+        settingsPanel.classList.toggle("hidden");
     });
 
-    // Read more button functionality (opens new pages)
-    document.querySelectorAll(".read-more").forEach(button => {
-        button.addEventListener("click", function () {
-            const postTitle = this.previousElementSibling.innerText;
-            let pageURL = "";
-
-            if (postTitle.includes("Culinary Arts")) {
-                pageURL = "culinary-journey.html";
-            } else if (postTitle.includes("Exploring New Destinations")) {
-                pageURL = "travel-experiences.html";
-            }
-
-            if (pageURL) {
-                window.open(pageURL, "_blank");
-            } else {
-                alert("This blog post is not available yet.");
-            }
-        });
+    // Theme switch
+    const themeSwitch = document.getElementById("theme-switch");
+    themeSwitch.addEventListener("change", function () {
+        document.body.style.background = themeSwitch.checked ? "#ffffff" : "#121212";
+        document.body.style.color = themeSwitch.checked ? "#000000" : "#ffffff";
     });
 
-    // Add hover animation to social icons
-    document.querySelectorAll(".social-icons a").forEach(icon => {
-        icon.addEventListener("mouseenter", () => {
-            icon.style.transform = "scale(1.1)";
-        });
-        icon.addEventListener("mouseleave", () => {
-            icon.style.transform = "scale(1)";
-        });
+    // Font size change
+    const fontSizeSelect = document.getElementById("font-size");
+    fontSizeSelect.addEventListener("change", function () {
+        document.body.style.fontSize = fontSizeSelect.value;
+    });
+
+    // Theme color change
+    const themeColor = document.getElementById("theme-color");
+    themeColor.addEventListener("input", function () {
+        document.documentElement.style.setProperty("--theme-color", themeColor.value);
+    });
+
+    // Save settings
+    document.getElementById("save-settings").addEventListener("click", function () {
+        alert("Settings saved!");
+        settingsPanel.classList.add("hidden");
     });
 });
