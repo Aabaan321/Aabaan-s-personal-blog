@@ -1,106 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aabaan's Personal Blog</title>
+    <meta name="description" content="Aabaan's personal blog - Culinary, Travel, Gaming, and More!">
+    <meta name="author" content="Aabaan">
+    <meta property="og:title" content="Aabaan's Personal Blog">
+    <meta property="og:description" content="Aabaan's personal blog - Culinary, Travel, Gaming, and More!">
+    <meta property="og:image" content="link_to_image">
+    <meta property="og:url" content="your_website_url">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_TRACKING_ID');
+    </script>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Aabaan's Blog</title>
 </head>
+
 <body>
-
-    <!-- Settings Icon -->
-    <div id="settings-icon">
-        <i class="fa-solid fa-cog"></i>
-    </div>
-
-    <!-- Settings Panel -->
-    <div id="settings-panel" class="hidden">
-        <h3>Customize</h3>
-        <label for="theme-switch">Dark Mode:</label>
-        <input type="checkbox" id="theme-switch">
-
-        <label for="font-size">Font Size:</label>
-        <select id="font-size">
-            <option value="16px">Small</option>
-            <option value="18px" selected>Medium</option>
-            <option value="20px">Large</option>
-        </select>
-
-        <label for="theme-color">Theme Color:</label>
-        <input type="color" id="theme-color">
-
-        <button id="save-settings">Save</button>
-    </div>
-
-    <!-- Header -->
     <header>
-        <h1>Welcome to Aabaan's Blog</h1>
-        <p>Chef | Traveler | Boxer | Swimmer | Gamer</p>
+        <h1>Aabaan's Personal Blog</h1>
     </header>
 
-    <!-- Navigation -->
     <nav>
         <ul>
-            <li><a href="#about"><i class="fa-solid fa-user"></i> About</a></li>
-            <li><a href="#blog"><i class="fa-solid fa-book-open"></i> Blog</a></li>
-            <li><a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+            <li><a href="#about-us">About Us</a></li>
+            <li><a href="#contact-us">Contact Us</a></li>
         </ul>
     </nav>
 
-    <!-- About Section -->
-    <section id="about" class="container">
-        <div class="profile">
-            <img src="https://www.ecoleducasse.com/application/files/8717/1924/7181/ChefDePartieHeader.jpg" alt="Aabaan">
-            <h2>Aabaan</h2>
-            <p>Passionate about culinary arts, boxing, swimming, traveling, and gaming.</p>
+    <section id="settings-icon">⚙️</section>
+    <section id="settings-panel">
+        <h3>Customize Your Experience</h3>
+        <label for="theme-switch">Dark Mode</label>
+        <input type="checkbox" id="theme-switch">
+        <label for="font-size">Font Size</label>
+        <select id="font-size">
+            <option value="16px">Default</option>
+            <option value="18px">Large</option>
+            <option value="20px">Larger</option>
+        </select>
+        <label for="theme-color">Primary Color</label>
+        <input type="color" id="theme-color">
+        <button id="save-settings">Save Settings</button>
+    </section>
 
-            <!-- Social Media Icons -->
-            <div class="social-icons">
-                <a href="https://instagram.com/aabaanrg73" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                <a href="mailto:aabaangr@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-                <a href="https://wa.me/995595125658" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+    <!-- Blog Post Section -->
+    <div class="container">
+        <div class="blog-post" data-category="food">
+            <h3>My Culinary Journey</h3>
+            <p>Welcome to my culinary journey...</p>
+            <button class="read-more">Read More</button>
+            <div class="share-buttons">
+                <a href="https://twitter.com/share?url=your_post_url" target="_blank">Share on Twitter</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=your_post_url" target="_blank">Share on Facebook</a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url=your_post_url" target="_blank">Share on LinkedIn</a>
             </div>
         </div>
+        <!-- Add more posts here -->
+    </div>
+
+    <!-- Comment Section -->
+    <section class="comments">
+        <h3>Comments</h3>
+        <textarea id="comment-input" placeholder="Write your comment here..."></textarea>
+        <button id="submit-comment">Submit Comment</button>
+        <div id="comments-list"></div>
     </section>
 
-    <!-- Blog Section -->
-    <section id="blog" class="container">
-        <h2>Latest Blog Posts</h2>
-        <article class="blog-post">
-            <h3>My Journey in Culinary Arts</h3>
-            <p>Passionate about the culinary arts, aiming to become a professional chef...</p>
-            <a href="culinary-journey.html" target="_blank"><button class="read-more">Read More</button></a>
-        </article>
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="hidden">↑</button>
 
-        <article class="blog-post">
-            <h3>Exploring New Destinations</h3>
-            <p>Loves exploring new places, experiencing different cultures...</p>
-            <a href="travel-experiences.html" target="_blank"><button class="read-more">Read More</button></a>
-        </article>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="container contact">
-        <h2>Contact Me</h2>
-        <div class="contact-info">
-            <a href="mailto:aabaangr@gmail.com" class="contact-item">
-                <i class="fas fa-envelope"></i> aabaangr@gmail.com
-            </a>
-            <a href="https://wa.me/995595125658" class="contact-item" target="_blank">
-                <i class="fab fa-whatsapp"></i> WhatsApp
-            </a>
-            <a href="https://instagram.com/aabaanrg73" class="contact-item" target="_blank">
-                <i class="fab fa-instagram"></i> @aabaanrg73
-            </a>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Aabaan | All Rights Reserved</p>
+        <p>&copy; 2025 Aabaan. All rights reserved.</p>
     </footer>
 
+    <script src="script.js"></script>
 </body>
+
 </html>
