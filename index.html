@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <meta name="description" content="Aabaan's personal blog about culinary arts, travel, and gaming.">
-    <meta property="og:title" content="Aabaan's Blog">
-    <meta property="og:description" content="A blog about culinary arts, travel, and gaming.">
-    <meta property="og:image" content="your-thumbnail-image.jpg">
 </head>
 <body>
 
@@ -53,12 +49,6 @@
         </ul>
     </nav>
 
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <input type="text" id="search-input" placeholder="Search blog posts...">
-        <button id="search-btn"><i class="fa-solid fa-search"></i></button>
-    </div>
-
     <!-- About Section -->
     <section id="about" class="container">
         <div class="profile">
@@ -81,51 +71,31 @@
         <article class="blog-post">
             <h3>My Journey in Culinary Arts</h3>
             <p>Passionate about the culinary arts, aiming to become a professional chef...</p>
-            <div class="post-actions">
-                <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
-                <button class="share-btn"><i class="fa-solid fa-share"></i> Share</button>
-            </div>
             <a href="culinary-journey.html" target="_blank"><button class="read-more">Read More</button></a>
         </article>
 
         <article class="blog-post">
             <h3>Exploring New Destinations</h3>
             <p>Loves exploring new places, experiencing different cultures...</p>
-            <div class="post-actions">
-                <button class="like-btn"><i class="fa-solid fa-thumbs-up"></i> Like</button>
-                <button class="share-btn"><i class="fa-solid fa-share"></i> Share</button>
-            </div>
             <a href="travel-experiences.html" target="_blank"><button class="read-more">Read More</button></a>
         </article>
     </section>
 
-    <!-- Comment Section -->
-    <section class="container">
-        <h2>Leave a Comment</h2>
-        <div id="disqus_thread"></div>
-        <script>
-            var disqus_config = function () {
-                this.page.url = window.location.href;
-                this.page.identifier = window.location.pathname;
-            };
-            (function() {
-                var d = document, s = d.createElement('script');
-                s.src = 'https://YOUR-DISQUS-SHORTNAME.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
-    </section>
-
     <!-- Contact Section -->
-    <section id="contact" class="container">
+    <section id="contact" class="container contact">
         <h2>Contact Me</h2>
-        <p>Email: <a href="mailto:aabaangr@gmail.com">aabaangr@gmail.com</a></p>
-        <p>WhatsApp: <a href="https://wa.me/995595125658" target="_blank">+995 595 12 56 58</a></p>
+        <div class="contact-info">
+            <a href="mailto:aabaangr@gmail.com" class="contact-item">
+                <i class="fas fa-envelope"></i> aabaangr@gmail.com
+            </a>
+            <a href="https://wa.me/995595125658" class="contact-item" target="_blank">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://instagram.com/aabaanrg73" class="contact-item" target="_blank">
+                <i class="fab fa-instagram"></i> @aabaanrg73
+            </a>
+        </div>
     </section>
-
-    <!-- Back to Top Button -->
-    <button id="back-to-top"><i class="fa-solid fa-arrow-up"></i></button>
 
     <!-- Footer -->
     <footer>
