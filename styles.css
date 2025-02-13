@@ -4,7 +4,7 @@
     --background-dark: #121212;
     --background-light: #ffffff;
     --text-dark: #ffffff;
-    --text-light: #000000;
+    --text-light: #ffffff; /* Changed from black to white */
     --border-radius: 8px;
     --transition-speed: 0.3s;
     --hover-color: #e68900;
@@ -75,7 +75,7 @@ nav a:hover {
     margin-top: 20px;
     border-radius: var(--border-radius);
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-    color: var(--text-light);
+    color: var(--text-light); /* Changed to white */
 }
 
 /* Profile Section */
@@ -128,7 +128,7 @@ nav a:hover {
 .blog-post p {
     font-size: 18px;
     line-height: 1.6;
-    color: var(--text-light);
+    color: var(--text-light); /* Changed to white */
     margin-bottom: 20px;
 }
 
@@ -187,7 +187,7 @@ footer {
     margin-top: 20px;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    color: var(--text-light);
+    color: var(--text-light); /* Changed to white */
 }
 
 /* Settings Panel */
@@ -261,7 +261,7 @@ footer {
 .container p {
     font-size: 18px;
     line-height: 1.8;
-    color: var(--text-light);
+    color: var(--text-light); /* Changed to white */
 }
 
 .back-link {
