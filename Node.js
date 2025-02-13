@@ -16,7 +16,7 @@ app.post('/chat', async (req, res) => {
     }
 
     try {
-        const response = await fetch('ss', {
+        const response = await fetch('sk-svcacct-CPwOcBBY_elAW4iWMfnI0zJqj7R7iiPN8UB52c_QdCa4ePtqEFTmnmltValtsT3BlbkFJkprPxylm1Z7JOOj6ij4G3QC3PMXdIVqyMB24Ha2a-Grr2fPvugB_wHMhaz8ZAA', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
