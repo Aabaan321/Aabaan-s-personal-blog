@@ -5,6 +5,9 @@
     --background-light: #ffffff;
     --text-dark: #ffffff;
     --text-light: #000000;
+    --border-radius: 8px;
+    --transition-speed: 0.3s;
+    --hover-color: #e68900;
 }
 
 body {
@@ -13,7 +16,7 @@ body {
     padding: 0;
     background-color: var(--background-dark);
     color: var(--text-dark);
-    transition: background 0.3s, color 0.3s, font-size 0.3s;
+    transition: background-color var(--transition-speed), color var(--transition-speed), font-size var(--transition-speed);
 }
 
 /* Header */
@@ -24,6 +27,7 @@ header {
     font-size: 24px;
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
 }
 
 /* Navigation */
@@ -34,6 +38,7 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
+    border-radius: var(--border-radius);
 }
 nav ul {
     list-style: none;
@@ -41,14 +46,14 @@ nav ul {
     margin: 0;
 }
 nav ul li {
-    display: inline;
+    display: inline-block;
     margin: 0 15px;
 }
 nav a {
     color: white;
     font-size: 18px;
     text-decoration: none;
-    transition: color 0.3s;
+    transition: color var(--transition-speed);
 }
 nav a:hover {
     color: var(--primary-color);
@@ -61,7 +66,7 @@ nav a:hover {
     padding: 20px;
     background: #1a1a1a;
     margin-top: 20px;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
@@ -72,8 +77,12 @@ nav a:hover {
 .profile img {
     width: 200px;
     height: 200px;
-    border-radius: 75%;
+    border-radius: 50%;
     border: 5px solid var(--primary-color);
+    transition: transform var(--transition-speed);
+}
+.profile img:hover {
+    transform: scale(1.05);
 }
 
 /* Social Icons */
@@ -84,11 +93,11 @@ nav a:hover {
     color: var(--primary-color);
     font-size: 24px;
     margin: 0 10px;
-    transition: transform 0.3s;
+    transition: transform var(--transition-speed);
 }
 .social-icons a:hover {
     transform: scale(1.1);
-    color: #e68900;
+    color: var(--hover-color);
 }
 
 /* Blog Posts */
@@ -98,6 +107,8 @@ nav a:hover {
 }
 .blog-post h3 {
     color: var(--primary-color);
+    font-size: 22px;
+    margin-bottom: 10px;
 }
 .read-more {
     background: var(--primary-color);
@@ -106,10 +117,11 @@ nav a:hover {
     color: white;
     font-size: 16px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background var(--transition-speed), transform var(--transition-speed);
 }
 .read-more:hover {
-    background: #e68900;
+    background: var(--hover-color);
+    transform: translateY(-3px);
 }
 
 /* Contact Section */
@@ -129,13 +141,13 @@ nav a:hover {
     font-size: 18px;
     color: var(--primary-color);
     text-decoration: none;
-    transition: 0.3s;
+    transition: color var(--transition-speed), transform var(--transition-speed);
 }
 .contact-item i {
     font-size: 22px;
 }
 .contact-item:hover {
-    color: #e68900;
+    color: var(--hover-color);
     transform: scale(1.1);
 }
 
@@ -145,6 +157,7 @@ footer {
     text-align: center;
     padding: 15px;
     margin-top: 20px;
+    border-radius: var(--border-radius);
 }
 
 /* Settings Panel */
@@ -156,10 +169,10 @@ footer {
     cursor: pointer;
     color: var(--primary-color);
     z-index: 1000;
+    transition: transform var(--transition-speed);
 }
 #settings-icon:hover {
     transform: rotate(90deg);
-    transition: 0.3s;
 }
 
 #settings-panel {
@@ -168,7 +181,7 @@ footer {
     right: 10px;
     background: #252525;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
     width: 200px;
     display: none;
@@ -181,11 +194,13 @@ footer {
 #settings-panel label {
     display: block;
     margin-top: 10px;
+    color: var(--text-dark);
 }
 #settings-panel select, #settings-panel input {
     width: 100%;
     padding: 5px;
     margin-top: 5px;
+    border-radius: 4px;
 }
 #save-settings {
     background: var(--primary-color);
@@ -195,9 +210,10 @@ footer {
     cursor: pointer;
     width: 100%;
     margin-top: 10px;
+    border-radius: var(--border-radius);
 }
 #save-settings:hover {
-    background: #e68900;
+    background: var(--hover-color);
 }
 
 /* Show settings panel */
@@ -216,5 +232,18 @@ footer {
     }
     .contact-info {
         flex-direction: column;
+    }
+    .profile img {
+        width: 150px;
+        height: 150px;
+    }
+    .social-icons a {
+        font-size: 20px;
+    }
+    .blog-post h3 {
+        font-size: 20px;
+    }
+    #settings-panel {
+        width: 90%;
     }
 }
