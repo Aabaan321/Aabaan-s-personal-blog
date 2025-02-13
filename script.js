@@ -38,4 +38,45 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Settings saved!");
         settingsPanel.classList.remove("show");
     });
+
+    // Chatbot functionality
+    document.getElementById("send-button").addEventListener("click", sendMessage);
+
+    function sendMessage() {
+        const userInput = document.getElementById("user-input").value;
+        const chatMessages = document.getElementById("chat-messages");
+
+        // Display user message
+        const userMessage = document.createElement("div");
+        userMessage.textContent = "You: " + userInput;
+        userMessage.classList.add("user-message");
+        chatMessages.appendChild(userMessage);
+
+        // Clear input field
+        document.getElementById("user-input").value = "";
+
+        // Call AI for response
+        getAIResponse(userInput);
+    }
+
+    async function getAIResponse(userInput) {
+        const response = await fetch('https://api.openai.com/v1/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer YOUR_OPENAI_API_KEY`, // Replace with your OpenAI API key
+            },
+            body: JSON.stringify({
+                model: "text-davinci-003",
+                prompt: userInput,
+                max_tokens: 100,
+            }),
+        });
+
+        const data = await response.json();
+        const aiMessage = document.createElement("div");
+        aiMessage.textContent = "Bot: " + data.choices[0].text.trim();
+        aiMessage.classList.add("bot-message");
+        document.getElementById("chat-messages").appendChild(aiMessage);
+    }
 });
