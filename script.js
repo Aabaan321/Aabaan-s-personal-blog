@@ -13,9 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const themeSwitch = document.getElementById("theme-switch");
     themeSwitch.addEventListener("change", function () {
         if (themeSwitch.checked) {
-            document.body.classList.add("dark-mode");
+            document.body.style.background = "var(--background-light)";
+            document.body.style.color = "var(--text-light)";
         } else {
-            document.body.classList.remove("dark-mode");
+            document.body.style.background = "var(--background-dark)";
+            document.body.style.color = "var(--text-dark)";
         }
     });
 
