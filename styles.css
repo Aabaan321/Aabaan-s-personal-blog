@@ -112,14 +112,31 @@ nav a:hover {
     background: #e68900;
 }
 
-/* Contact */
-.contact a {
+/* Contact Section */
+.contact {
+    text-align: center;
+    padding: 30px 0;
+}
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
     color: var(--primary-color);
     text-decoration: none;
-    font-weight: bold;
+    transition: 0.3s;
 }
-.contact a:hover {
-    text-decoration: underline;
+.contact-item i {
+    font-size: 22px;
+}
+.contact-item:hover {
+    color: #e68900;
+    transform: scale(1.1);
 }
 
 /* Footer */
@@ -196,5 +213,8 @@ footer {
     nav ul li {
         display: block;
         margin: 10px 0;
+    }
+    .contact-info {
+        flex-direction: column;
     }
 }
