@@ -54,29 +54,6 @@ nav a:hover {
     color: var(--primary-color);
 }
 
-/* Search Bar */
-.search-bar {
-    text-align: center;
-    margin: 20px 0;
-}
-#search-input {
-    padding: 10px;
-    width: 60%;
-    border: none;
-    border-radius: 5px;
-}
-#search-btn {
-    padding: 10px 15px;
-    background: var(--primary-color);
-    border: none;
-    cursor: pointer;
-    color: white;
-    font-size: 16px;
-}
-#search-btn:hover {
-    background: #e68900;
-}
-
 /* Containers */
 .container {
     width: 80%;
@@ -122,26 +99,6 @@ nav a:hover {
 .blog-post h3 {
     color: var(--primary-color);
 }
-
-/* Like & Share Buttons */
-.post-actions {
-    margin: 10px 0;
-}
-.like-btn, .share-btn {
-    background: #444;
-    border: none;
-    padding: 10px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-right: 10px;
-}
-.like-btn:hover, .share-btn:hover {
-    background: var(--primary-color);
-}
-
-/* Read More Button */
 .read-more {
     background: var(--primary-color);
     border: none;
@@ -155,29 +112,39 @@ nav a:hover {
     background: #e68900;
 }
 
-/* Comment Section */
-#disqus_thread {
-    background: #1a1a1a;
-    padding: 20px;
-    border-radius: 8px;
+/* Contact Section */
+.contact {
+    text-align: center;
+    padding: 30px 0;
+}
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: 0.3s;
+}
+.contact-item i {
+    font-size: 22px;
+}
+.contact-item:hover {
+    color: #e68900;
+    transform: scale(1.1);
 }
 
-/* Back to Top Button */
-#back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 50%;
-    display: none;
-}
-#back-to-top:hover {
-    background: #e68900;
+/* Footer */
+footer {
+    background: #1f1f1f;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
 }
 
 /* Settings Panel */
@@ -233,6 +200,11 @@ nav a:hover {
     background: #e68900;
 }
 
+/* Show settings panel */
+#settings-panel.show {
+    display: block;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
@@ -241,5 +213,8 @@ nav a:hover {
     nav ul li {
         display: block;
         margin: 10px 0;
+    }
+    .contact-info {
+        flex-direction: column;
     }
 }
