@@ -314,3 +314,70 @@ footer {
         width: 90%;
     }
 }
+
+/* Chatbot Styles */
+#chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #2f2f2f; /* Dark background to match the website theme */
+    padding: 15px;
+    border-radius: 10px;
+    width: 300px;
+    color: #fff; /* White text */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#chatbox {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    border: 1px solid #444; /* Dark border for the chat box */
+    padding: 10px;
+    border-radius: 5px;
+    background: #1a1a1a;
+}
+
+#user-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+    background: #333; /* Dark input field */
+    color: #fff;
+    font-size: 16px;
+}
+
+#send-button {
+    background: var(--primary-color); /* Soft gold accent color */
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+}
+
+#send-button:hover {
+    background: var(--hover-color); /* Lighter shade of the accent color on hover */
+}
+
+#chat-messages div {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #fff;
+}
+
+/* Optional: Style the user's and bot's messages differently */
+#chat-messages .user-message {
+    text-align: right;
+    color: var(--primary-color); /* Accent color for user messages */
+}
+
+#chat-messages .bot-message {
+    text-align: left;
+    color: #ffeb3b; /* Yellowish color for bot's messages */
+}
