@@ -6,26 +6,29 @@ body {
     background-color: #121212;
     color: #ffffff;
     scroll-behavior: smooth;
+    line-height: 1.6;
 }
 
 /* Header */
 header {
     background: #1f1f1f;
     text-align: center;
-    padding: 30px;
-    font-size: 24px;
+    padding: 40px 20px;
+    font-size: 28px;
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    letter-spacing: 1px;
 }
 
 /* Navigation */
 nav {
     background: #252525;
-    padding: 10px 0;
+    padding: 12px 0;
     text-align: center;
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 nav ul {
     list-style: none;
@@ -34,27 +37,34 @@ nav ul {
 }
 nav ul li {
     display: inline;
-    margin: 0 15px;
+    margin: 0 20px;
 }
 nav a {
     color: #ffffff;
     text-decoration: none;
     font-size: 18px;
-    transition: color 0.3s;
+    font-weight: 600;
+    transition: color 0.3s ease-in-out;
 }
 nav a:hover {
     color: #ff9800;
+    text-shadow: 0 0 10px rgba(255, 152, 0, 0.8);
 }
 
 /* Containers */
 .container {
-    width: 80%;
+    width: 90%;
+    max-width: 800px;
     margin: auto;
-    padding: 20px;
+    padding: 25px;
     background: #1a1a1a;
-    margin-top: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    margin-top: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+.container:hover {
+    transform: translateY(-3px);
 }
 
 /* Profile Section */
@@ -62,47 +72,83 @@ nav a:hover {
     text-align: center;
 }
 .profile img {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     border: 4px solid #ff9800;
+    transition: transform 0.3s ease-in-out;
+}
+.profile img:hover {
+    transform: scale(1.1);
 }
 
 /* Blog Posts */
 .blog-post {
     border-bottom: 1px solid #444;
-    padding: 20px 0;
+    padding: 25px 0;
+}
+.blog-post:last-child {
+    border-bottom: none;
 }
 .blog-post h3 {
     color: #ff9800;
+    font-size: 22px;
+    margin-bottom: 10px;
 }
 .read-more {
+    display: inline-block;
     background: #ff9800;
     border: none;
-    padding: 10px 15px;
+    padding: 12px 20px;
     color: white;
     font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
+    text-decoration: none;
 }
 .read-more:hover {
     background: #e68900;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.6);
 }
 
-/* Contact */
+/* Contact Section */
 .contact a {
     color: #ff9800;
     text-decoration: none;
     font-weight: bold;
+    transition: 0.3s ease-in-out;
 }
 .contact a:hover {
     text-decoration: underline;
+    text-shadow: 0 0 10px rgba(255, 152, 0, 0.8);
 }
 
 /* Footer */
 footer {
     background: #1f1f1f;
     text-align: center;
-    padding: 15px;
-    margin-top: 20px;
+    padding: 20px;
+    margin-top: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+    .profile img {
+        width: 140px;
+        height: 140px;
+    }
 }
