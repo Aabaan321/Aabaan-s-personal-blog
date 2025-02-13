@@ -6,14 +6,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const settingsPanel = document.getElementById("settings-panel");
 
     settingsIcon.addEventListener("click", function () {
-        settingsPanel.classList.toggle("hidden");
+        settingsPanel.classList.toggle("show");
     });
 
     // Theme switch
     const themeSwitch = document.getElementById("theme-switch");
     themeSwitch.addEventListener("change", function () {
-        document.body.style.background = themeSwitch.checked ? "#ffffff" : "#121212";
-        document.body.style.color = themeSwitch.checked ? "#000000" : "#ffffff";
+        if (themeSwitch.checked) {
+            document.body.style.background = "var(--background-light)";
+            document.body.style.color = "var(--text-light)";
+        } else {
+            document.body.style.background = "var(--background-dark)";
+            document.body.style.color = "var(--text-dark)";
+        }
     });
 
     // Font size change
@@ -25,12 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // Theme color change
     const themeColor = document.getElementById("theme-color");
     themeColor.addEventListener("input", function () {
-        document.documentElement.style.setProperty("--theme-color", themeColor.value);
+        document.documentElement.style.setProperty("--primary-color", themeColor.value);
     });
 
     // Save settings
     document.getElementById("save-settings").addEventListener("click", function () {
         alert("Settings saved!");
-        settingsPanel.classList.add("hidden");
+        settingsPanel.classList.remove("show");
     });
 });
