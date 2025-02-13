@@ -1,13 +1,14 @@
 /* General Styles */
 :root {
-    --primary-color: #ff9800;
-    --background-dark: #121212;
+    --primary-color: #ff9800; /* Soft gold for accents */
+    --accent-color: #1e90ff; /* Vibrant blue for buttons, links, and highlights */
+    --background-dark: #2f2f2f; /* Deep charcoal gray for the main background */
     --background-light: #ffffff;
-    --text-dark: #ffffff;
-    --text-light: #ffffff; /* Changed from black to white */
+    --text-dark: #ffffff; /* White for text */
+    --text-light: #d3d3d3; /* Light gray for secondary text */
     --border-radius: 8px;
     --transition-speed: 0.3s;
-    --hover-color: #e68900;
+    --hover-color: #ffb74d; /* Lighter shade of gold for hover effect */
 }
 
 body {
@@ -63,7 +64,7 @@ nav a {
 }
 
 nav a:hover {
-    color: var(--primary-color);
+    color: var(--accent-color); /* Vibrant blue for hover */
 }
 
 /* Containers */
@@ -75,7 +76,7 @@ nav a:hover {
     margin-top: 20px;
     border-radius: var(--border-radius);
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-    color: var(--text-light); /* Changed to white */
+    color: var(--text-light); /* Light gray for text */
 }
 
 /* Profile Section */
@@ -110,7 +111,7 @@ nav a:hover {
 
 .social-icons a:hover {
     transform: scale(1.1);
-    color: var(--hover-color);
+    color: var(--hover-color); /* Lighter gold for hover */
 }
 
 /* Blog Posts */
@@ -128,7 +129,7 @@ nav a:hover {
 .blog-post p {
     font-size: 18px;
     line-height: 1.6;
-    color: var(--text-light); /* Changed to white */
+    color: var(--text-light);
     margin-bottom: 20px;
 }
 
@@ -187,7 +188,7 @@ footer {
     margin-top: 20px;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    color: var(--text-light); /* Changed to white */
+    color: var(--text-light);
 }
 
 /* Settings Panel */
@@ -261,7 +262,7 @@ footer {
 .container p {
     font-size: 18px;
     line-height: 1.8;
-    color: var(--text-light); /* Changed to white */
+    color: var(--text-light);
 }
 
 .back-link {
