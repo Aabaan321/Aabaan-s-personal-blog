@@ -10,20 +10,42 @@
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- Settings Icon -->
+    <div id="settings-icon">
+        <i class="fa-solid fa-cog"></i>
+    </div>
+
+    <!-- Settings Panel -->
+    <div id="settings-panel" class="hidden">
+        <h3>Customize</h3>
+        <label for="theme-switch">Dark Mode:</label>
+        <input type="checkbox" id="theme-switch">
+
+        <label for="font-size">Font Size:</label>
+        <select id="font-size">
+            <option value="16px">Small</option>
+            <option value="18px" selected>Medium</option>
+            <option value="20px">Large</option>
+        </select>
+
+        <label for="theme-color">Theme Color:</label>
+        <input type="color" id="theme-color">
+
+        <button id="save-settings">Save</button>
+    </div>
+
+    <!-- Header -->
     <header>
         <h1>Welcome to Aabaan's Blog</h1>
         <p>Chef | Traveler | Boxer | Swimmer | Gamer</p>
     </header>
 
-    <!-- Navigation Menu -->
+    <!-- Navigation -->
     <nav>
         <ul>
             <li><a href="#about"><i class="fa-solid fa-user"></i> About</a></li>
             <li><a href="#blog"><i class="fa-solid fa-book-open"></i> Blog</a></li>
             <li><a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a></li>
-            <li><a href="portfolio.html" target="_blank"><i class="fa-solid fa-briefcase"></i> Portfolio</a></li>
-            <li><a href="services.html" target="_blank"><i class="fa-solid fa-cogs"></i> Services</a></li>
         </ul>
     </nav>
 
@@ -37,9 +59,8 @@
             <!-- Social Media Icons -->
             <div class="social-icons">
                 <a href="https://instagram.com/aabaanrg73" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                <a href="mailto:aabaangr@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a>
+                <a href="mailto:aabaangr@gmail.com"><i class="fa-solid fa-envelope"></i></a>
                 <a href="https://wa.me/995595125658" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="https://github.com/aabaan" target="_blank"><i class="fa-brands fa-github"></i></a>
             </div>
         </div>
     </section>
@@ -47,7 +68,6 @@
     <!-- Blog Section -->
     <section id="blog" class="container">
         <h2>Latest Blog Posts</h2>
-
         <article class="blog-post">
             <h3>My Journey in Culinary Arts</h3>
             <p>Passionate about the culinary arts, aiming to become a professional chef...</p>
@@ -62,11 +82,10 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="container contact">
+    <section id="contact" class="container">
         <h2>Contact Me</h2>
         <p>Email: <a href="mailto:aabaangr@gmail.com">aabaangr@gmail.com</a></p>
         <p>WhatsApp: <a href="https://wa.me/995595125658" target="_blank">+995 595 12 56 58</a></p>
-        <p>Instagram: <a href="https://instagram.com/aabaanrg73" target="_blank">@aabaanrg73</a></p>
     </section>
 
     <!-- Footer -->
