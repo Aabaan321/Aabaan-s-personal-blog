@@ -1,54 +1,41 @@
-// Dark Mode Toggle
-const darkModeToggle = document.getElementById("dark-mode-toggle");
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Website loaded successfully!");
 
-darkModeToggle.addEventListener("change", function () {
-    document.body.classList.toggle("dark-mode");
-});
+    // Toggle settings panel
+    const settingsIcon = document.getElementById("settings-icon");
+    const settingsPanel = document.getElementById("settings-panel");
 
-// Font Customization
-const fontSizeSelector = document.getElementById("font-size-selector");
-const fontStyleSelector = document.getElementById("font-style-selector");
+    settingsIcon.addEventListener("click", function () {
+        settingsPanel.classList.toggle("show");
+    });
 
-fontSizeSelector.addEventListener("change", function() {
-    document.body.style.fontSize = fontSizeSelector.value + "px";
-});
+    // Theme switch
+    const themeSwitch = document.getElementById("theme-switch");
+    themeSwitch.addEventListener("change", function () {
+        if (themeSwitch.checked) {
+            document.body.style.background = "var(--background-light)";
+            document.body.style.color = "var(--text-light)";
+        } else {
+            document.body.style.background = "var(--background-dark)";
+            document.body.style.color = "var(--text-dark)";
+        }
+    });
 
-fontStyleSelector.addEventListener("change", function() {
-    document.body.style.fontFamily = fontStyleSelector.value;
-});
+    // Font size change
+    const fontSizeSelect = document.getElementById("font-size");
+    fontSizeSelect.addEventListener("change", function () {
+        document.body.style.fontSize = fontSizeSelect.value;
+    });
 
-// Lazy Loading for Images
-document.querySelectorAll('img').forEach((img) => {
-    img.setAttribute('loading', 'lazy');
-});
+    // Theme color change
+    const themeColor = document.getElementById("theme-color");
+    themeColor.addEventListener("input", function () {
+        document.documentElement.style.setProperty("--primary-color", themeColor.value);
+    });
 
-// Scroll to Top Button
-const backToTopBtn = document.querySelector(".back-to-top");
-
-window.addEventListener("scroll", function () {
-    if (document.documentElement.scrollTop > 300) {
-        backToTopBtn.style.display = "block";
-    } else {
-        backToTopBtn.style.display = "none";
-    }
-});
-
-function scrollToTop() {
-    document.documentElement.scrollTop = 0;
-}
-
-// Comment Section Functionality
-const submitCommentBtn = document.getElementById("submit-comment");
-const commentText = document.getElementById("comment-text");
-const commentsList = document.getElementById("comments-list");
-
-submitCommentBtn.addEventListener("click", function () {
-    const comment = commentText.value.trim();
-    if (comment) {
-        const commentDiv = document.createElement("div");
-        commentDiv.classList.add("comment");
-        commentDiv.textContent = comment;
-        commentsList.appendChild(commentDiv);
-        commentText.value = ""; // Clear text area
-    }
+    // Save settings
+    document.getElementById("save-settings").addEventListener("click", function () {
+        alert("Settings saved!");
+        settingsPanel.classList.remove("show");
+    });
 });
