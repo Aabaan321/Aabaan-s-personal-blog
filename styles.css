@@ -84,7 +84,7 @@ nav a:hover {
     color: var(--primary-color);
     font-size: 24px;
     margin: 0 10px;
-    transition: transform 0.3s, color 0.3s;
+    transition: transform 0.3s;
 }
 .social-icons a:hover {
     transform: scale(1.1);
@@ -129,7 +129,7 @@ nav a:hover {
     font-size: 18px;
     color: var(--primary-color);
     text-decoration: none;
-    transition: 0.3s, transform 0.3s;
+    transition: 0.3s;
 }
 .contact-item i {
     font-size: 22px;
@@ -203,28 +203,6 @@ footer {
 /* Show settings panel */
 #settings-panel.show {
     display: block;
-}
-
-/* Dark Mode Styles */
-body.dark-mode {
-    background-color: var(--background-dark);
-    color: var(--text-dark);
-}
-
-body.dark-mode .container {
-    background-color: #1a1a1a;
-}
-
-body.dark-mode nav {
-    background: #252525;
-}
-
-body.dark-mode header {
-    background: #1f1f1f;
-}
-
-body.dark-mode footer {
-    background: #1f1f1f;
 }
 
 /* Responsive Design */
