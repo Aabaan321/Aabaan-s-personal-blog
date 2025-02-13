@@ -1,0 +1,90 @@
+/* Blog Page Styles */
+
+:root {
+    --primary-color: #ff9800;
+    --background-dark: #121212;
+    --text-dark: #ffffff;
+    --text-light: #bbbbbb;
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Header */
+header {
+    background: #1f1f1f;
+    text-align: center;
+    padding: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px var(--border-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* Blog Container */
+.blog-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background: #1a1a1a;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--border-color);
+}
+
+.blog-container h1 {
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 32px;
+}
+
+.blog-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 0 10px var(--border-color);
+}
+
+.blog-content {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-light);
+    margin-top: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Back Button */
+.back-btn {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: #e68900;
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .blog-container {
+        width: 95%;
+    }
+}
