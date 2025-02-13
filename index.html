@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aabaan's Personal Blog</title>
     <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
 
@@ -17,9 +19,11 @@
     <!-- Navigation Menu -->
     <nav>
         <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about"><i class="fa-solid fa-user"></i> About</a></li>
+            <li><a href="#blog"><i class="fa-solid fa-book-open"></i> Blog</a></li>
+            <li><a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+            <li><a href="portfolio.html" target="_blank"><i class="fa-solid fa-briefcase"></i> Portfolio</a></li>
+            <li><a href="services.html" target="_blank"><i class="fa-solid fa-cogs"></i> Services</a></li>
         </ul>
     </nav>
 
@@ -29,21 +33,33 @@
             <img src="https://www.ecoleducasse.com/application/files/8717/1924/7181/ChefDePartieHeader.jpg" alt="Aabaan">
             <h2>Aabaan</h2>
             <p>Passionate about culinary arts, boxing, swimming, traveling, and gaming.</p>
+
+            <!-- Social Media Icons -->
+            <div class="social-icons">
+                <a href="https://instagram.com/aabaanrg73" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://linkedin.com/in/aabaan" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/aabaan" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://twitter.com/aabaan" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+            </div>
         </div>
     </section>
 
     <!-- Blog Section -->
     <section id="blog" class="container">
         <h2>Latest Blog Posts</h2>
+
         <article class="blog-post">
             <h3>My Journey in Culinary Arts</h3>
-            <p>Passionate about the culinary arts, aiming to become a professional chef with expertise in both cooking and hotel management...</p>
-            <a href="blog-details.html#culinary" class="read-more">Read More</a>
+            <p>Passionate about the culinary arts, aiming to become a professional chef...</p>
+            <p class="full-content" style="display: none;">I plan to attend a 4-year culinary core and hotel management course to refine my skills and gain industry experience. Cooking is my passion, and I love experimenting with flavors and techniques from around the world.</p>
+            <button class="read-more">Read More</button>
         </article>
+
         <article class="blog-post">
             <h3>Exploring New Destinations</h3>
-            <p>Loves exploring new destinations, experiencing different cultures, and discovering unique cuisines...</p>
-            <a href="blog-details.html#travel" class="read-more">Read More</a>
+            <p>Loves exploring new places, experiencing different cultures...</p>
+            <p class="full-content" style="display: none;">Traveling allows me to discover new cuisines and gain inspiration for my cooking. From the street food of Bangkok to fine dining in Paris, every trip adds a new layer to my culinary journey.</p>
+            <button class="read-more">Read More</button>
         </article>
     </section>
 
