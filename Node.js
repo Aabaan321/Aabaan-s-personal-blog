@@ -12,7 +12,7 @@ app.post('/chat', async (req, res) => {
 
     try {
         // Make the request to OpenAI API
-        const response = await fetch('sk-svcacct-JrGvvoHxqEeLxbJv6e36DvMayJSKKowMKTeWnAr1xHyeYiHNxcBMGobvvxsaT3BlbkFJCKjnh7xziZ7mRvQZeUDin6lgpwi91oyL_XayqATcNd9R5GRWMxRcD4rtyx8A', {
+        const response = await fetch('sk-svcacct-GnjNRAyezWCvllVc_nVK-YMBNU56b6XEnw3WWg4Wbtr7mozuIwk2rEZPUpzxcT3BlbkFJKhG_RYp-THQtQPSc5IJWX4JG6ZRObjqwYR9clMy4y_Tw1vGIJqW__Y5e08WAA', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
