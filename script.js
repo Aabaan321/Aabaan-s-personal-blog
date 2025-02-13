@@ -13,11 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const themeSwitch = document.getElementById("theme-switch");
     themeSwitch.addEventListener("change", function () {
         if (themeSwitch.checked) {
-            document.body.style.background = "var(--background-light)";
-            document.body.style.color = "var(--text-light)";
+            document.body.classList.add("dark-mode");
         } else {
-            document.body.style.background = "var(--background-dark)";
-            document.body.style.color = "var(--text-dark)";
+            document.body.classList.remove("dark-mode");
         }
     });
 
@@ -37,52 +35,5 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("save-settings").addEventListener("click", function () {
         alert("Settings saved!");
         settingsPanel.classList.remove("show");
-    });
-
-    // Comment section using LocalStorage
-    document.getElementById('submit-comment').addEventListener('click', function () {
-        const commentInput = document.getElementById('comment-input');
-        const commentText = commentInput.value.trim();
-        if (commentText) {
-            let comments = JSON.parse(localStorage.getItem('comments')) || [];
-            comments.push(commentText);
-            localStorage.setItem('comments', JSON.stringify(comments));
-
-            commentInput.value = '';
-            displayComments();
-        }
-    });
-
-    function displayComments() {
-        const comments = JSON.parse(localStorage.getItem('comments')) || [];
-        const commentsList = document.getElementById('comments-list');
-        commentsList.innerHTML = comments.map(comment => `<p>${comment}</p>`).join('');
-    }
-
-    window.onload = displayComments;
-
-    // Smooth Scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
-
-    // Back to Top Button
-    const backToTopButton = document.getElementById("back-to-top");
-
-    window.addEventListener('scroll', function () {
-        if (window.scrollY > 200) {
-            backToTopButton.classList.remove("hidden");
-        } else {
-            backToTopButton.classList.add("hidden");
-        }
-    });
-
-    backToTopButton.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
