@@ -16,11 +16,11 @@ app.post('/chat', async (req, res) => {
     }
 
     try {
-        const response = await fetch(''https://api.deepseek.com/v1/chat/completions', {  // Corrected API URL
+        const response = await fetch('https://api.deepseek.com/v1/chat/completions', { // Fixed URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY=sk-865b41c4aa454252a2ed754b5bd20610}`, // Fixed syntax
+                'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`, // Corrected header
             },
             body: JSON.stringify({
                 model: 'text-davinci-003',
@@ -34,11 +34,11 @@ app.post('/chat', async (req, res) => {
         if (data.choices && data.choices.length > 0) {
             res.json({ response: data.choices[0].text.trim() });
         } else {
-            res.status(500).json({ error: 'Invalid response from OpenAI API' });
+            res.status(500).json({ error: 'Invalid response from API' });
         }
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).json({ error: 'Error while calling OpenAI API' });
+        res.status(500).json({ error: 'Error while calling API' });
     }
 });
 
