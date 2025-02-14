@@ -81,6 +81,7 @@ header {
     padding-bottom: 25px;
     border-bottom: 1px solid var(--border-color);
     text-align: justify;
+    margin-bottom: 20px;  /* Added margin for spacing */
 }
 
 /* Back Button */
