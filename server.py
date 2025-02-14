@@ -48,4 +48,4 @@ def chat():
         return jsonify({"error": "Failed to contact the DeepSeek API"}), 500
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=8080, debug=True)
