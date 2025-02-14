@@ -1,100 +1,31 @@
 import os
-import requests
-import json
-from flask import Flask, request, jsonify
+import openai
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
-load_dotenv()  # This loads the variables from your .env file into the environment
+load_dotenv()
 
-app = Flask(__name__)
+# Access the OpenAI API key from environment variables
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-# Access the environment variables
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+# Set the OpenAI API key
+openai.api_key = OPENAI_API_KEY
 
-
-@app.route('/chat', methods=['POST'])
-def chat():
-    data = request.json
-    user_input = data.get("input", "")
-    api_choice = data.get("api", "deepseek")  # Default to DeepSeek if not provided
-
-    if not user_input:
-        return jsonify({"error": "No input provided"}), 400
-
-    if api_choice == "deepseek":
-        # Call the DeepSeek API
-        return get_deepseek_response(user_input)
-    elif api_choice == "openrouter":
-        # Call the OpenRouter API
-        return get_openrouter_response(user_input)
-    else:
-        return jsonify({"error": "Invalid API choice"}), 400
-
-def get_deepseek_response(user_input):
-    headers = {
-        "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
-        "Content-Type": "application/json"
-    }
-
-    payload = {
-        "model": "deepseek-chat",
-        "messages": [{"role": "user", "content": user_input}],
-        "max_tokens": 100
-    }
-
+# Function to call the OpenAI API
+def get_openai_response(user_input):
     try:
-        response = requests.post("https://api.deepseek.com/v1/chat/completions", json=payload, headers=headers)
-        
-        # Log response for debugging
-        print(f"DeepSeek API Response Status Code: {response.status_code}")
-        response_data = response.json()
+        response = openai.Completion.create(
+            engine="text-davinci-003",  # Or any other OpenAI model of your choice
+            prompt=user_input,
+            max_tokens=100
+        )
 
-        # Check if the response contains choices
-        if "choices" in response_data and response_data["choices"]:
-            return jsonify({"response": response_data["choices"][0]["message"]["content"]})
-        else:
-            return jsonify({"error": "Invalid response from DeepSeek API"}), 500
+        return response.choices[0].text.strip()
 
-    except requests.exceptions.RequestException as e:
-        # Log exception error
-        print(f"Error: {str(e)}")
-        return jsonify({"error": "Failed to contact the DeepSeek API"}), 500
-
-def get_openrouter_response(user_input):
-    headers = {
-        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "Content-Type": "application/json"
-    }
-
-    payload = {
-        "model": "deepseek/deepseek-r1-distill-qwen-1.5b",
-        "messages": [
-            {
-                "role": "user",
-                "content": user_input
-            }
-        ],
-    }
-
-    try:
-        response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, data=json.dumps(payload))
-        
-        # Log response for debugging
-        print(f"OpenRouter API Response Status Code: {response.status_code}")
-        response_data = response.json()
-
-        # Check if the response contains message content
-        if "choices" in response_data and response_data["choices"]:
-            return jsonify({"response": response_data["choices"][0]["message"]["content"]})
-        else:
-            return jsonify({"error": "Invalid response from OpenRouter API"}), 500
-
-    except requests.exceptions.RequestException as e:
-        # Log exception error
-        print(f"Error: {str(e)}")
-        return jsonify({"error": "Failed to contact the OpenRouter API"}), 500
+    except Exception as e:
+        print(f"Error: {e}")
+        return "An error occurred while communicating with the OpenAI API."
 
 if __name__ == '__main__':
-    app.run(port=8080, debug=True)
+    user_input = input("Ask me something: ")
+    print(get_openai_response(user_input))
