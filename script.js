@@ -21,6 +21,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Set initial theme on page load based on checkbox status
+    if (themeSwitch.checked) {
+        document.body.style.background = "var(--background-light)";
+        document.body.style.color = "var(--text-light)";
+    } else {
+        document.body.style.background = "var(--background-dark)";
+        document.body.style.color = "var(--text-dark)";
+    }
+
     // Font size change
     const fontSizeSelect = document.getElementById("font-size");
     fontSizeSelect.addEventListener("change", function () {
@@ -55,10 +64,18 @@ document.addEventListener("DOMContentLoaded", function () {
         // Clear input field
         document.getElementById("user-input").value = "";
 
+        // Show loading message while waiting for response
+        const loadingMessage = document.createElement("div");
+        loadingMessage.textContent = "Bot: Typing...";
+        loadingMessage.classList.add("bot-message", "loading");
+        chatMessages.appendChild(loadingMessage);
+
         // Call AI for response from Python backend
         if (userInput.trim()) {
             getAIResponse(userInput);
         } else {
+            // Clear the "typing" message and show prompt for empty input
+            chatMessages.removeChild(loadingMessage);
             const aiMessage = document.createElement("div");
             aiMessage.textContent = "Bot: Please enter a message!";
             aiMessage.classList.add("bot-message");
@@ -77,11 +94,16 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             const data = await response.json();
+            const chatMessages = document.getElementById("chat-messages");
+            const loadingMessage = document.querySelector(".loading");
+            
+            if (loadingMessage) chatMessages.removeChild(loadingMessage); // Remove typing indicator
+
             if (response.ok) {
                 const aiMessage = document.createElement("div");
                 aiMessage.textContent = "Bot: " + data.response;
                 aiMessage.classList.add("bot-message");
-                document.getElementById("chat-messages").appendChild(aiMessage);
+                chatMessages.appendChild(aiMessage);
             } else {
                 console.error('Error from backend:', data);
                 alert('Failed to get response from the bot.');
