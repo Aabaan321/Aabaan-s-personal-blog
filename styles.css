@@ -79,6 +79,12 @@ nav a:hover {
     color: var(--text-light); /* Light gray for text */
 }
 
+.container p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--text-light);
+}
+
 /* Profile Section */
 .profile {
     text-align: center;
@@ -259,12 +265,6 @@ footer {
 }
 
 /* New Section Styles */
-.container p {
-    font-size: 18px;
-    line-height: 1.8;
-    color: var(--text-light);
-}
-
 .back-link {
     display: inline-block;
     margin-top: 20px;
@@ -310,6 +310,10 @@ footer {
         font-size: 20px;
     }
 
+    .container p {
+        font-size: 16px; /* Adjusted for mobile */
+    }
+
     #settings-panel {
         width: 90%;
     }
@@ -336,6 +340,7 @@ footer {
     padding: 10px;
     border-radius: 5px;
     background: #1a1a1a;
+    scroll-behavior: smooth; /* Smooth scroll */
 }
 
 #user-input {
@@ -354,30 +359,12 @@ footer {
     color: #fff;
     border: none;
     padding: 10px 15px;
-    border-radius: 5px;
     cursor: pointer;
-    width: 100%;
-    font-size: 16px;
-    transition: background 0.3s ease-in-out;
+    border-radius: 5px;
+    transition: background var(--transition-speed), transform var(--transition-speed);
 }
 
 #send-button:hover {
-    background: var(--hover-color); /* Lighter shade of the accent color on hover */
-}
-
-#chat-messages div {
-    margin: 10px 0;
-    font-size: 16px;
-    color: #fff;
-}
-
-/* Optional: Style the user's and bot's messages differently */
-#chat-messages .user-message {
-    text-align: right;
-    color: var(--primary-color); /* Accent color for user messages */
-}
-
-#chat-messages .bot-message {
-    text-align: left;
-    color: #ffeb3b; /* Yellowish color for bot's messages */
+    background: var(--hover-color); /* Lighter gold on hover */
+    transform: translateY(-2px);
 }
