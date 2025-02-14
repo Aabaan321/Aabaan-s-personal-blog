@@ -30,7 +30,7 @@ def chat():
     }
 
     try:
-        response = requests.post("https://api.deepseek.com/v1/chat/completions", json=payload, headers=headers)
+        response = requests.post("sk-865b41c4aa454252a2ed754b5bd20610", json=payload, headers=headers)
         response_data = response.json()
 
         return jsonify({"response": response_data["choices"][0]["message"]["content"]})
