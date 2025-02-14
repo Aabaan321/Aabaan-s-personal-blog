@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Clear input field
         document.getElementById("user-input").value = "";
 
-        // Call AI for response
+        // Call AI for response from Python backend
         if (userInput.trim()) {
             getAIResponse(userInput);
         } else {
@@ -68,32 +68,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function getAIResponse(userInput) {
         try {
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            const response = await fetch('http://localhost:5000/chat', {  // <-- Calls your Python backend
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer YOUR_OPENAI_API_KEY`, // Replace with your OpenAI API key
                 },
-                body: JSON.stringify({
-                    model: "gpt-3.5-turbo", // or "gpt-4"
-                    messages: [{ role: "user", content: userInput }],
-                    max_tokens: 100,
-                }),
+                body: JSON.stringify({ input: userInput }),
             });
 
             const data = await response.json();
             if (response.ok) {
                 const aiMessage = document.createElement("div");
-                aiMessage.textContent = "Bot: " + data.choices[0].message.content.trim();
+                aiMessage.textContent = "Bot: " + data.response;
                 aiMessage.classList.add("bot-message");
                 document.getElementById("chat-messages").appendChild(aiMessage);
             } else {
-                console.error('Error from API:', data);
+                console.error('Error from backend:', data);
                 alert('Failed to get response from the bot.');
             }
         } catch (error) {
             console.error('Error making API request:', error);
-            alert('Error making the request.');
+            alert('Error connecting to the server.');
         }
     }
 });
