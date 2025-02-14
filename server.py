@@ -5,12 +5,13 @@ from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
-load_dotenv()
+load_dotenv()  # This loads the variables from your .env file into the environment
 
 app = Flask(__name__)
 
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")  # Store API key in .env file
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Store OpenRouter API key in .env file
+# Access the environment variables
+DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")  # Retrieve the DeepSeek API key
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Retrieve the OpenRouter API key
 
 @app.route('/chat', methods=['POST'])
 def chat():
