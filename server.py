@@ -31,12 +31,21 @@ def chat():
 
     try:
         response = requests.post("https://api.deepseek.com/v1/chat/completions", json=payload, headers=headers)
+        
+        # Log response for debugging
+        print(f"DeepSeek API Response Status Code: {response.status_code}")
         response_data = response.json()
 
-        return jsonify({"response": response_data["choices"][0]["message"]["content"]})
+        # Check if the response contains choices
+        if "choices" in response_data and response_data["choices"]:
+            return jsonify({"response": response_data["choices"][0]["message"]["content"]})
+        else:
+            return jsonify({"error": "Invalid response from DeepSeek API"}), 500
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    except requests.exceptions.RequestException as e:
+        # Log exception error
+        print(f"Error: {str(e)}")
+        return jsonify({"error": "Failed to contact the DeepSeek API"}), 500
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
