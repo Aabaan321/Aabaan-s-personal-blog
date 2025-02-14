@@ -10,8 +10,8 @@ load_dotenv()  # This loads the variables from your .env file into the environme
 app = Flask(__name__)
 
 # Access the environment variables
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")  # Retrieve the DeepSeek API key
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Retrieve the OpenRouter API key
+DEEPSEEK_API_KEY = os.getenv("sk-77145c9def4044a7b3ad5c7aa9a2fdab")  # Retrieve the DeepSeek API key
+OPENROUTER_API_KEY = os.getenv("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")  # Retrieve the OpenRouter API key
 
 @app.route('/chat', methods=['POST'])
 def chat():
