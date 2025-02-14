@@ -16,7 +16,7 @@ app.post('/chat', async (req, res) => {
     }
 
     try {
-        const response = await fetch('https://api.openai.com/v1/completions', {  // Corrected API URL
+        const response = await fetch(''https://api.deepseek.com/v1/chat/completions', {  // Corrected API URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
