@@ -23,8 +23,8 @@ app.post('/chat', async (req, res) => {
                 'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`,
             },
             body: JSON.stringify({
-                model: 'deepseek-chat', // Assuming Deepseek uses 'deepseek-chat' or another model name
-                prompt: userInput,
+                model: 'deepseek-chat', // Assuming DeepSeek uses 'deepseek-chat' or another model name
+                messages: [{ role: 'user', content: userInput }], // Adjusted this to use 'messages'
                 max_tokens: 100,
             }),
         });
