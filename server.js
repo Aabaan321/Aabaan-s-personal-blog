@@ -9,6 +9,11 @@ app.use(bodyParser.json());
 app.post('/chat', async (req, res) => {
     const userInput = req.body.input;
 
+    // Check if the input exists
+    if (!userInput || userInput.trim() === '') {
+        return res.status(400).json({ error: 'Input is required' });
+    }
+
     try {
         // DeepSeek API request
         const response = await fetch('https://api.deepseek.com/v1/chat/completions', {  
@@ -25,6 +30,9 @@ app.post('/chat', async (req, res) => {
         });
 
         const data = await response.json();
+
+        // Log the API response for debugging purposes
+        console.log("DeepSeek API Response:", data);
 
         if (data.choices && data.choices.length > 0) {
             res.json({ response: data.choices[0].message.content.trim() });
