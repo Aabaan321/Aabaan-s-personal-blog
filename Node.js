@@ -16,11 +16,11 @@ app.post('/chat', async (req, res) => {
     }
 
     try {
-        const response = await fetch('sk-svcacct-CPwOcBBY_elAW4iWMfnI0zJqj7R7iiPN8UB52c_QdCa4ePtqEFTmnmltValtsT3BlbkFJkprPxylm1Z7JOOj6ij4G3QC3PMXdIVqyMB24Ha2a-Grr2fPvugB_wHMhaz8ZAA', {
+        const response = await fetch('https://api.openai.com/v1/completions', {  // Corrected API URL
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, // Fixed syntax
             },
             body: JSON.stringify({
                 model: 'text-davinci-003',
