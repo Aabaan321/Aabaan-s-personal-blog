@@ -20,7 +20,7 @@ app.post('/chat', async (req, res) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, // Fixed syntax
+                'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY=sk-865b41c4aa454252a2ed754b5bd20610}`, // Fixed syntax
             },
             body: JSON.stringify({
                 model: 'text-davinci-003',
