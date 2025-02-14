@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aabaan's personal blog about culinary arts, traveling, and more.">
     <title>Aabaan's Personal Blog</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
@@ -11,7 +12,7 @@
 <body>
 
     <!-- Settings Icon -->
-    <div id="settings-icon">
+    <div id="settings-icon" aria-label="Open Settings">
         <i class="fa-solid fa-cog"></i>
     </div>
 
@@ -58,9 +59,9 @@
 
             <!-- Social Media Icons -->
             <div class="social-icons">
-                <a href="https://instagram.com/aabaanrg73" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://instagram.com/aabaanrg73" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
                 <a href="mailto:aabaangr@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-                <a href="https://wa.me/995595125658" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://wa.me/995595125658" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
         </div>
     </section>
@@ -88,10 +89,10 @@
             <a href="mailto:aabaangr@gmail.com" class="contact-item">
                 <i class="fas fa-envelope"></i> aabaangr@gmail.com
             </a>
-            <a href="https://wa.me/995595125658" class="contact-item" target="_blank">
+            <a href="https://wa.me/995595125658" class="contact-item" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-whatsapp"></i> WhatsApp
             </a>
-            <a href="https://instagram.com/aabaanrg73" class="contact-item" target="_blank">
+            <a href="https://instagram.com/aabaanrg73" class="contact-item" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-instagram"></i> @aabaanrg73
             </a>
         </div>
@@ -110,6 +111,29 @@
         <input type="text" id="user-input" placeholder="Type a message..." />
         <button id="send-button">Send</button>
     </div>
+
+    <!-- Settings Panel Toggle Script -->
+    <script>
+        document.getElementById('settings-icon').addEventListener('click', function() {
+            const settingsPanel = document.getElementById('settings-panel');
+            settingsPanel.classList.toggle('hidden');
+        });
+
+        // Save settings (to be implemented with localStorage or similar)
+        document.getElementById('save-settings').addEventListener('click', function() {
+            const darkMode = document.getElementById('theme-switch').checked;
+            const fontSize = document.getElementById('font-size').value;
+            const themeColor = document.getElementById('theme-color').value;
+
+            // Example of how to save settings (localStorage can be used for persistence)
+            document.body.style.fontSize = fontSize;
+            document.body.style.backgroundColor = darkMode ? '#333' : '#fff';
+            document.body.style.color = darkMode ? '#fff' : '#000';
+            document.body.style.setProperty('--theme-color', themeColor);
+
+            alert('Settings saved!');
+        });
+    </script>
 
 </body>
 </html>
