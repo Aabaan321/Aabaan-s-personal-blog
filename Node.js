@@ -16,14 +16,14 @@ app.post('/chat', async (req, res) => {
     }
 
     try {
-        const response = await fetch('https://api.deepseek.com/v1/chat/completions', { // Fixed URL
+        const response = await fetch('https://api.deepseek.com/v1/chat/completions', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`, // Corrected header
+                'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`,
             },
             body: JSON.stringify({
-                model: 'text-davinci-003',
+                model: 'deepseek-chat', // Assuming Deepseek uses 'deepseek-chat' or another model name
                 prompt: userInput,
                 max_tokens: 100,
             }),
@@ -32,13 +32,13 @@ app.post('/chat', async (req, res) => {
         const data = await response.json();
 
         if (data.choices && data.choices.length > 0) {
-            res.json({ response: data.choices[0].text.trim() });
+            res.json({ response: data.choices[0].message.content.trim() });
         } else {
-            res.status(500).json({ error: 'Invalid response from API' });
+            res.status(500).json({ error: 'No valid choices returned from the API' });
         }
     } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Error while calling API' });
+        console.error('Error occurred:', error.message);
+        res.status(500).json({ error: 'Error while calling API: ' + error.message });
     }
 });
 
