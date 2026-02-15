@@ -1693,6 +1693,11 @@
             document.querySelectorAll('.recipe-view').forEach(el => el.remove());
 
             recipes.forEach((r) => {
+                const safeTitle = r.img.replace(/ /g, '%20');
+                const imgUrl = r.img.startsWith('http')
+                    ? r.img
+                    : `https://image.pollinations.ai/prompt/widescreen%20hd%20shot%20of%20${safeTitle},%20professional%20food%20photography,%20michelin%20star%20plating,%20cinematic%20lighting,%208k,%20depth%20of%20field?width=800&height=500&nologo=true&seed=${r.id}`;
+
                 const view = document.createElement('div');
                 view.className = `recipe-view`;
                 view.id = r.id;
