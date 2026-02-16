@@ -16,14 +16,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
       - name: Replace Secrets
         env:
           OPENAI_KEY: ${{ secrets.OPENAI_API_1 }}
           DEEPGRAM_KEY: ${{ secrets.DEEPGRAM_API }}
-        run: |
-          sed -i "s|%%OPENAI_API_KEY%%|$OPENAI_KEY|g" main.js
-          sed -i "s|%%OPENAI_API_KEY%%|$OPENAI_KEY|g" recipe-book.html
-          sed -i "s|%%DEEPGRAM_API_KEY%%|$DEEPGRAM_KEY|g" recipe-book.html
+        run: python .github/scripts/replace_secrets.py
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
