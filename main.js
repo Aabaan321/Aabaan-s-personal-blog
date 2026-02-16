@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ══════════════════════════════════════════════════════
        16. AI CHATBOT (Self-Injecting Widget) — Powered by GPT-4o
        ══════════════════════════════════════════════════════ */
-    const OPENAI_API_KEY = 'INSERT_OPENAI_API_KEY_HERE'; // REMOVED FOR GITHUB SECURITY
+    const OPENAI_API_KEY = '%%OPENAI_API_KEY%%';
     const OPENAI_MODEL = 'gpt-4o-mini';
     const OPENAI_URL = 'https://api.openai.com/v1/chat/completions';
 

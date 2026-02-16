@@ -1790,6 +1790,7 @@
             </div>
             <div class="chat-input-area">
                 <input type="text" id="chat-input-custom" placeholder="How should I change this recipe?">
+                <button id="mic-btn-custom" class="mic-btn"><i class="fas fa-microphone"></i></button>
                 <button id="chat-send-custom"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
@@ -1816,14 +1817,124 @@
             </div>
             <div class="chat-input-area">
                 <input type="text" id="chat-input-main" placeholder="Ask a cooking question...">
+                <button id="mic-btn-main" class="mic-btn"><i class="fas fa-microphone"></i></button>
                 <button id="chat-send-main"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
 
+    <style>
+        .mic-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f1f1f1;
+            color: #666;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            margin-right: 5px;
+        }
+
+        .mic-btn:hover {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .mic-btn.recording {
+            background: #ff4757;
+            color: white;
+            animation: pulse-mic 1.5s infinite;
+        }
+
+        @keyframes pulse-mic {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 71, 87, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 71, 87, 0);
+            }
+        }
+    </style>
+
     <script>
         // ... (Existing render logic) ...
-        const API_KEY = 'INSERT_OPENAI_API_KEY_HERE'; // REMOVED FOR GITHUB SECURITY
+        const API_KEY = '%%OPENAI_API_KEY%%';
+        const DEEPGRAM_API_KEY = '%%DEEPGRAM_API_KEY%%';
+
+        // --- DEEPGRAM VOICE LOGIC ---
+        async function setupVoice(btnId, inputId) {
+            const btn = document.getElementById(btnId);
+            const input = document.getElementById(inputId);
+            let mediaRecorder;
+            let audioChunks = [];
+            let isRecording = false;
+
+            btn.addEventListener('click', async () => {
+                if (!isRecording) {
+                    try {
+                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+
+                        mediaRecorder.ondataavailable = event => {
+                            if (event.data.size > 0) audioChunks.push(event.data);
+                        };
+
+                        mediaRecorder.onstop = async () => {
+                            const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                            audioChunks = []; // Reset
+
+                            // Send to Deepgram
+                            const response = await fetch('https://api.deepgram.com/v1/listen?model=nova-2&smart_format=true', {
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': `Token ${DEEPGRAM_API_KEY}`,
+                                    'Content-Type': 'audio/webm'
+                                },
+                                body: audioBlob
+                            });
+
+                            const data = await response.json();
+                            if (data.results && data.results.channels[0].alternatives[0]) {
+                                const transcript = data.results.channels[0].alternatives[0].transcript;
+                                if (transcript) {
+                                    input.value = transcript;
+                                    input.focus();
+                                }
+                            }
+
+                            // Stop tracks to release mic
+                            stream.getTracks().forEach(track => track.stop());
+                        };
+
+                        mediaRecorder.start();
+                        isRecording = true;
+                        btn.classList.add('recording');
+                        btn.innerHTML = '<i class="fas fa-stop"></i>'; // Change icon to Stop
+                    } catch (err) {
+                        console.error('Mic Error:', err);
+                        alert('Could not access microphone.');
+                    }
+                } else {
+                    mediaRecorder.stop();
+                    isRecording = false;
+                    btn.classList.remove('recording');
+                    btn.innerHTML = '<i class="fas fa-microphone"></i>'; // Change icon to Mic
+                }
+            });
+        }
+
+        // Initialize Voice for both bots
+        setupVoice('mic-btn-custom', 'chat-input-custom');
+        setupVoice('mic-btn-main', 'chat-input-main');
 
         // --- BOT 1 LOGIC (CUSTOMIZER) ---
         const customToggle = document.getElementById('chat-toggle-custom');
@@ -1974,7 +2085,17 @@ RECIPE DATA: ${JSON.stringify(recipes)}
         function addMsg(container, role, text) {
             const d = document.createElement('div');
             d.className = `chat-msg ${role}`;
-            d.innerHTML = `<div class="chat-bubble">${text}</div>`;
+
+            // Format Markdown
+            let formatted = text;
+            if (role === 'bot') {
+                formatted = text
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                    .replace(/\n/g, '<br>');
+            }
+
+            d.innerHTML = `<div class="chat-bubble">${formatted}</div>`;
             container.appendChild(d);
             container.scrollTop = container.scrollHeight;
             return d;
