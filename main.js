@@ -480,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="chatbot-avatar"><i class="fas fa-robot"></i></div>
                         <div>
                             <h4>Aabaan's AI Assistant</h4>
-                            <span class="chatbot-status"><span class="status-dot"></span> Powered by GPT-4o</span>
+                            <span class="chatbot-status"><span class="status-dot"></span> For Your Assistance</span>
                         </div>
                     </div>
                     <button class="chatbot-close" id="chatbot-close"><i class="fas fa-xmark"></i></button>
