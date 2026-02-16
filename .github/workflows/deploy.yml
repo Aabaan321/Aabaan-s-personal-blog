@@ -23,9 +23,15 @@ jobs:
 
       - name: Replace Secrets
         env:
-          OPENAI_KEY: ${{ secrets.OPENAI_API_1 }}
-          DEEPGRAM_KEY: ${{ secrets.DEEPGRAM_API }}
-        run: python .github/scripts/replace_secrets.py
+          OPENAI_KEY_UPPER: ${{ secrets.OPENAI_API_1 }}
+          OPENAI_KEY_LOWER: ${{ secrets.openai_api_1 }}
+          DEEPGRAM_KEY_UPPER: ${{ secrets.DEEPGRAM_API }}
+          DEEPGRAM_KEY_LOWER: ${{ secrets.deepgram_api }}
+        run: |
+          # Pass available keys to python script via specific env vars or let script handle it
+          export OPENAI_KEY="${OPENAI_KEY_UPPER:-$OPENAI_KEY_LOWER}"
+          export DEEPGRAM_KEY="${DEEPGRAM_KEY_UPPER:-$DEEPGRAM_KEY_LOWER}"
+          python .github/scripts/replace_secrets.py
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
