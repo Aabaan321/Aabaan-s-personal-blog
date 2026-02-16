@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -16,13 +17,17 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Replace Secrets
+        env:
+          OPENAI_KEY: ${{ secrets.OPENAI_API_1 }}
+          DEEPGRAM_KEY: ${{ secrets.DEEPGRAM_API }}
         run: |
-          sed -i 's|%%OPENAI_API_KEY%%|${{ secrets.OPENAI_API_1 }}|g' main.js
-          sed -i 's|%%OPENAI_API_KEY%%|${{ secrets.OPENAI_API_1 }}|g' recipe-book.html
-          sed -i 's|%%DEEPGRAM_API_KEY%%|${{ secrets.DEEPGRAM_API }}|g' recipe-book.html
+          sed -i "s|%%OPENAI_API_KEY%%|$OPENAI_KEY|g" main.js
+          sed -i "s|%%OPENAI_API_KEY%%|$OPENAI_KEY|g" recipe-book.html
+          sed -i "s|%%DEEPGRAM_API_KEY%%|$DEEPGRAM_KEY|g" recipe-book.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
+          force_orphan: true
