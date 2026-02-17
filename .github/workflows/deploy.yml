@@ -25,7 +25,7 @@ jobs:
         env:
           OPENAI_KEY: ${{ secrets.OPENAI_API_1 }}
           DEEPGRAM_KEY: ${{ secrets.DEEPGRAM_API }}
-        run: python .github/scripts/replace_secrets.py || echo "PYTHON SCRIPT FAILED BUT CONTINUING DEPLOY"
+        run: python .github/scripts/replace_secrets.py
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
