@@ -7,9 +7,9 @@ def replace_secrets(file_path):
     try:
         if not os.path.exists(file_path):
             print(f"Warning: File not found: {file_path}")
-            return
+            return False # Return failure status
 
-        # Read content with fallback encoding
+        # Read content
         content = ""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -19,16 +19,19 @@ def replace_secrets(file_path):
             with open(file_path, 'r', encoding='latin-1') as f:
                 content = f.read()
 
-        # Get keys (permissive)
-        openai_key = os.environ.get('OPENAI_KEY') or os.environ.get('OPENAI_API_1')
+        # Get keys
+        openai_key = os.environ.get('OPENAI_KEY') or os.environ.get('OPENAI_API_KEY')
         deepgram_key = os.environ.get('DEEPGRAM_KEY') or os.environ.get('DEEPGRAM_API')
 
-        # Debug prints (masked)
-        if openai_key: print(f"OPENAI_KEY found (len={len(openai_key)})")
-        else: print("OPENAI_KEY NOT FOUND")
-        
-        if deepgram_key: print(f"DEEPGRAM_KEY found (len={len(deepgram_key)})")
-        else: print("DEEPGRAM_KEY NOT FOUND")
+        # Check for missing keys
+        missing_keys = []
+        if not openai_key: missing_keys.append("OPENAI_KEY")
+        if not deepgram_key: missing_keys.append("DEEPGRAM_KEY")
+
+        if missing_keys:
+            print(f"CRITICAL: Missing environment variables: {missing_keys}")
+            # Decide here: Do you want to stop if keys are missing?
+            # return False 
 
         # Replace
         new_content = content
@@ -44,23 +47,28 @@ def replace_secrets(file_path):
              print(f"Successfully replaced secrets in {file_path}")
         else:
             print(f"No placeholders changed in {file_path}")
+            
+        return True
 
     except Exception:
         print(f"FAILED to process {file_path}")
         traceback.print_exc()
+        return False
 
 if __name__ == "__main__":
+    success = True
     try:
         print(f"CWD: {os.getcwd()}")
-        print(f"Files: {os.listdir('.')}")
         
-        replace_secrets('main.js')
-        replace_secrets('recipe-book.html')
+        # Track success of each operation
+        if not replace_secrets('main.js'): success = False
+        if not replace_secrets('recipe-book.html'): success = False
         
-        print("Finished (Permissive Mode).")
+        print("Finished.")
     except Exception:
         print("CRITICAL SCRIPT FAILURE")
         traceback.print_exc()
+        success = False
     
-    # ALWAYS EXIT SUCCESS to prevent build failure
-    sys.exit(0)
+    # Exit with error code if something failed, so the build stops
+    sys.exit(0 if success else 1)
