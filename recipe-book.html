@@ -1865,10 +1865,14 @@
         }
     </style>
 
+    <!-- Local Config (Ignored by Git) -->
+    <script src="local_config.js"></script>
+
+    <!-- Voice & AI Features -->
     <script>
-        // ... (Existing render logic) ...
-        const API_KEY = '%%OPENAI_API_KEY%%';
-        const DEEPGRAM_API_KEY = '%%DEEPGRAM_API_KEY%%';
+        // Use local keys if available (from local_config.js), otherwise use placeholder (for deployment)
+        const API_KEY = (window.LOCAL_KEYS && window.LOCAL_KEYS.OPENAI) ? window.LOCAL_KEYS.OPENAI : '%%OPENAI_API_KEY%%';
+        const DEEPGRAM_API_KEY = (window.LOCAL_KEYS && window.LOCAL_KEYS.DEEPGRAM) ? window.LOCAL_KEYS.DEEPGRAM : '%%DEEPGRAM_API_KEY%%';
 
         // --- DEEPGRAM VOICE LOGIC ---
         async function setupVoice(btnId, inputId) {

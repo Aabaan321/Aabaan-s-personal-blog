@@ -60,6 +60,8 @@ if __name__ == "__main__":
     print(f"CWD: {os.getcwd()}")
     print(f"Files: {os.listdir('.')}")
     
+    # Updated to handle the new variable structure in main.js
+    # Replaces '%%OPENAI_API_KEY%%' which is now part of a ternary operator
     replace_secrets('main.js')
     replace_secrets('recipe-book.html')
     print("Finished (Permissive Mode).")

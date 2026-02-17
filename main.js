@@ -461,7 +461,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ══════════════════════════════════════════════════════
        16. AI CHATBOT (Self-Injecting Widget) — Powered by GPT-4o
        ══════════════════════════════════════════════════════ */
-    const OPENAI_API_KEY = '%%OPENAI_API_KEY%%';
+    // Use local keys if available (from local_config.js), otherwise use placeholder (for deployment)
+    const OPENAI_API_KEY = (window.LOCAL_KEYS && window.LOCAL_KEYS.OPENAI) ? window.LOCAL_KEYS.OPENAI : '%%OPENAI_API_KEY%%';
     const OPENAI_MODEL = 'gpt-4o-mini';
     const OPENAI_URL = 'https://api.openai.com/v1/chat/completions';
 
