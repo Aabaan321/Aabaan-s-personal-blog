@@ -21,11 +21,11 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Replace Secrets
+      - name: Debug Secrets
         env:
           OPENAI_KEY: ${{ secrets.OPENAI_API_1 }}
           DEEPGRAM_KEY: ${{ secrets.DEEPGRAM_API }}
-        run: python .github/scripts/replace_secrets.py
+        run: python .github/scripts/debug_secrets.py
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
