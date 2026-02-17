@@ -19,9 +19,22 @@ def replace_secrets(file_path):
             with open(file_path, 'r', encoding='latin-1') as f:
                 content = f.read()
 
-        # Get keys
-        openai_key = os.environ.get('OPENAI_KEY') or os.environ.get('OPENAI_API_KEY')
-        deepgram_key = os.environ.get('DEEPGRAM_KEY') or os.environ.get('DEEPGRAM_API')
+        # Get keys from potentially multiple env vars
+        openai_key = (
+            os.environ.get('OPENAI_KEY') or 
+            os.environ.get('OPENAI_API_KEY') or 
+            os.environ.get('OPENAI_KEY_1') or 
+            os.environ.get('OPENAI_KEY_2') or 
+            os.environ.get('OPENAI_KEY_3') or 
+            os.environ.get('OPENAI_KEY_4')
+        )
+        deepgram_key = (
+            os.environ.get('DEEPGRAM_KEY') or 
+            os.environ.get('DEEPGRAM_API') or 
+            os.environ.get('DEEPGRAM_KEY_1') or 
+            os.environ.get('DEEPGRAM_KEY_2') or 
+            os.environ.get('DEEPGRAM_KEY_3')
+        )
 
         # Check for missing keys
         missing_keys = []
