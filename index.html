@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aabaan — AI × Culinary Visionary</title>
+    <meta name="description"
+        content="Aabaan's portfolio — AI developer, culinary artist, and adventure seeker building the future at the intersection of technology and gastronomy.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo"><span>Aabaan</span>.</a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#hero" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#journey">Journey</a></li>
+                <li><a href="#culinary">Culinary</a></li>
+                <li><a href="#cv">Resume</a></li>
+            </ul>
+            <button class="nav-menu-btn" id="nav-toggle" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ═══ HERO ═══ -->
+    <section id="hero" class="hero section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge reveal">
+                    <span class="dot"></span>
+                    Building the future of AI × Culinary
+                </div>
+                <h1 class="hero-title reveal reveal-delay-1">
+                    Where <span class="gradient-text">Artificial Intelligence</span> Meets Culinary Art.
+                </h1>
+                <p class="hero-description reveal reveal-delay-2">
+                    I'm Aabaan — an AI developer, aspiring chef, and adventure seeker crafting experiences at the
+                    intersection of technology and gastronomy. Currently building NeuroforgeAI.
+                </p>
+                <div class="hero-cta reveal reveal-delay-3">
+                    <a href="#projects" class="btn-primary">
+                        <i class="fas fa-rocket"></i> Explore My Work
+                    </a>
+                    <a href="#journey" class="btn-ghost">
+                        <i class="fas fa-route"></i> View My Journey
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-profile reveal">
+            <img src="assets/profile.jpg" alt="Aabaan" class="hero-profile-img">
+        </div>
+    </section>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section id="about" class="section">
+        <div class="container">
+            <span class="section-label reveal">About Me</span>
+            <h2 class="section-title reveal reveal-delay-1">A multidisciplinary creator<br>based in Sharjah.</h2>
+            <div class="about-grid">
+                <div class="about-text reveal reveal-delay-2">
+                    <p>I'm an aspiring chef with an unwavering passion for culinary arts and a builder of AI systems
+                        that push the boundaries of human-computer interaction. From the bustling streets of Bangkok to
+                        the elegance of Parisian fine dining, every journey fuels my creative vision.</p>
+                    <br>
+                    <p>When I'm not training neural networks or crafting the perfect Beef Wellington, I'm staying active
+                        — boxing, swimming, and pushing limits. I believe the future belongs to those who can bridge
+                        disciplines.</p>
+                </div>
+                <div class="skills-container reveal reveal-delay-3">
+                    <div class="skill-chip"><i class="fas fa-brain"></i> AI & Robotics</div>
+                    <div class="skill-chip"><i class="fas fa-utensils"></i> Culinary Arts</div>
+                    <div class="skill-chip"><i class="fas fa-code"></i> Programming</div>
+                    <div class="skill-chip"><i class="fas fa-camera"></i> Photography</div>
+                    <div class="skill-chip"><i class="fas fa-dumbbell"></i> Fitness</div>
+                    <div class="skill-chip"><i class="fas fa-car"></i> Automotive</div>
+                    <div class="skill-chip"><i class="fas fa-gamepad"></i> Gaming</div>
+                    <div class="skill-chip"><i class="fas fa-plane"></i> Travel</div>
+                </div>
+            </div>
+            <div class="stats-row reveal reveal-delay-4">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="10" data-suffix="+">0</span>
+                    <span class="stat-label">AI Tools Built</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="9" data-suffix="+">0</span>
+                    <span class="stat-label">Years Cooking</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="5" data-suffix="+">0</span>
+                    <span class="stat-label">Years Fitness</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="1" data-suffix="st">0</span>
+                    <span class="stat-label">Place Science Fair</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PROJECTS ═══ -->
+    <section id="projects" class="section">
+        <div class="container">
+            <span class="section-label reveal">Projects & Passions</span>
+            <h2 class="section-title reveal reveal-delay-1">What I've been building.</h2>
+            <p class="section-subtitle reveal reveal-delay-2">Interactive experiences, AI platforms, and creative
+                pursuits that define my craft.</p>
+
+            <div class="projects-grid">
+
+                <!-- AI & Robotics -->
+                <div class="project-card reveal reveal-delay-1" data-modal="modal-ai">
+                    <div class="card-shine"></div>
+                    <div class="project-card-img">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop"
+                            alt="AI visualization" loading="lazy">
+                    </div>
+                    <div class="project-card-inner">
+                        <div class="project-icon"><i class="fas fa-robot"></i></div>
+                        <h3>AI & Robotics</h3>
+                        <p>Founder of NeuroforgeAI. Human-like speaking AI, image analysis, and 10+ automation tools.
+                        </p>
+                        <div class="project-tags">
+                            <span>NeuroforgeAI</span><span>Voice AI</span><span>Robotics</span>
+                        </div>
+                        <a href="ai-robotics.html" class="project-link">Explore <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Gaming Universe -->
+                <div class="project-card reveal reveal-delay-2" data-modal="modal-gaming">
+                    <div class="card-shine"></div>
+                    <div class="project-card-img">
+                        <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=600&h=300&fit=crop"
+                            alt="Gaming setup" loading="lazy">
+                    </div>
+                    <div class="project-card-inner">
+                        <div class="project-icon"><i class="fas fa-gamepad"></i></div>
+                        <h3>Gaming Universe</h3>
+                        <p>Division 1 CoD player. Platinum God of War Ragnarok. RTX 3080 battle station.</p>
+                        <div class="project-tags">
+                            <span>Competitive</span><span>PC Gaming</span><span>Esports</span>
+                        </div>
+                        <a href="gaming.html" class="project-link">Explore <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Sports & Fitness -->
+                <div class="project-card reveal reveal-delay-3" data-modal="modal-sports">
+                    <div class="card-shine"></div>
+                    <div class="project-card-img">
+                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=600&h=300&fit=crop"
+                            alt="Boxing training" loading="lazy">
+                    </div>
+                    <div class="project-card-inner">
+                        <div class="project-icon"><i class="fas fa-dumbbell"></i></div>
+                        <h3>Sports & Fitness</h3>
+                        <p>5+ years of boxing, swimming, and basketball. Progressive overload & mental discipline.</p>
+                        <div class="project-tags">
+                            <span>Boxing</span><span>Swimming</span><span>Basketball</span>
+                        </div>
+                        <a href="sports.html" class="project-link">Explore <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Automotive -->
+                <div class="project-card reveal reveal-delay-4" data-modal="modal-auto">
+                    <div class="card-shine"></div>
+                    <div class="project-card-img">
+                        <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&h=300&fit=crop"
+                            alt="Lamborghini supercar" loading="lazy">
+                    </div>
+                    <div class="project-card-inner">
+                        <div class="project-icon"><i class="fas fa-car"></i></div>
+                        <h3>Automotive Passion</h3>
+                        <p>Dream machines from Aventador SVJ to Ninja H2R. Monaco GP, Goodwood, Isle of Man TT.</p>
+                        <div class="project-tags">
+                            <span>Supercars</span><span>Motorsport</span><span>Engineering</span>
+                        </div>
+                        <a href="automotive.html" class="project-link">Explore <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ JOURNEY / TIMELINE ═══ -->
+    <section id="journey" class="section">
+        <div class="container">
+            <span class="section-label reveal">My Journey</span>
+            <h2 class="section-title reveal reveal-delay-1">The path I'm forging.</h2>
+            <p class="section-subtitle reveal reveal-delay-2">A decade-long vision from AI mastery to culinary
+                excellence — and the restaurant that merges both worlds.</p>
+
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+
+                <!-- 2026: Branching -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+                        <span class="timeline-icon">⚡</span>
+                        <span class="timeline-year">2026 — Strategic Decision Point</span>
+                        <h3>Two Paths, One Vision</h3>
+                        <p>The year the journey truly diverges — and converges.</p>
+                        <div class="expand-content">
+                            <p>Whether through an academic AI & Robotics degree or joining a frontier AI organization
+                                like OpenAI, both paths lead to the same mastery. The destination is certain — only the
+                                route differs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Branch Cards -->
+                <div class="timeline-branch reveal">
+                    <div class="branch-card">
+                        <span class="branch-icon">🎓</span>
+                        <h4>Academic AI Path</h4>
+                        <p>4-year AI & Robotics or ML degree. Deep research, robotics labs, and formal training.</p>
+                    </div>
+                    <div class="branch-card">
+                        <span class="branch-icon">🚀</span>
+                        <h4>Frontier AI Path</h4>
+                        <p>Join an advanced AI org. Learn by building at the cutting edge. Ship real products.</p>
+                    </div>
+                </div>
+                <div class="merge-indicator reveal">
+                    <i class="fas fa-code-merge"></i>
+                    Both paths converge into mastery
+                </div>
+
+                <!-- 2027-2029 -->
+                <div class="timeline-item right reveal">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+                        <span class="timeline-icon">🧠</span>
+                        <span class="timeline-year">2027 – 2029</span>
+                        <h3>Deep Specialization</h3>
+                        <p>Advanced AI research, robotics collaborations, and live AI assistant deployments.</p>
+                        <div class="expand-content">
+                            <p>Deploying AI tools internationally. Academic research papers. Hackathon victories.
+                                Building the technical foundation for everything that follows.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2030-2032 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+                        <span class="timeline-icon">👨‍🍳</span>
+                        <span class="timeline-year">2030 – 2032</span>
+                        <h3>Dual Mastery</h3>
+                        <p>Graduate with AI degree. Begin formal Culinary School training. NeuroforgeAI 2.0 launches.
+                        </p>
+                        <div class="expand-content">
+                            <p>Interning with top chefs in France. Publishing AI + food innovation articles. Developing
+                                the smart kitchen AI assistant that bridges both worlds.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2033-2034 -->
+                <div class="timeline-item right reveal">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+                        <span class="timeline-icon">🔬</span>
+                        <span class="timeline-year">2033 – 2034</span>
+                        <h3>Integration Phase</h3>
+                        <p>AI conference speaker. NeuroforgeAI hits 50,000+ users. Restaurant concept finalized.</p>
+                        <div class="expand-content">
+                            <p>Global food festivals. Branding, menu design, location scouting. The smart kitchen
+                                assistant goes live. AI meets haute cuisine.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2035 -->
+                <div class="timeline-item reveal">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card" onclick="this.classList.toggle('expanded')">
+                        <span class="timeline-icon">✨</span>
+                        <span class="timeline-year">2035 — The Grand Vision</span>
+                        <h3>The Restaurant Opens</h3>
+                        <p>An AI-powered immersive dining experience. Food, technology, and art — unified.</p>
+                        <div class="expand-content">
+                            <p>Every dish curated by culinary expertise, enhanced by AI. Personalized menus, smart
+                                kitchen automation, immersive ambiance. A decade of dual mastery culminates in this
+                                vision.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CULINARY ═══ -->
+    <section id="culinary" class="section">
+        <div class="container">
+            <span class="section-label reveal">Culinary Arts</span>
+            <h2 class="section-title reveal reveal-delay-1">Where food becomes art.</h2>
+            <p class="section-subtitle reveal reveal-delay-2">9+ years of cooking. Inspired by global flavors. Dreaming
+                of a restaurant that changes everything.</p>
+
+            <div class="passion-layout">
+                <div class="passion-text reveal">
+                    <h3>A Lifelong Culinary Journey</h3>
+                    <p>From mastering Beef Wellington inspired by Gordon Ramsay, to crafting delicate Panna Cotta with
+                        fruit coulis — cooking is my creative outlet. Every recipe is an experiment, every plate a
+                        canvas.</p>
+                    <p>Bangkok's vibrant street food. Parisian bistro culture. Cambridge-certified technique. It all
+                        comes together in a vision for a restaurant that doesn't just serve food — it creates
+                        unforgettable experiences.</p>
+                    <a href="culinary.html" class="btn-primary" style="width:fit-content; margin-top: 0.5rem;">
+                        <i class="fas fa-utensils"></i> Explore My Recipes
+                    </a>
+                </div>
+                <div class="passion-gallery reveal reveal-delay-2">
+                    <div class="passion-gallery-item">
+                        <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400&h=300&fit=crop"
+                            alt="Beef Wellington" loading="lazy">
+                        <div class="gallery-overlay">
+                            <h4>Beef Wellington</h4>
+                            <p>Precision & Skill</p>
+                        </div>
+                    </div>
+                    <div class="passion-gallery-item">
+                        <img src="https://images.unsplash.com/photo-1645112411341-6c4fd023714a?w=400&h=300&fit=crop"
+                            alt="Chicken Alfredo" loading="lazy">
+                        <div class="gallery-overlay">
+                            <h4>Chicken Alfredo</h4>
+                            <p>Comfort Classic</p>
+                        </div>
+                    </div>
+                    <div class="passion-gallery-item">
+                        <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=300&fit=crop"
+                            alt="Panna Cotta" loading="lazy">
+                        <div class="gallery-overlay">
+                            <h4>Panna Cotta</h4>
+                            <p>Italian Elegance</p>
+                        </div>
+                    </div>
+                    <div class="passion-gallery-item">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop"
+                            alt="Global Fusion" loading="lazy">
+                        <div class="gallery-overlay">
+                            <h4>Global Fusion</h4>
+                            <p>Bangkok × Paris</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ DOWNLOAD CV ═══ -->
+    <section id="cv" class="section cv-section">
+        <div class="container">
+            <div class="cv-card reveal">
+                <span class="section-label" style="justify-content:center;">Resume</span>
+                <h2 class="section-title">Download My CV</h2>
+                <p class="section-subtitle">Get a comprehensive overview of my skills, experience, and vision in a
+                    single document.</p>
+                <div class="cv-buttons">
+                    <button class="btn-primary" id="btn-download-cv">
+                        <i class="fas fa-download"></i> Download CV
+                    </button>
+                    <button class="btn-ghost" id="btn-preview-cv">
+                        <i class="fas fa-eye"></i> Preview
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand"><span>Aabaan</span>.</div>
+                    <p class="footer-copy">&copy; 2026 Journey to Culinary Excellence</p>
+                </div>
+                <div style="text-align:center;">
+                    <p class="footer-copy">aabaanrg@gmail.com · +971 551212310</p>
+                </div>
+                <div class="footer-socials">
+                    <a href="https://github.com/aabaan321" target="_blank" aria-label="GitHub"><i
+                            class="fab fa-github"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://instagram.com/aabaanrg73" target="_blank" aria-label="Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div id="chatbot">
+        <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open Chat">
+            <i class="fas fa-comment-dots"></i>
+            <span class="chatbot-pulse"></span>
+        </button>
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                <div class="chatbot-header-info">
+                    <div class="chatbot-avatar"><i class="fas fa-robot"></i></div>
+                    <div>
+                        <h4>Aabaan's AI Assistant</h4>
+                        <span class="chatbot-status"><span class="status-dot"></span> Powered by Gemini</span>
+                    </div>
+                </div>
+                <button class="chatbot-close" id="chatbot-close"><i class="fas fa-xmark"></i></button>
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="chat-msg bot">
+                    <div class="chat-bubble">Hey! 👋 I'm Aabaan's AI assistant. Ask me anything about his projects,
+                        skills, or journey!</div>
+                </div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" id="chatbot-input" placeholder="Ask me anything..." autocomplete="off">
+                <button id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-content" id="modal-body">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div id="modal-inner"></div>
+        </div>
+    </div>
+
+    <script src="local_config.js"></script>
+    <script defer src="main.js"></script>
+</body>
+
+</html>
