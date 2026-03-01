@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culinary Arts — Aabaan</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="page.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #6C63FF 0%, #E040FB 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(108, 99, 255, 0.5);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar scrolled">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo"><span>Aabaan</span>.</a>
+            <ul class="nav-links">
+                <li><a href="index.html#hero">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#journey">Journey</a></li>
+                <li><a href="index.html#culinary" class="active">Culinary</a></li>
+                <li><a href="index.html#cv">Resume</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="detail-page">
+        <div class="container">
+            <a href="index.html#culinary" class="back-link"><i class="fas fa-arrow-left"></i> Back to Culinary</a>
+
+            <div class="detail-hero"
+                style="background-image: linear-gradient(rgba(6,8,15,0.7), rgba(6,8,15,0.85)), url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1200&h=400&fit=crop'); background-size: cover; background-position: center;">
+                <span class="icon-big"><i class="fas fa-utensils"></i></span>
+                <h1>Culinary Arts</h1>
+                <p>9+ years of cooking experience — from mastering Beef Wellington to dreaming of a restaurant that
+                    fuses AI and culinary innovation.</p>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card"><span class="stat-value">9+</span><span class="stat-label">Years Cooking</span>
+                </div>
+                <div class="stat-card"><span class="stat-value">9+</span><span class="stat-label">Recipes
+                        Mastered</span></div>
+                <div class="stat-card"><span class="stat-value">1</span><span class="stat-label">Cambridge
+                        Certificate</span></div>
+            </div>
+
+            <div class="detail-section">
+                <h2><i class="fas fa-fire"></i> Signature Recipes</h2>
+                <div class="item-grid">
+                    <div class="item-card">
+                        <h3>🥩 Beef Wellington</h3>
+                        <p>Precision-driven masterpiece inspired by Gordon Ramsay.</p><span class="tag">Signature</span>
+                    </div>
+                    <div class="item-card">
+                        <h3>🍝 Chicken Alfredo</h3>
+                        <p>Rich, creamy fettuccine with butter, cream, and Parmesan.</p><span class="tag">Comfort
+                            Classic</span>
+                    </div>
+                    <div class="item-card">
+                        <h3>🍮 Panna Cotta</h3>
+                        <p>Delicate Italian dessert with vanilla and fruit coulis.</p><span class="tag">Dessert</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0;">
+                <a href="recipe-book.html" target="_blank" class="btn-download">
+                    <i class="fas fa-book-open"></i> Open Recipe Book (Save as PDF)
+                </a>
+            </div>
+
+            <div class="detail-section">
+                <h2><i class="fas fa-globe"></i> Global Inspiration</h2>
+                <ul class="highlights-list">
+                    <li><i class="fas fa-plane"></i> Bangkok — Vibrant street food culture and spice markets</li>
+                    <li><i class="fas fa-wine-glass"></i> Paris — Elegant fine dining and patisseries</li>
+                    <li><i class="fas fa-book"></i> Cambridge Curriculum — Formal cooking certificate</li>
+                    <li><i class="fas fa-store"></i> Future Goal — AI-powered restaurant experience</li>
+                </ul>
+            </div>
+
+            <div class="detail-section">
+                <h2><i class="fas fa-heart"></i> Philosophy</h2>
+                <div class="item-card" style="max-width: 700px;">
+                    <p>"Cooking isn't just about recipes — it's about creativity, innovation, and constantly pushing
+                        myself to experiment with new ingredients and techniques."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand"><span>Aabaan</span>.</div>
+                    <p class="footer-copy">&copy; 2026</p>
+                </div>
+                <p class="footer-copy">aabaanrg@gmail.com · +971 551212310</p>
+                <div class="footer-socials">
+                    <a href="https://github.com/aabaan321" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://instagram.com/aabaanrg73" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+</body>
+
+</html>
