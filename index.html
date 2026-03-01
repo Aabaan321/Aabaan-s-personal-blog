@@ -9,6 +9,48 @@
         content="Aabaan's portfolio — AI developer, culinary artist, and adventure seeker building the future at the intersection of technology and gastronomy.">
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .btn-cv-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 2.4rem;
+            background: linear-gradient(135deg, #6C63FF 0%, #E040FB 100%);
+            color: #fff;
+            font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 50px;
+            border: none;
+            text-decoration: none;
+            box-shadow: 0 0 18px rgba(108, 99, 255, 0.5), 0 4px 20px rgba(224, 64, 251, 0.3);
+            cursor: pointer;
+            animation: cv-pulse 2.5s ease-in-out infinite;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-cv-hero:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 0 30px rgba(108, 99, 255, 0.7), 0 8px 30px rgba(224, 64, 251, 0.5);
+            color: #fff;
+        }
+
+        .btn-cv-hero i {
+            font-size: 1.1rem;
+        }
+
+        @keyframes cv-pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 18px rgba(108, 99, 255, 0.5), 0 4px 20px rgba(224, 64, 251, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 32px rgba(108, 99, 255, 0.85), 0 6px 28px rgba(224, 64, 251, 0.6);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -46,8 +88,9 @@
                     Where <span class="gradient-text">Artificial Intelligence</span> Meets Culinary Art.
                 </h1>
                 <p class="hero-description reveal reveal-delay-2">
-                    I'm Aabaan — an AI developer, aspiring chef, and adventure seeker crafting experiences at the
-                    intersection of technology and gastronomy. Currently building NeuroforgeAI.
+                    I'm Aabaan Rahil Ghaffar — a student developer, AI systems builder, and aspiring chef based in
+                    Dubai, UAE. Founder of NeuroForge AI & former Junior Engineer at Agentyne. I build things that
+                    matter.
                 </p>
                 <div class="hero-cta reveal reveal-delay-3">
                     <a href="#projects" class="btn-primary">
@@ -57,10 +100,16 @@
                         <i class="fas fa-route"></i> View My Journey
                     </a>
                 </div>
+                <div class="reveal reveal-delay-4" style="margin-top: 1.2rem;">
+                    <a href="#cv" class="btn-cv-hero" id="hero-cv-btn"
+                        onclick="document.getElementById('btn-download-cv').click(); return false;">
+                        <i class="fas fa-file-arrow-down"></i> Download My CV
+                    </a>
+                </div>
             </div>
         </div>
         <div class="hero-profile reveal">
-            <img src="assets/profile.jpg" alt="Aabaan" class="hero-profile-img">
+            <img src="assets/profile.jpg" alt="Aabaan Rahil Ghaffar" class="hero-profile-img">
         </div>
     </section>
 
@@ -68,40 +117,53 @@
     <section id="about" class="section">
         <div class="container">
             <span class="section-label reveal">About Me</span>
-            <h2 class="section-title reveal reveal-delay-1">A multidisciplinary creator<br>based in Sharjah.</h2>
+            <h2 class="section-title reveal reveal-delay-1">Student Developer &amp; AI Builder<br>based in Dubai, UAE.
+            </h2>
             <div class="about-grid">
                 <div class="about-text reveal reveal-delay-2">
-                    <p>I'm an aspiring chef with an unwavering passion for culinary arts and a builder of AI systems
-                        that push the boundaries of human-computer interaction. From the bustling streets of Bangkok to
-                        the elegance of Parisian fine dining, every journey fuels my creative vision.</p>
+                    <p>I'm a student developer focused on artificial intelligence, robotics, and building practical
+                        systems that solve real-world problems. I founded <strong>NeuroForge AI</strong> — a platform
+                        for conversational interaction and intelligent automation — and gained hands-on professional
+                        experience as a <strong>Junior Engineer at Agentyne</strong> (Aug 2025 – Feb 2026).</p>
                     <br>
-                    <p>When I'm not training neural networks or crafting the perfect Beef Wellington, I'm staying active
-                        — boxing, swimming, and pushing limits. I believe the future belongs to those who can bridge
-                        disciplines.</p>
+                    <p>My approach is learn-by-building: from debugging complex AI systems to deploying live products.
+                        Currently in 11th IGCSE at Providence English School, Sharjah, graduating Jun 2026. Outside of
+                        code, I'm passionate about culinary arts, swimming, and robotics exploration.</p>
                 </div>
-                <div class="skills-container reveal reveal-delay-3">
-                    <div class="skill-chip"><i class="fas fa-brain"></i> AI & Robotics</div>
+                                <div class="skills-container reveal reveal-delay-3">
+
+                    <div class="skill-chip"><i class="fab fa-python"></i> Python</div>
+
+                    <div class="skill-chip"><i class="fas fa-code"></i> HTML / CSS</div>
+
+                    <div class="skill-chip"><i class="fas fa-brain"></i> AI Systems</div>
+
+                    <div class="skill-chip"><i class="fas fa-robot"></i> Automation</div>
+
+                    <div class="skill-chip"><i class="fas fa-gamepad"></i> Gameverse (25+ games)</div>
+
                     <div class="skill-chip"><i class="fas fa-utensils"></i> Culinary Arts</div>
-                    <div class="skill-chip"><i class="fas fa-code"></i> Programming</div>
-                    <div class="skill-chip"><i class="fas fa-camera"></i> Photography</div>
-                    <div class="skill-chip"><i class="fas fa-dumbbell"></i> Fitness</div>
+
+                    <div class="skill-chip"><i class="fas fa-dumbbell"></i> Swimming &amp; Fitness</div>
+
                     <div class="skill-chip"><i class="fas fa-car"></i> Automotive</div>
-                    <div class="skill-chip"><i class="fas fa-gamepad"></i> Gaming</div>
-                    <div class="skill-chip"><i class="fas fa-plane"></i> Travel</div>
+
                 </div>
+
+            </div>
             </div>
             <div class="stats-row reveal reveal-delay-4">
                 <div class="stat-item">
-                    <span class="stat-number" data-target="10" data-suffix="+">0</span>
-                    <span class="stat-label">AI Tools Built</span>
+                    <span class="stat-number" data-target="25" data-suffix="+">0</span>
+                    <span class="stat-label">Games Built</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" data-target="9" data-suffix="+">0</span>
-                    <span class="stat-label">Years Cooking</span>
+                    <span class="stat-number" data-target="5" data-suffix="">0</span>
+                    <span class="stat-label">Major AI Projects</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" data-target="5" data-suffix="+">0</span>
-                    <span class="stat-label">Years Fitness</span>
+                    <span class="stat-number" data-target="6" data-suffix=" mo">0</span>
+                    <span class="stat-label">Agentyne Internship</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number" data-target="1" data-suffix="st">0</span>
@@ -377,12 +439,12 @@
                 <p class="section-subtitle">Get a comprehensive overview of my skills, experience, and vision in a
                     single document.</p>
                 <div class="cv-buttons">
-                    <button class="btn-primary" id="btn-download-cv">
-                        <i class="fas fa-download"></i> Download CV
-                    </button>
-                    <button class="btn-ghost" id="btn-preview-cv">
-                        <i class="fas fa-eye"></i> Preview
-                    </button>
+                    <a href="aabaan cv/developer_portfolio_resume (1).html" target="_blank" class="btn-primary" id="btn-download-cv" onclick="window.open(this.href); return false;">
+                        <i class="fas fa-eye"></i> View CV
+                    </a>
+                    <a href="aabaan cv/developer_portfolio_resume (1).html" target="_blank" class="btn-ghost" id="btn-preview-cv" onclick="var w=window.open(this.href); setTimeout(function(){w.print()},1000); return false;">
+                        <i class="fas fa-download"></i> Download PDF
+                    </a>
                 </div>
             </div>
         </div>
@@ -423,7 +485,7 @@
                     <div class="chatbot-avatar"><i class="fas fa-robot"></i></div>
                     <div>
                         <h4>Aabaan's AI Assistant</h4>
-                        <span class="chatbot-status"><span class="status-dot"></span> Powered by Gemini</span>
+                        <span class="chatbot-status"><span class="status-dot"></span> Assistant</span>
                     </div>
                 </div>
                 <button class="chatbot-close" id="chatbot-close"><i class="fas fa-xmark"></i></button>
