@@ -33,8 +33,15 @@ jobs:
       - name: Replace Secrets
         env:
           OPENAI_KEY: ${{ secrets.OPENAI_API_1 }}
+          OPENAI_KEY_ALT: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_KEY_ALT2: ${{ secrets.OPENAI_KEY }}
           DEEPGRAM_KEY: ${{ secrets.DEEPGRAM_API }}
-        run: python .github/scripts/replace_secrets.py
+        run: |
+          echo "Debug: OPENAI_API_1 length is ${#OPENAI_KEY}"
+          echo "Debug: OPENAI_API_KEY length is ${#OPENAI_KEY_ALT}"
+          echo "Debug: OPENAI_KEY length is ${#OPENAI_KEY_ALT2}"
+          python .github/scripts/replace_secrets.py
+
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
