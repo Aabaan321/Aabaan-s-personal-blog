@@ -26,14 +26,24 @@ def replace_secrets(file_path):
         print("Checking Environment Variables...")
         # Check OPENAI
         openai_key = None
-        for var_name in ['OPENAI_KEY', 'OPENAI_API_KEY', 'OPENAI_KEY_1', 'OPENAI_KEY_2', 'OPENAI_KEY_3', 'OPENAI_KEY_4']:
+        # First check the specific list
+        for var_name in ['OPENAI_KEY', 'OPENAI_API_KEY', 'OPENAI_KEY_ALT', 'OPENAI_KEY_ALT2', 'OPENAI_KEY_1', 'OPENAI_API_1']:
             val = os.environ.get(var_name)
-            if val:
+            if val and val.startswith('sk-'):
                 print(f"  FOUND {var_name} (Length: {len(val)})")
                 openai_key = val
-                break # Use the first one found
+                break
+                
+        # If not found, aggressively search ALL environment variables
         if not openai_key:
-            print("  WARNING: No OPENAI key found in any variable.")
+            for k, v in os.environ.items():
+                if ('OPENAI' in k.upper()) and v and v.startswith('sk-'):
+                    print(f"  FOUND fallback {k} (Length: {len(v)})")
+                    openai_key = v
+                    break
+
+        if not openai_key:
+            print("  WARNING: No OPENAI key found in any variable. The placeholder will NOT be replaced.")
 
         # Check DEEPGRAM
         deepgram_key = None
