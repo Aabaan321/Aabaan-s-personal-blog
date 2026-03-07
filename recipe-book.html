@@ -10,17 +10,21 @@
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
         :root {
-            --sidebar-width: 300px;
-            --primary: #2d3436;
-            --secondary: #636e72;
-            --accent: #d63031;
-            --bg: #FAFAFA;
-            --card-bg: #FFFFFF;
-            --text-main: #2d3436;
-            --text-light: #636e72;
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            --gradient-red: linear-gradient(135deg, #d63031 0%, #ff7675 100%);
-            --glow-red: rgba(214, 48, 49, 0.4);
+            --sidebar-width: 320px;
+            --primary: #1e293b;
+            --secondary: #64748b;
+            --accent: #e11d48;
+            --accent-light: #fda4af;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --text-light: #94a3b8;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+            --gradient-red: linear-gradient(135deg, #e11d48 0%, #fb7185 100%);
+            --glow-red: rgba(225, 29, 72, 0.3);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         * {
@@ -42,14 +46,16 @@
         .sidebar {
             width: var(--sidebar-width);
             height: 100vh;
-            background: white;
-            border-right: 1px solid rgba(0, 0, 0, 0.08);
+            background: var(--card-bg);
+            border-right: 1px solid #e2e8f0;
             display: flex;
             flex-direction: column;
             position: fixed;
             left: 0;
             top: 0;
             z-index: 100;
+            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
         }
 
         .sidebar-header {
@@ -114,43 +120,63 @@
         }
 
         .nav-category {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #b2bec3;
-            margin: 2rem 0 0.8rem 1.2rem;
+            letter-spacing: 2px;
+            color: var(--secondary);
+            margin: 2.5rem 0 1rem 1rem;
             font-weight: 700;
+            position: relative;
+        }
+
+        .nav-category::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 20px;
+            height: 2px;
+            background: var(--accent-light);
+            border-radius: 2px;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
-            padding: 10px 16px;
-            border-radius: 8px;
+            padding: 12px 18px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s;
-            color: var(--text-light);
-            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-main);
+            font-size: 0.95rem;
             font-weight: 500;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
+            border: 1px solid transparent;
         }
 
         .nav-item:hover {
-            background: #fff5f5;
+            background: #fff0f2;
             color: var(--accent);
+            transform: translateX(4px);
         }
 
         .nav-item.active {
-            background: var(--accent);
+            background: var(--gradient-red);
             color: white;
-            box-shadow: 0 4px 15px rgba(214, 48, 49, 0.25);
+            box-shadow: 0 8px 20px var(--glow-red);
+            transform: scale(1.02);
         }
 
         .nav-item i {
-            margin-right: 12px;
-            font-size: 0.85rem;
-            width: 16px;
+            margin-right: 14px;
+            font-size: 1rem;
+            width: 20px;
             text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .nav-item:hover i {
+            transform: scale(1.1) rotate(5deg);
         }
 
 
@@ -209,79 +235,99 @@
         /* RECIPE DESIGN */
         .recipe-header {
             text-align: center;
-            margin-bottom: 3.5rem;
+            margin-bottom: 4rem;
         }
 
         .recipe-image-wrapper {
             width: 100%;
-            height: 450px;
-            border-radius: 24px;
+            height: 480px;
+            border-radius: 30px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
             position: relative;
-            background: #f0f0f0;
+            background: #f8fafc;
         }
 
         .recipe-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .recipe-image-wrapper:hover .recipe-image {
-            transform: scale(1.05);
+            transform: scale(1.08) rotate(-1deg);
         }
 
         .recipe-title {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--primary);
             margin: 0 0 1.5rem;
             line-height: 1.1;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            transition: transform 0.3s ease;
+        }
+
+        .recipe-title:hover {
+            transform: translateY(-2px);
         }
 
         .recipe-meta-row {
             display: inline-flex;
-            background: white;
-            padding: 10px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
             border-radius: 100px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            gap: 2rem;
-            border: 1px solid #f0f0f0;
+            box-shadow: var(--shadow-sm);
+            gap: 2.5rem;
+            border: var(--glass-border);
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .recipe-meta-row:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
         }
 
         .meta-tag {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            color: var(--text-light);
-            font-weight: 500;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
         .meta-tag i {
             color: var(--accent);
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         .recipe-grid {
             display: grid;
-            grid-template-columns: 1fr 1.6fr;
+            grid-template-columns: 1fr 1.8fr;
             gap: 4rem;
+            align-items: start;
         }
 
         .ingredients-card {
-            background: white;
+            background: var(--card-bg);
             padding: 2.5rem;
-            border-radius: 20px;
+            border-radius: 24px;
             box-shadow: var(--shadow);
-            border: 1px solid rgba(0, 0, 0, 0.03);
-            height: fit-content;
+            border: 1px solid #f1f5f9;
+            position: sticky;
+            top: 2rem;
+            transition: box-shadow 0.3s;
+        }
+
+        .ingredients-card:hover {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
         }
 
         .instructions-card {
@@ -838,7 +884,7 @@
 
             // CHAPTER 1: Appetizers
             {
-                id: 'buffalo-wings', cat: 'Ch 1: Appetizers', title: 'Buffalo Chicken Wings',
+                id: 'buffalo-wings', cat: 'Appetizers', title: 'Buffalo Chicken Wings',
                 img: 'Buffalo Chicken Wings',
                 intro: 'The secret to legendary buffalo wings lies in three critical elements: bone-dry skin before coating, precise oil temperature for maximum crispiness, and the perfect sauce ratio that coats without making wings soggy. This technique produces wings with an audibly crispy exterior that shatters with each bite.',
                 outcome: 'Perfect buffalo wings have a deep golden-brown, crispy exterior that audibly crunches when bitten. The sauce should glisten without pooling on the plate, and the meat should be juicy and easily pull away from the bone.',
@@ -866,7 +912,7 @@
                 ]
             },
             {
-                id: 'fried-shrimp', cat: 'Ch 1: Appetizers', title: 'Breaded Fried Shrimp',
+                id: 'fried-shrimp', cat: 'Appetizers', title: 'Breaded Fried Shrimp',
                 img: 'Breaded Fried Shrimp',
                 intro: 'The difference between rubbery, greasy shrimp and succulent, crispy ones is speed and the "Standard Breading Procedure". We use Panko (Japanese breadcrumbs) for a jagged, airy texture that stays crispy longer than fine crumbs.',
                 outcome: 'The shrimp should stand straight when held by the tail (if left on). The coating should be jagged and golden, not oily. The bite should be an audible "crunch" followed by the snap of perfectly cooked shrimp.',
@@ -888,7 +934,7 @@
                 ]
             },
             {
-                id: 'nuggets', cat: 'Ch 1: Appetizers', title: 'Homemade Chicken Nuggets',
+                id: 'nuggets', cat: 'Appetizers', title: 'Homemade Chicken Nuggets',
                 img: 'Homemade Chicken Nuggets',
                 intro: 'Forget the drive-thru. Real nuggets are about texture contrast: a flavorful, sturdy crust protecting a steamy, tender interior. We use breast meat cut against the grain for tenderness.',
                 outcome: 'Uniformly golden brown. The crust should not detach from the chicken. The interior should be moist and white, not stringy.',
@@ -908,7 +954,7 @@
                 ]
             },
             {
-                id: 'tenders', cat: 'Ch 1: Appetizers', title: 'Crispy Fried Chicken Tenders',
+                id: 'tenders', cat: 'Appetizers', title: 'Crispy Fried Chicken Tenders',
                 img: 'Crispy Chicken Tenders',
                 intro: 'The "Tender" is the filet mignon of the chicken. The secret here is a buttermilk marinade, which contains enzymes and acids that break down proteins for impossible tenderness, while creating a craggy surface for the flour to cling to.',
                 outcome: 'The coating should be "craggy" and uneven (that\'s a good thing!), providing maximum surface area for crunch.',
@@ -928,7 +974,7 @@
                 ]
             },
             {
-                id: 'cheese-sticks', cat: 'Ch 1: Appetizers', title: 'Golden Cheese Sticks',
+                id: 'cheese-sticks', cat: 'Appetizers', title: 'Golden Cheese Sticks',
                 img: 'Mozzarella Sticks',
                 intro: 'The tragedy of homemade cheese sticks is "The Blowout"—when cheese leaks out before the shell cooks. The professional solution is the "Double Dip" and the "Deep Freeze".',
                 outcome: 'A solid golden shell that holds its shape. When pulled apart, the cheese should stretch for feet without breaking (the "cheese pull").',
@@ -948,7 +994,7 @@
                 ]
             },
             {
-                id: 'onion-rings', cat: 'Ch 1: Appetizers', title: 'Classic Onion Rings',
+                id: 'onion-rings', cat: 'Appetizers', title: 'Classic Onion Rings',
                 img: 'Onion Rings',
                 intro: 'Great onion rings require a batter that puffs up and stays crispy, not a heavy dough. We use baking powder for lift and buttermilk for tang. The contrast between the sweet, steamed onion and the savory, salty batter is key.',
                 outcome: 'Puffy, golden-brown rings. The onion should bite through cleanly rather than pulling out of the batter in one long string (a sign of undercooking or tough membrane).',
@@ -970,7 +1016,7 @@
                 ]
             },
             {
-                id: 'corn-soup', cat: 'Ch 1: Appetizers', title: 'Creamy Chicken Corn Soup',
+                id: 'corn-soup', cat: 'Appetizers', title: 'Creamy Chicken Corn Soup',
                 img: 'Chicken Corn Soup',
                 intro: 'A classic comfort food that relies on the "Egg Ribbon" technique. This Chinese-style soup thickens with cornstarch and creamed corn, offering a silky texture broken up by strands of egg.',
                 outcome: 'A glossy, slightly thickened broth. The egg ribbons should be delicate and floating, not clumped. The flavor is a balance of savory chicken and sweet corn.',
@@ -997,7 +1043,7 @@
 
             // CHAPTER 2: Beef & Lamb
             {
-                id: 'wellington', cat: 'Ch 2: Beef & Lamb', title: 'Beef Wellington',
+                id: 'wellington', cat: 'Mains', title: 'Beef Wellington',
                 img: 'Beef Wellington',
                 intro: 'The Mount Everest of home cooking. Beef Wellington is a study in moisture management. The goal is a medium-rare tenderloin inside a crispy, flaky pastry shell, without the dreaded "soggy bottom". We achieve this with a barrier of crêpes and a bone-dry mushroom duxelles.',
                 outcome: 'When sliced, the pastry should shatter. The cross-section should reveal distinct layers: golden pastry, green herbs/crêpe, dark mushroom duxelles, and a wall-to-wall pink center (medium-rare).',
@@ -1023,7 +1069,7 @@
                 ]
             },
             {
-                id: 'lamb-rack', cat: 'Ch 2: Beef & Lamb', title: 'Pistachio-Crusted Rack of Lamb',
+                id: 'lamb-rack', cat: 'Mains', title: 'Pistachio-Crusted Rack of Lamb',
                 img: 'Rack of Lamb',
                 intro: 'A rack of lamb is elegant, but a pistachio crust adds texture and a visual "wow" factor. We sear the meat first to render fat, then roast it gently. The mustard acts as the glue for the crust.',
                 outcome: 'The meat should be blushing pink (medium-rare) with a vibrant green, crunchy crust that stays attached when sliced.',
@@ -1045,7 +1091,7 @@
                 ]
             },
             {
-                id: 'lamb-chops', cat: 'Ch 2: Beef & Lamb', title: 'Pan-Seared Lamb Chops',
+                id: 'lamb-chops', cat: 'Mains', title: 'Pan-Seared Lamb Chops',
                 img: 'Lamb Chops',
                 intro: 'Lamb loin chops are like mini T-bone steaks. They cook fast and love garlic and rosemary. The key is the "Butter Baste" (Arrosé) technique at the end to cook the inside gently while flavoring the crust.',
                 outcome: 'Deep brown crust, juicy pink center. The fat strip on the edge should be rendered and crisp, not chewy.',
@@ -1066,7 +1112,7 @@
                 ]
             },
             {
-                id: 'steak', cat: 'Ch 2: Beef & Lamb', title: 'The Perfect Pan-Seared Steak',
+                id: 'steak', cat: 'Mains', title: 'The Perfect Pan-Seared Steak',
                 img: 'Pan Seared Steak',
                 intro: 'You don\'t need a grill for steakhouse quality. You need a cast-iron skillet and the courage to use high heat. We start with oil to sear, then finish with butter to flavor.',
                 outcome: 'Wall-to-wall medium-rare (no grey band). A dark mahogany crust that is salty and savory.',
@@ -1089,7 +1135,7 @@
                 ]
             },
             {
-                id: 'burger', cat: 'Ch 2: Beef & Lamb', title: 'Ultimate Beef Smashed Burger',
+                id: 'burger', cat: 'Mains', title: 'Ultimate Beef Smashed Burger',
                 img: 'Smashed Burger',
                 intro: 'The "Smash Burger" uses physics to create flavor. By smashing beef onto a hot surface, we maximize the Maillard reaction (browning), creating a lacey, crispy crust that a thick patty can never achieve.',
                 outcome: 'A jagged, crispy, dark brown crust. The cheese should be fully melted into the crevices. The bun must be toasted to hold the juices.',
@@ -1111,7 +1157,7 @@
                 ]
             },
             {
-                id: 'lasagna', cat: 'Ch 2: Beef & Lamb', title: 'Hearty Meat Lasagna',
+                id: 'lasagna', cat: 'Mains', title: 'Hearty Meat Lasagna',
                 img: 'Lasagna',
                 intro: 'Lasagna is about structural integrity and flavor balance. We use a rich Bolognese (meat sauce) and a creamy cheese Binder. The key is letting it rest so it slices like a cake, not a soup.',
                 outcome: 'Distinct layers defined by pasta. The top should be blistered cheese. It should hold its square shape on the plate.',
@@ -1315,7 +1361,7 @@
 
             // CHAPTER 5: Pizzas, Tacos & Sides
             {
-                id: 'margherita', cat: 'Ch 5: Pizzas & Sides', title: 'Italian-Style Margherita Pizza',
+                id: 'margherita', cat: 'Sides & Bread', title: 'Italian-Style Margherita Pizza',
                 img: 'Margherita Pizza',
                 intro: 'Neapolitan pizza is a balance of three colors: Red (tomato), White (mozzarella), and Green (basil). The secret is high heat to char the crust while keeping the center tender (soupy).',
                 outcome: 'A "leopard-spotted" crust (char bubbles). The cheese should be melted but distinct puddles, not a blanket. The center should be soft.',
@@ -1336,7 +1382,7 @@
                 ]
             },
             {
-                id: 'pepperoni', cat: 'Ch 5: Pizzas & Sides', title: 'Classic Pepperoni Pizza',
+                id: 'pepperoni', cat: 'Sides & Bread', title: 'Classic Pepperoni Pizza',
                 img: 'Pepperoni Pizza',
                 intro: 'The "NY Style" slice. We want a crust that folds without cracking and pepperoni that cups up ("ronis") due to the heat.',
                 outcome: 'A golden, rigid bottom crust. Pepperoni should have crispy edges and a pool of oil in the center.',
@@ -1356,7 +1402,7 @@
                 ]
             },
             {
-                id: 'tacos', cat: 'Ch 5: Pizzas & Sides', title: 'Chicken Tacos',
+                id: 'tacos', cat: 'Sides & Bread', title: 'Chicken Tacos',
                 img: 'Chicken Tacos',
                 intro: 'A taco is a delivery system for contrast: Hot meat, cold salsa, creamy guac, corn tortilla scent. Everything must be fresh.',
                 outcome: 'The tortilla should be pliable and warm, not cracking. The filling should be wet enough to flavor the bite but not drip excessively.',
@@ -1375,7 +1421,7 @@
                 ]
             },
             {
-                id: 'mash', cat: 'Ch 5: Pizzas & Sides', title: 'Fluffy Classic Mashed Potatoes',
+                id: 'mash', cat: 'Sides & Bread', title: 'Fluffy Classic Mashed Potatoes',
                 img: 'Mashed Potatoes',
                 intro: 'Gluey potatoes are caused by overworked starch and water retention. We solve this by "Drying" the potatoes after boiling and using warm dairy.',
                 outcome: 'Cloud-like texture. No lumps. Buttery aroma.',
@@ -1394,7 +1440,7 @@
                 ]
             },
             {
-                id: 'naan', cat: 'Ch 5: Pizzas & Sides', title: 'Soft Garlic Naan',
+                id: 'naan', cat: 'Sides & Bread', title: 'Soft Garlic Naan',
                 img: 'Garlic Naan',
                 intro: 'A Tandoor oven hits 900°F. Your skillet doesn\'t. We mimic the blistered texture by using high heat cast-iron and a yogurt-enriched dough that remains soft even when charred.',
                 outcome: 'Large air bubbles with dark char spots. Soft and pliable, not cracker-like.',
@@ -1414,7 +1460,7 @@
                 ]
             },
             {
-                id: 'fried-rice', cat: 'Ch 5: Pizzas & Sides', title: 'Simple & Delicious Fried Rice',
+                id: 'fried-rice', cat: 'Sides & Bread', title: 'Simple & Delicious Fried Rice',
                 img: 'Fried Rice',
                 intro: 'The #1 Rule of Fried Rice: Use OLD rice. Fresh rice turns to mush. Day-old, refrigerated rice has dried-out grains that separate beautifully when seared.',
                 outcome: 'Individual grains coated in oil/sauce, not clumps. A savory, slightly smoky aroma (Wok Hei) if your pan is hot enough.',
@@ -1438,7 +1484,7 @@
 
             // CHAPTER 6: Sauces
             {
-                id: 'marinara', cat: 'Ch 6: Sauces', title: 'Classic Marinara Sauce',
+                id: 'marinara', cat: 'Sauces & Jams', title: 'Classic Marinara Sauce',
                 img: 'Marinara Sauce',
                 intro: 'A good Marinara is not just "tomato sauce". It is the concentrated essence of tomato. We use whole peeled San Marzano tomatoes because crushed ones are often lower quality.',
                 outcome: 'A deep red, thick jam-like consistency. No watery separation around the edges of the plate.',
@@ -1458,7 +1504,7 @@
                 ]
             },
             {
-                id: 'burger-sauce', cat: 'Ch 6: Sauces', title: 'Spicy Burger & Fry Sauce',
+                id: 'burger-sauce', cat: 'Sauces & Jams', title: 'Spicy Burger & Fry Sauce',
                 img: 'Spicy Sauce',
                 intro: 'The "Secret Sauce" of every great burger joint. It\'s an emulsion of mayo (fat), ketchup (sweet/acid), and pickle juice (brine).',
                 outcome: 'Pale orange-pink color. Tangy, creamy, with a late kick of heat.',
@@ -1476,7 +1522,7 @@
                 ]
             },
             {
-                id: 'butter-sauce', cat: 'Ch 6: Sauces', title: 'Butter Chicken Burger Sauce',
+                id: 'butter-sauce', cat: 'Sauces & Jams', title: 'Butter Chicken Burger Sauce',
                 img: 'Butter Chicken Sauce',
                 intro: 'A fusion condiment that brings the complex spice of India to a sandwich spread.',
                 outcome: 'Golden yellow, aromatic, and savory.',
@@ -1494,7 +1540,7 @@
                 ]
             },
             {
-                id: 'mint-yogurt', cat: 'Ch 6: Sauces', title: 'Mint Yogurt Sauce',
+                id: 'mint-yogurt', cat: 'Sauces & Jams', title: 'Mint Yogurt Sauce',
                 img: 'Mint Yogurt',
                 intro: 'The cooling fire-extinguisher for spicy tandoori dishes. Fresh mint provides the high note; yogurt provides the fat.',
                 outcome: 'Pale green. Thin enough to drizzle but thick enough to hold shape.',
@@ -1512,7 +1558,7 @@
                 ]
             },
             {
-                id: 'aioli', cat: 'Ch 6: Sauces', title: 'Garlic Aioli',
+                id: 'aioli', cat: 'Sauces & Jams', title: 'Garlic Aioli',
                 img: 'Aioli',
                 intro: 'Real Aioli is garlic and oil emulsified. We cheat by using mayo as a stable base, but we ramp up the garlic and acid to cut through fatty dishes.',
                 outcome: 'Punchy garlic flavor that lingers. Thick enough to stand a spoon in.',
@@ -1530,7 +1576,7 @@
                 ]
             },
             {
-                id: 'pesto', cat: 'Ch 6: Sauces', title: 'Fresh Basil Pesto',
+                id: 'pesto', cat: 'Sauces & Jams', title: 'Fresh Basil Pesto',
                 img: 'Pesto',
                 intro: 'Pesto means "to pound". A mortar and pestle is best, but a food processor works if you pulse carefully to avoid heating the herbs (which turns them brown).',
                 outcome: 'Electric bright green. If it turns olive-drab, the basil cooked from the blades\' heat.',
@@ -1551,7 +1597,7 @@
 
             // CHAPTER 7: Desserts
             {
-                id: 'cheesecake', cat: 'Ch 7: Desserts', title: 'Classic New York Cheesecake',
+                id: 'cheesecake', cat: 'Desserts', title: 'Classic New York Cheesecake',
                 img: 'New York Cheesecake',
                 intro: 'Cheesecake is a custard, not a cake. It demands a water bath (bain-marie) and a slow cool-down to prevent the dreaded "Grand Canyon" crack in the center.',
                 outcome: 'A dense, velvety texture with no graininess. The top should be flat and pale (no browning).',
@@ -1573,7 +1619,7 @@
                 ]
             },
             {
-                id: 'lava-cake', cat: 'Ch 7: Desserts', title: 'Molten Chocolate Lava Cake',
+                id: 'lava-cake', cat: 'Desserts', title: 'Molten Chocolate Lava Cake',
                 img: 'Lava Cake',
                 intro: 'This is not raw batter; it is a cake cooked on the outside and liquid on the inside due to thermodynamics. Timing is everything.',
                 outcome: 'firm walls that hold shape. When spooned, a river of hot chocolate lava should flow out slowly.',
@@ -1593,7 +1639,7 @@
                 ]
             },
             {
-                id: 'panna-cotta', cat: 'Ch 7: Desserts', title: 'Silky Vanilla Panna Cotta',
+                id: 'panna-cotta', cat: 'Desserts', title: 'Silky Vanilla Panna Cotta',
                 img: 'Panna Cotta',
                 intro: 'Panna Cotta means "Cooked Cream". It relies on gelatin, not eggs. The perfect panna cotta should wobble like a "woman\'s thigh" (old chef saying) and melt instantly on the tongue.',
                 outcome: 'Smooth, glass-like surface. It should jiggle when the plate is tapped, not stand rigid like rubber.',
@@ -1614,7 +1660,7 @@
                 ]
             },
             {
-                id: 'tiramisu', cat: 'Ch 7: Desserts', title: 'Classic Tiramisu',
+                id: 'tiramisu', cat: 'Desserts', title: 'Classic Tiramisu',
                 img: 'Tiramisu',
                 intro: 'No baking required. Just patience. We use raw egg yolks (pasteurized) for richness and Mascarpone. The coffee dip must be quick.',
                 outcome: 'Distinct layers. Ladyfingers should be moist but not mushy. Cream should be stiff enough to slice.',
@@ -1635,7 +1681,7 @@
                 ]
             },
             {
-                id: 'gulab-jamun', cat: 'Ch 7: Desserts', title: 'Gulab Jamun (Rose Dumplings)',
+                id: 'gulab-jamun', cat: 'Desserts', title: 'Gulab Jamun (Rose Dumplings)',
                 img: 'Gulab Jamun',
                 intro: 'The most famous Indian dessert. Milk solids (Khoya or Milk Powder) fried slowly until dark gold, then soaked in a rose-cardamom syrup.',
                 outcome: 'Spongy, not dense. When you bite, syrup should squeeze out. No hard center.',
@@ -1655,7 +1701,7 @@
                 ]
             },
             {
-                id: 'smashed-burger-core', cat: 'Ch 2: Mains', title: 'Smashed Burger (Core Method)',
+                id: 'smashed-burger-core', cat: 'Mains', title: 'Smashed Burger (Core Method)',
                 img: 'Smashed Burger',
                 intro: 'The core method of a classic smashed burger. Do NOT season the meat before cooking. Use 80–100 g minced meat balls and smash them on a smoking hot pan.',
                 outcome: 'A deeply crusted, juicy patty topped with house special burger sauce or savory-sweet burger jam on a toasted bun.',
@@ -1677,7 +1723,7 @@
                 ]
             },
             {
-                id: 'fried-chicken-burger', cat: 'Ch 2: Mains', title: 'Signature Fried Chicken Burger',
+                id: 'fried-chicken-burger', cat: 'Mains', title: 'Signature Fried Chicken Burger',
                 img: 'Fried Chicken Burger',
                 intro: 'A towering buttermilk fried chicken sandwich that balances a shatteringly crisp crust with juicy, tender meat and a spicy, tangy slaw.',
                 outcome: 'Deep golden brown, craggy crust masking a perfectly moist chicken thigh, nestled in a soft bun.',
@@ -1700,7 +1746,7 @@
                 ]
             },
             {
-                id: 'burger-buns-tangzhong', cat: 'Ch 5: Pizzas & Sides', title: 'Soft Burger Buns (Tangzhong)',
+                id: 'burger-buns-tangzhong', cat: 'Sides & Bread', title: 'Soft Burger Buns (Tangzhong)',
                 img: 'Burger Buns',
                 intro: 'These soft, fluffy burger buns use the Tangzhong method (a warm flour paste) to lock in moisture and keep the bread tender for days.',
                 outcome: 'Pillowy soft, golden brown buns that hold up perfectly to juicy smashed burgers.',
@@ -1722,7 +1768,7 @@
                 ]
             },
             {
-                id: 'special-burger-sauce', cat: 'Ch 6: Sauces', title: 'Special Burger Sauce',
+                id: 'special-burger-sauce', cat: 'Sauces & Jams', title: 'Special Burger Sauce',
                 img: 'Burger Sauce',
                 intro: 'A perfectly balanced, creamy, sweet, and tangy sauce designed for smashed burgers. You can customize it with bacon bits or chopped pickles.',
                 outcome: 'A creamy, sweet, and tangy sauce with a hint of acidity from the lemon and sharpness from the mustard.',
@@ -1743,7 +1789,7 @@
                 ]
             },
             {
-                id: 'burger-jam', cat: 'Ch 6: Sauces', title: 'Burger Jam (Savory-Sweet Bacon Onion)',
+                id: 'burger-jam', cat: 'Sauces & Jams', title: 'Burger Jam (Savory-Sweet Bacon Onion)',
                 img: 'Bacon Onion Jam',
                 intro: 'A smoky, sweet, and rich savory jam that elevates any burger. Rendered bacon fat and deeply caramelized onions are the stars here.',
                 outcome: 'A sticky, jam-like condiment that brings incredible depth to a smashed burger.',
@@ -1764,7 +1810,7 @@
                 ]
             },
             {
-                id: 'sticky-toffee-pudding-final', cat: 'Ch 7: Desserts', title: 'Sticky Toffee Pudding (Final Version)',
+                id: 'sticky-toffee-pudding-final', cat: 'Desserts', title: 'Sticky Toffee Pudding (Final Version)',
                 img: 'Sticky Toffee Pudding',
                 intro: 'A richer, smoother version of the classic British dessert featuring a warm date sponge cake drenched in a honey-sweetened toffee sauce.',
                 outcome: 'A dark, moist cake with deep caramel flavor from Medjool dates, extra butter, and a smooth honey-toffee sauce.',
