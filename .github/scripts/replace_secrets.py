@@ -31,9 +31,9 @@ def replace_secrets(file_path):
             val = os.environ.get(var_name)
             if val:
                 val = val.strip().strip("'").strip('"')
-                discovered_keys.append(f"{var_name} exists, length {len(val)}, starts with sk-: {val.startswith('sk-')}")
+                discovered_keys.append(f"{var_name} exists, length {len(val)}, starts with sk-: {val.startswith('sk-')}, first 5: {val[:5]}")
                 if val.startswith('sk-'):
-                    debug_logs.append(f"  FOUND valid {var_name}")
+                    debug_logs.append(f"  FOUND valid {var_name} (Length: {len(val)}, Prefix: {val[:5]})")
                     openai_key = val
                     break
                 
