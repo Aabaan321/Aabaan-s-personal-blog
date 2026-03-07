@@ -240,7 +240,8 @@
 
         .recipe-image-wrapper {
             width: 100%;
-            height: 480px;
+            height: auto;
+            max-height: 600px;
             border-radius: 30px;
             overflow: hidden;
             box-shadow: var(--shadow);
@@ -248,12 +249,17 @@
             margin-bottom: 2rem;
             position: relative;
             background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .recipe-image {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            max-height: 600px;
+            object-fit: contain;
+            border-radius: 30px;
             transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
@@ -1600,7 +1606,7 @@
             },
             {
                 id: 'lava-cake', cat: 'Desserts', title: 'Molten Chocolate Lava Cake',
-                img: 'recipe pictures/chocolate lava cake.jfif',
+                img: 'recipe pictures/chocolate lava cake 2.0.webp',
                 intro: 'This is not raw batter; it is a cake cooked on the outside and liquid on the inside due to thermodynamics. Timing is everything.',
                 outcome: 'firm walls that hold shape. When spooned, a river of hot chocolate lava should flow out slowly.',
                 meta: ['15m Prep', '12m Cook', '4 Servings'],
