@@ -1,0 +1,5 @@
+--- Processing main.js ---
+Checking Environment Variables...
+  WARNING: No OPENAI key starting with 'sk-' found.
+  Discovered potential keys: 
+INFO: No placeholders changed in main.js
