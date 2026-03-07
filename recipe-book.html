@@ -2204,7 +2204,12 @@
                                 const transcript = data.results.channels[0].alternatives[0].transcript;
                                 if (transcript) {
                                     input.value = transcript;
-                                    input.focus();
+
+                                    // Auto Send Feature
+                                    // ID maps btn -> Send Button
+                                    const sendBtnId = btnId.replace('mic-btn', 'chat-send');
+                                    const sendBtn = document.getElementById(sendBtnId);
+                                    if (sendBtn) sendBtn.click();
                                 }
                             }
 
@@ -2380,15 +2385,26 @@ RECIPE DATA: ${JSON.stringify(recipes)}
 
         // HELPER
         window.currentAudio = null; // Track current audio so we can stop it if a new one is played
+        window.currentPlayingBtn = null; // Track which button is currently active
 
         async function playTTS(text, btnElement) {
-            // Stop any currently playing audio
+            // If the same button is clicked while playing, STOP it.
+            if (window.currentAudio && window.currentPlayingBtn === btnElement) {
+                window.currentAudio.pause();
+                window.currentAudio = null;
+                window.currentPlayingBtn = null;
+                btnElement.classList.remove('playing');
+                btnElement.innerHTML = '<i class="fas fa-volume-up"></i>';
+                return; // Exit early, acting as a Stop button
+            }
+
+            // Otherwise, Stop any CURRENTLY playing audio (from another button)
             if (window.currentAudio) {
                 window.currentAudio.pause();
                 window.currentAudio = null;
             }
 
-            // Remove previous active button states
+            // Remove previous active button states globally
             document.querySelectorAll('.tts-btn').forEach(b => {
                 b.classList.remove('playing');
                 b.innerHTML = '<i class="fas fa-volume-up"></i>';
@@ -2398,8 +2414,8 @@ RECIPE DATA: ${JSON.stringify(recipes)}
             btnElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
             try {
-                // Strip HTML tags for clean reading
-                const cleanText = text.replace(/<[^>]*>?/gm, '');
+                // Strip HTML tags and markdown asterisks for clean reading
+                const cleanText = text.replace(/<[^>]*>?/gm, '').replace(/\*/g, '');
 
                 const response = await fetch('https://api.deepgram.com/v1/speak?model=aura-asteria-en', {
                     method: 'POST',
@@ -2418,13 +2434,16 @@ RECIPE DATA: ${JSON.stringify(recipes)}
                 window.currentAudio = audio;
 
                 audio.onplay = () => {
+                    window.currentPlayingBtn = btnElement;
                     btnElement.classList.remove('loading');
                     btnElement.classList.add('playing');
-                    btnElement.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    btnElement.innerHTML = '<i class="fas fa-stop"></i>'; // Change to Stop icon while playing
                 };
 
                 audio.onended = () => {
                     btnElement.classList.remove('playing');
+                    btnElement.innerHTML = '<i class="fas fa-volume-up"></i>'; // Revert back to speaker when done
+                    window.currentPlayingBtn = null;
                 };
 
                 audio.play();
