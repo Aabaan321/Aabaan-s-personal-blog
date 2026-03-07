@@ -2384,32 +2384,37 @@ RECIPE DATA: ${JSON.stringify(recipes)}
 
 
         // HELPER
-        window.currentAudio = null; // Track current audio so we can stop it if a new one is played
-        window.currentPlayingBtn = null; // Track which button is currently active
+        window.currentAudio = null; // Track currently playing audio
+        window.currentPlayingBtn = null; // Track currently active button
 
         async function playTTS(text, btnElement) {
-            // If the same button is clicked while playing, STOP it.
-            if (window.currentAudio && window.currentPlayingBtn === btnElement) {
+            // Stop any OTHER currently playing audio
+            if (window.currentAudio && window.currentPlayingBtn !== btnElement) {
                 window.currentAudio.pause();
-                window.currentAudio = null;
-                window.currentPlayingBtn = null;
-                btnElement.classList.remove('playing');
-                btnElement.innerHTML = '<i class="fas fa-volume-up"></i>';
-                return; // Exit early, acting as a Stop button
+                if (window.currentPlayingBtn) {
+                    window.currentPlayingBtn.classList.remove('playing');
+                    window.currentPlayingBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }
             }
 
-            // Otherwise, Stop any CURRENTLY playing audio (from another button)
-            if (window.currentAudio) {
-                window.currentAudio.pause();
-                window.currentAudio = null;
+            // If THIS button already has an audio object fetched
+            if (btnElement.audioObj) {
+                window.currentAudio = btnElement.audioObj;
+                window.currentPlayingBtn = btnElement;
+
+                if (btnElement.audioObj.paused) {
+                    // If it ended, restart from 0
+                    if (btnElement.audioObj.currentTime === btnElement.audioObj.duration || btnElement.audioObj.ended) {
+                        btnElement.audioObj.currentTime = 0;
+                    }
+                    btnElement.audioObj.play();
+                } else {
+                    btnElement.audioObj.pause();
+                }
+                return;
             }
 
-            // Remove previous active button states globally
-            document.querySelectorAll('.tts-btn').forEach(b => {
-                b.classList.remove('playing');
-                b.innerHTML = '<i class="fas fa-volume-up"></i>';
-            });
-
+            // Otherwise, we need to FETCH the audio
             btnElement.classList.add('loading');
             btnElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
@@ -2431,19 +2436,26 @@ RECIPE DATA: ${JSON.stringify(recipes)}
                 const audioBlob = await response.blob();
                 const audioUrl = URL.createObjectURL(audioBlob);
                 const audio = new Audio(audioUrl);
+
+                // Save it to the button so we don't fetch again
+                btnElement.audioObj = audio;
                 window.currentAudio = audio;
+                window.currentPlayingBtn = btnElement;
 
                 audio.onplay = () => {
-                    window.currentPlayingBtn = btnElement;
                     btnElement.classList.remove('loading');
                     btnElement.classList.add('playing');
-                    btnElement.innerHTML = '<i class="fas fa-stop"></i>'; // Change to Stop icon while playing
+                    btnElement.innerHTML = '<i class="fas fa-pause"></i>';
+                };
+
+                audio.onpause = () => {
+                    btnElement.classList.remove('playing');
+                    btnElement.innerHTML = '<i class="fas fa-play"></i>';
                 };
 
                 audio.onended = () => {
                     btnElement.classList.remove('playing');
-                    btnElement.innerHTML = '<i class="fas fa-volume-up"></i>'; // Revert back to speaker when done
-                    window.currentPlayingBtn = null;
+                    btnElement.innerHTML = '<i class="fas fa-volume-up"></i>';
                 };
 
                 audio.play();
