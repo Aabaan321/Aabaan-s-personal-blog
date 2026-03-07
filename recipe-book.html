@@ -445,7 +445,7 @@
         /* CHATBOTS */
         #chatbot-custom {
             position: fixed;
-            bottom: 170px;
+            bottom: 190px;
             right: 30px;
             top: auto;
             left: auto;
@@ -455,7 +455,7 @@
 
         #chatbot-main {
             position: fixed;
-            bottom: 100px;
+            bottom: 110px;
             right: 30px;
             z-index: 100000;
             font-family: 'Inter', sans-serif;
@@ -468,6 +468,7 @@
             right: 70px;
             /* Open to the left */
             left: auto;
+            max-height: calc(100vh - 140px);
             transform-origin: bottom right;
             transform: translateX(20px) scale(0.95);
         }
@@ -483,6 +484,7 @@
             right: 70px;
             /* Open to the left */
             left: auto;
+            max-height: calc(100vh - 220px);
             transform-origin: bottom right;
             transform: translateX(20px) scale(0.95);
         }
@@ -694,10 +696,25 @@
             }
 
             /* Mobile Chatbot Adjustments */
-            #chatbot-custom,
-            #chatbot-main {
+            .action-fab {
+                width: 50px;
+                height: 50px;
                 bottom: 20px;
                 right: 20px;
+                font-size: 1.2rem;
+            }
+
+            #chatbot-custom,
+            #chatbot-main {
+                right: 20px;
+            }
+
+            #chatbot-main {
+                bottom: 80px;
+            }
+
+            #chatbot-custom {
+                bottom: 140px;
             }
 
             .chatbot-toggle {
