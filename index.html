@@ -102,7 +102,7 @@
                 </div>
                 <div class="reveal reveal-delay-4" style="margin-top: 1.2rem;">
                     <a href="#cv" class="btn-cv-hero" id="hero-cv-btn"
-                        onclick="document.getElementById('btn-download-cv').click(); return false;">
+                        onclick="document.getElementById('btn-preview-cv').click(); return false;">
                         <i class="fas fa-file-arrow-down"></i> Download My CV
                     </a>
                 </div>
@@ -130,7 +130,7 @@
                         Currently in 11th IGCSE at Providence English School, Sharjah, graduating Jun 2026. Outside of
                         code, I'm passionate about culinary arts, swimming, and robotics exploration.</p>
                 </div>
-                                <div class="skills-container reveal reveal-delay-3">
+                <div class="skills-container reveal reveal-delay-3">
 
                     <div class="skill-chip"><i class="fab fa-python"></i> Python</div>
 
@@ -151,25 +151,25 @@
                 </div>
 
             </div>
+        </div>
+        <div class="stats-row reveal reveal-delay-4">
+            <div class="stat-item">
+                <span class="stat-number" data-target="25" data-suffix="+">0</span>
+                <span class="stat-label">Games Built</span>
             </div>
-            <div class="stats-row reveal reveal-delay-4">
-                <div class="stat-item">
-                    <span class="stat-number" data-target="25" data-suffix="+">0</span>
-                    <span class="stat-label">Games Built</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="5" data-suffix="">0</span>
-                    <span class="stat-label">Major AI Projects</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="6" data-suffix=" mo">0</span>
-                    <span class="stat-label">Agentyne Internship</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-target="1" data-suffix="st">0</span>
-                    <span class="stat-label">Place Science Fair</span>
-                </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="5" data-suffix="">0</span>
+                <span class="stat-label">Major AI Projects</span>
             </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="6" data-suffix=" mo">0</span>
+                <span class="stat-label">Agentyne Internship</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="1" data-suffix="st">0</span>
+                <span class="stat-label">Place Science Fair</span>
+            </div>
+        </div>
         </div>
     </section>
 
@@ -216,7 +216,8 @@
                         <div class="project-tags">
                             <span>Competitive</span><span>PC Gaming</span><span>Esports</span>
                         </div>
-                        <a href="gaming.html" class="project-link">Explore <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://aabaan321.github.io/gameverse/" target="_blank" class="project-link">Play
+                            GameVerse <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
 
@@ -439,10 +440,12 @@
                 <p class="section-subtitle">Get a comprehensive overview of my skills, experience, and vision in a
                     single document.</p>
                 <div class="cv-buttons">
-                    <a href="aabaan cv/developer_portfolio_resume (1).html" target="_blank" class="btn-primary" id="btn-download-cv" onclick="window.open(this.href); return false;">
+                    <a href="aabaan cv/developer_portfolio_resume (1).html" target="_blank" class="btn-primary"
+                        id="btn-download-cv">
                         <i class="fas fa-eye"></i> View CV
                     </a>
-                    <a href="aabaan cv/developer_portfolio_resume (1).html" target="_blank" class="btn-ghost" id="btn-preview-cv" onclick="var w=window.open(this.href); setTimeout(function(){w.print()},1000); return false;">
+                    <a href="aabaan cv/developer_portfolio_resume (1).html#download=true" target="_blank"
+                        class="btn-ghost" id="btn-preview-cv">
                         <i class="fas fa-download"></i> Download PDF
                     </a>
                 </div>

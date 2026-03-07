@@ -2,423 +2,909 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Developer Portfolio Resume</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aabaan Rahil Ghaffar - Curriculum Vitae</title>
+    <!-- Modern professional fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <style>
-    :root {
-      --bg: #f4f6f8;
-      --card: #ffffff;
-      --primary: #193554;
-      --text: #0f172a;
-      --muted: #475569;
-    }
+    <style>
+        :root {
+            /* Sleek professional dark theme */
+            --bg-body: #0a0f1a;
+            --bg-card: #151e2e;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --text-light: #64748b;
+            --accent: #3b82f6;
+            --accent-light: #172554;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            --radius-md: 12px;
+            --radius-sm: 8px;
+        }
 
-    body.dark {
-      --bg: #0b1220;
-      --card: #111827;
-      --primary: #3b82f6;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      transition: .3s
-    }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-main);
+        }
 
-    .container {
-      max-width: 1100px;
-      margin: 40px auto;
-      background: var(--card);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, .15);
-      display: flex;
-      flex-wrap: wrap;
-    }
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
 
-    .sidebar {
-      width: 30%;
-      background: var(--primary);
-      color: white;
-      padding: 40px 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      /* align content to top */
-      gap: 8px;
-      /* subtle spacing between sidebar blocks */
-    }
+        .controls {
+            max-width: 1000px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
 
-    .profile {
-      text-align: center;
-      margin-bottom: 28px
-    }
+        .btn {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+        }
 
-    .profile-photo {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 15px auto;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3px solid rgba(255, 255, 255, 0.9);
-    }
+        .btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
 
-    .profile-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 25%;
-    }
+        .btn.primary {
+            background-color: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+        }
 
-    .profile h2 {
-      font-size: 28px;
-      font-weight: 600;
-      line-height: 1.2;
-    }
+        .btn.primary:hover {
+            background-color: #1d4ed8;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
 
-    .profile-role {
-      font-size: 12px;
-      letter-spacing: 3px;
-      opacity: .85;
-      margin-top: 10px;
-    }
+        .resume-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--bg-card);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
 
-    .profile-divider {
-      width: 40px;
-      height: 2px;
-      background: rgba(255, 255, 255, 0.6);
-      margin: 12px auto 6px auto;
-      border-radius: 2px;
-    }
+        /* Resume Grid Layout */
+        .resume-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 1100px;
+            /* Force good proportion */
+        }
 
+        /* Sidebar Styling */
+        .sidebar {
+            background-color: var(--accent-light);
+            padding: 45px 35px;
+            border-right: 1px solid var(--border);
+        }
 
-    .section {
-      margin-top: 22px
-    }
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 45px;
+        }
 
-    .section h3 {
-      margin-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, .3);
-      padding-bottom: 5px
-    }
+        .profile-img {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 20%;
+            border: 5px solid var(--bg-card);
+            box-shadow: var(--shadow);
+            margin-bottom: 22px;
+            transition: transform 0.3s ease;
+            background-color: var(--border);
+            /* fallback for img */
+        }
 
-    .section p,
-    .section a {
-      font-size: 13px;
-      color: #e5e7eb;
-      text-decoration: none;
-      display: block;
-      margin: 6px 0
-    }
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
 
-    .skill {
-      margin: 10px 0
-    }
+        .profile-name {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
 
-    .bar {
-      background: rgba(255, 255, 255, .3);
-      height: 6px;
-      border-radius: 6px
-    }
+        .profile-title {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+        }
 
-    .bar span {
-      display: block;
-      height: 6px;
-      background: white;
-      border-radius: 6px
-    }
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+        }
 
-    .content {
-      width: 70%;
-      padding: 40px
-    }
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            padding: 10px 14px;
+            background-color: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            text-decoration: none;
+            font-weight: 500;
+        }
 
-    .content h2 {
-      margin-bottom: 14px;
-      font-weight: 600;
-      letter-spacing: .3px;
-    }
+        .contact-link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
 
-    .content h3 {
-      margin-top: 34px;
-      margin-bottom: 12px;
-      font-weight: 600;
-      letter-spacing: .2px;
-    }
+        .contact-link i {
+            color: var(--accent);
+            width: 18px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
 
-    .content p {
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 14px
-    }
+        .sidebar-section {
+            margin-bottom: 40px;
+        }
 
-    .project {
-      margin-top: 20px;
-      padding: 18px;
-      border-left: 4px solid var(--primary);
-      background: rgba(0, 0, 0, .02)
-    }
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            position: relative;
+        }
 
-    .project h4 {
-      margin-bottom: 8px
-    }
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 45px;
+            height: 2px;
+            background-color: var(--accent);
+        }
 
-    .project ul {
-      padding-left: 18px;
-      margin-top: 8px
-    }
+        .skill-group {
+            margin-bottom: 22px;
+        }
 
-    .project li {
-      margin-bottom: 6px;
-      color: var(--muted)
-    }
+        .skill-group h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            letter-spacing: 1.2px;
+        }
 
-    .topbar {
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      padding: 10px 20px;
-    }
+        .skill-item {
+            margin-bottom: 15px;
+        }
 
-    button {
-      padding: 8px 14px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: var(--primary);
-      color: white;
-    }
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
 
-    /* Print optimization */
-    @media print {
-      body {
-        background: white
-      }
+        .skill-bar-bg {
+            height: 8px;
+            background-color: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
 
-      .topbar {
-        display: none
-      }
+        .skill-bar-fill {
+            height: 100%;
+            background-color: var(--accent);
+            border-radius: 4px;
+            transform-origin: left;
+            animation: slideIn 1.2s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+        }
 
-      /* Prevent flex layout issues in PDF */
-      .container {
-        display: block;
-        margin: 0;
-        box-shadow: none;
-        max-width: 100%;
-      }
+        @keyframes slideIn {
+            from {
+                transform: scaleX(0);
+            }
 
-      .sidebar {
-        width: 30%;
-        float: left;
-        min-height: 100vh;
-        page-break-inside: avoid;
-      }
+            to {
+                transform: scaleX(1);
+            }
+        }
 
-      .content {
-        width: 70%;
-        float: right;
-        page-break-inside: auto;
-      }
+        .badge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-      /* Avoid section splitting across pages */
-      h2,
-      h3 {
-        page-break-after: avoid;
-      }
+        .badge {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+        }
 
-      .project {
-        page-break-inside: avoid;
-      }
+        .badge:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background-color: var(--bg-body);
+        }
 
-      /* Ensure Projects starts cleanly */
-      .projects-section {
-        page-break-before: auto;
-        border-top: 2px solid #e5e7eb;
-        padding-top: 12px;
-      }
-    }
+        /* Main Content Styling */
+        .main-content {
+            padding: 55px;
+        }
 
-    .topbar {
-      display: none
-    }
+        .section {
+            margin-bottom: 45px;
+        }
 
-    .container {
-      margin: 0;
-      box-shadow: none;
-      max-width: 100%;
-    }
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
 
-    .sidebar {
-      min-height: 100vh;
-    }
-    }
+        .section-title i {
+            color: var(--accent);
+            background-color: var(--accent-light);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            font-size: 1.2rem;
+            box-shadow: var(--shadow);
+        }
 
-    @media(max-width:900px) {
+        .about-text {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
 
-      .sidebar,
-      .content {
-        width: 100%
-      }
-    }
-  </style>
+        /* Interactive Timeline Cards */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            transition: all 0.3s cubic-bezier(0.1, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background-color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            gap: 20px;
+        }
+
+        .card-title-wrapper {
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .card-subtitle {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-date {
+            background-color: var(--accent-light);
+            color: var(--text-muted);
+            padding: 5px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            border: 1px solid var(--border);
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .feature-item {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.5;
+        }
+
+        .feature-item i {
+            color: var(--accent);
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border);
+        }
+
+        .tag {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background-color: var(--bg-body);
+            border: 1px solid var(--border);
+            padding: 5px 12px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+        }
+
+        .tag:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Minor Projects Grid Layout */
+        .minor-projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .minor-card {
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background-color: var(--bg-card);
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .minor-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .minor-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .minor-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        /* PDF Optimization using @media print */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            body {
+                background-color: var(--bg-body);
+                padding: 0;
+            }
+
+            .controls {
+                display: none !important;
+            }
+
+            .resume-wrapper {
+                box-shadow: none !important;
+                border: none !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+            }
+        }
+
+        /* Responsive Layouts */
+        @media screen and (max-width: 880px) {
+            .resume-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .minor-projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 40px 25px;
+            }
+
+            .card-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <div class="topbar">
-    <button onclick="toggleTheme()">Toggle Theme</button>
-    <button onclick="window.print()">Download PDF</button>
-  </div>
+    <div class="controls">
+        <button class="btn primary" onclick="window.print()">
+            <i class="fa-solid fa-download"></i> Download PDF
+        </button>
+    </div>
+    <script>
+        // Auto print if URL has #download=true
+        if (window.location.hash.includes('download=true')) {
+            window.addEventListener('load', () => {
+                setTimeout(() => window.print(), 1000); // Wait for images
+            });
+        }
+    </script>
 
-  <div class="container">
+    <div class="resume-wrapper">
+        <div class="resume-grid">
 
-    <div class="sidebar">
-      <div class="profile">
-        <div class="profile-photo">
-          <img src="aabaan2.O.jpeg" alt="profile">
+            <!-- Sidebar / Details Details -->
+            <aside class="sidebar">
+                <div class="profile-section">
+                    <img src="aabaan2.O.jpeg" alt="Aabaan Rahil Ghaffar" class="profile-img"
+                        onerror="this.src='https://ui-avatars.com/api/?name=Aabaan+Rahil&size=200&background=2563eb&color=fff'">
+                    <h1 class="profile-name">Aabaan Rahil<br>Ghaffar</h1>
+                    <div class="profile-title">Student Developer</div>
+
+                    <div class="contact-links">
+                        <a href="https://abaanrg.com" target="_blank" class="contact-link">
+                            <i class="fa-solid fa-globe"></i> abaanrg.com
+                        </a>
+                        <a href="https://github.com/Aabaan321" target="_blank" class="contact-link">
+                            <i class="fa-brands fa-github"></i> github.com/Aabaan321
+                        </a>
+                        <a href="https://neuroforge.online" target="_blank" class="contact-link">
+                            <i class="fa-solid fa-link"></i> neuroforge.online
+                        </a>
+                        <div class="contact-link" style="pointer-events: none;">
+                            <i class="fa-solid fa-location-dot"></i> Dubai, UAE
+                        </div>
+                        <a href="mailto:aabaangr@gmail.com" class="contact-link">
+                            <i class="fa-solid fa-envelope"></i> aabaangr@gmail.com
+                        </a>
+                        <a href="mailto:aabaanrahil@gmail.com" class="contact-link">
+                            <i class="fa-solid fa-envelope"></i> aabaanrahil@gmail.com
+                        </a>
+                        <a href="tel:+971 55 1212310" class="contact-link">
+                            <i class="fa-solid fa-phone"></i> +971 55 1212310
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Core Skills</h3>
+
+                    <div class="skill-group">
+                        <h4>Expertise</h4>
+                        <div class="skill-item">
+                            <div class="skill-label"><span>Vibe Coding</span> <span>95%</span></div>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-label"><span>Workflow Automation</span> <span>90%</span></div>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-label"><span>AI System Integration</span> <span>88%</span></div>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill" style="width: 88%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-label"><span>CI/CD Pipelines</span> <span>82%</span></div>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill" style="width: 82%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-group">
+                        <h4>Technologies</h4>
+                        <div class="skill-item">
+                            <div class="skill-label"><span>Python</span> <span>78%</span></div>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill" style="width: 78%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-label"><span>HTML / CSS / JS</span> <span>72%</span></div>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill" style="width: 72%;"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-label"><span>Next.js / TypeScript</span> <span>65%</span></div>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill" style="width: 65%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Hobbies</h3>
+                    <div class="badge-list">
+                        <span class="badge">🏊 Swimming</span>
+                        <span class="badge">🍳 Culinary Arts</span>
+                        <span class="badge">🤖 Robotics</span>
+                        <span class="badge">🥊 Boxing</span>
+                        <span class="badge">🏀 Basketball</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Key Numbers</h3>
+                    <div class="badge-list" style="flex-direction: column; gap: 10px;">
+                        <span style="font-size: 0.9rem; color: var(--text-main); font-weight: 500;"><i
+                                class="fa-solid fa-code-branch" style="color:var(--accent); width:24px;"></i> 15+ GitHub
+                            Repos</span>
+                        <span style="font-size: 0.9rem; color: var(--text-main); font-weight: 500;"><i
+                                class="fa-solid fa-briefcase" style="color:var(--accent); width:24px;"></i> 6 Months Pro
+                            Experience</span>
+                        <span style="font-size: 0.9rem; color: var(--text-main); font-weight: 500;"><i
+                                class="fa-solid fa-gamepad" style="color:var(--accent); width:24px;"></i> 25+ Games
+                            Built</span>
+                        <span style="font-size: 0.9rem; color: var(--text-main); font-weight: 500;"><i
+                                class="fa-solid fa-rocket" style="color:var(--accent); width:24px;"></i> 3 Live
+                            Products</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Major Professional Content -->
+            <main class="main-content">
+
+                <section class="section">
+                    <h2 class="section-title"><i class="fa-solid fa-user-tie"></i> Professional Summary</h2>
+                    <p class="about-text">
+                        I am a <strong>student developer</strong> based in Dubai, UAE with a deep obsession for
+                        artificial intelligence, automation, and building practical systems that solve real problems. I
+                        architect complete products, not just code, and have successfully shipped <strong>three live
+                            platforms</strong> from scratch: a full-stack AI hub with autonomous voice telephony, a 25+
+                        game gesture-controlled browser ecosystem, and an interactive personal website acting as a
+                        digital twin.
+                    </p>
+                    <p class="about-text">
+                        My approach focuses on fast iteration and deep technical integrations, spanning designing
+                        access-controlled tiered routing, engineering real-time phoneline AI layers, to constructing
+                        robust drag-and-drop workflow builders.
+                    </p>
+                    <p class="about-text">
+                        Currently balancing my 11th Grade IGCSE academics, I intend to pursue higher engineering
+                        education in universities focusing on AI & robotics. I recently achieved <strong>1st
+                            Place</strong> at a regional Science Fair by building and programming a decision-AI robot.
+                    </p>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title"><i class="fa-solid fa-building-user"></i> Work Experience</h2>
+                    <div class="timeline">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrapper">
+                                    <h3 class="card-title">Junior Engineer</h3>
+                                    <div class="card-subtitle"><i class="fa-solid fa-building"></i> Agentyne</div>
+                                </div>
+                                <div class="card-date">Aug 2025 — Feb 2026</div>
+                            </div>
+                            <p class="card-desc">Worked within a professional AI engineering team — contributing to
+                                real-world AI systems from prototype through to final deployment. Successfully gained
+                                professional insights into structured development workflows, cross-team technical
+                                communication, and production-grade engineering practices.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Education</h2>
+                    <div class="timeline">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrapper">
+                                    <h3 class="card-title">11th Grade · IGCSE</h3>
+                                    <div class="card-subtitle"><i class="fa-solid fa-school"></i> Providence English
+                                        School · Sharjah, UAE</div>
+                                </div>
+                                <div class="card-date">Graduating Jun 2026</div>
+                            </div>
+                            <p class="card-desc">Maintaining full academics alongside independent full-stack product
+                                development and internship experience. Cambridge Cooking Certificate holder and awarded
+                                1st Place Science Fair robotics achievement.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title"><i class="fa-solid fa-laptop-code"></i> Main Projects</h2>
+                    <div class="timeline">
+
+                        <!-- NeuroforgAI -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrapper">
+                                    <h3 class="card-title">NeuroforgAI — Full-Stack AI Platform</h3>
+                                    <div class="card-subtitle"><i class="fa-solid fa-brain"></i> Live Deployment:
+                                        neuroforge.online</div>
+                                </div>
+                            </div>
+                            <p class="card-desc">A comprehensive full-stack AI platform built from the ground up,
+                                centralizing multimodal AI utilities, autonomous voice agents, drag-and-drop automation
+                                pipelines, and an AI-driven website builder into one secure dashboard running on a
+                                dual-server architecture.</p>
+                            <ul class="feature-list">
+                                <li class="feature-item"><i class="fa-solid fa-check"></i> <strong>AI Multimodal
+                                        Hub:</strong> Supports multiple leading AI backends for text/chat,
+                                    transcription, and rich vision analysis tools (OCR/Emotions).</li>
+                                <li class="feature-item"><i class="fa-solid fa-check"></i> <strong>VoiceX Telephony
+                                        Engine:</strong> Real-time programmable AI phone calling infrastructure with
+                                    latency, billing metrics, and full transcription.</li>
+                                <li class="feature-item"><i class="fa-solid fa-check"></i>
+                                    <strong>ForgeBuilder:</strong> AI-powered dynamic website compiler enabling fast
+                                    prototypes directly from prompts with deep customization.
+                                </li>
+                                <li class="feature-item"><i class="fa-solid fa-check"></i> <strong>Secure
+                                        Architecture:</strong> Dollar-capped scalable tiered API key issuance managed
+                                    via Prisma ORM safely mapped server-side.</li>
+                            </ul>
+                            <div class="card-tags">
+                                <span class="tag">Next.js 14</span>
+                                <span class="tag">TypeScript</span>
+                                <span class="tag">Turborepo</span>
+                                <span class="tag">Prisma ORM</span>
+                                <span class="tag">Voice Telephony APIs</span>
+                            </div>
+                        </div>
+
+                        <!-- Gameverse -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrapper">
+                                    <h3 class="card-title">Gameverse — Interaction Ecosystem</h3>
+                                    <div class="card-subtitle"><i class="fa-solid fa-gamepad"></i> Live Deployment: <a
+                                            href="https://aabaan321.github.io/gameverse/" target="_blank"
+                                            style="color: inherit; text-decoration: underline;">aabaan321.github.io/gameverse</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-desc">A fully browser-based gaming ecosystem containing over 25 original
+                                titles without necessitating downloads. Built with real-time hardware gesture and facial
+                                tracking enabling full-body physical gameplay interactivity natively in the browser
+                                view.</p>
+                            <ul class="feature-list">
+                                <li class="feature-item"><i class="fa-solid fa-check"></i> <strong>25+ Native
+                                        Games:</strong> Built a broad portfolio, including QuantumCanvas, seamlessly
+                                    rendered in standardized desktop browsers.</li>
+                                <li class="feature-item"><i class="fa-solid fa-check"></i> <strong>Real-Time Physical
+                                        Gestures:</strong> Hardware integration allowing players to manipulate logic
+                                    cleanly through hand and body configurations.</li>
+                            </ul>
+                            <div class="card-tags">
+                                <span class="tag">HTML5 / CSS3 / JS</span>
+                                <span class="tag">Computer Vision</span>
+                                <span class="tag">Body Gestures</span>
+                                <span class="tag">Canvas APIs</span>
+                            </div>
+                        </div>
+
+                        <!-- Personal Website -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title-wrapper">
+                                    <h3 class="card-title">Interactive Development Portfolio</h3>
+                                    <div class="card-subtitle"><i class="fa-solid fa-globe"></i> Hub Endpoint:
+                                        abaanrg.com</div>
+                                </div>
+                            </div>
+                            <p class="card-desc">An automated, fully responsive digital portfolio equipped with an
+                                embedded AI assistant functioning identically to a 24/7 personal digital twin.</p>
+                            <ul class="feature-list">
+                                <li class="feature-item"><i class="fa-solid fa-check"></i> <strong>AI Digital Twin
+                                        Chatbot:</strong> Implemented real-time dynamic streaming text generation with a
+                                    complex personalized context system prompt.</li>
+                                <li class="feature-item"><i class="fa-solid fa-check"></i> <strong>Automated Devops
+                                        Pipelines:</strong> Engineered Python injection scripts strictly integrated via
+                                    GitHub Actions to deploy without exposing hard credentials.</li>
+                            </ul>
+                            <div class="card-tags">
+                                <span class="tag">LLM Integration</span>
+                                <span class="tag">CI/CD Deployments</span>
+                                <span class="tag">Python</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="section-title" style="margin-top: 45px; font-size: 1.4rem;"><i
+                            class="fa-solid fa-layer-group"></i> Additional Endeavours & Applications</h3>
+                    <div class="minor-projects-grid">
+                        <div class="minor-card">
+                            <h4 class="minor-title">Human-Like AI Conversational Agent</h4>
+                            <p class="minor-desc">A deep-learning enabled AI designed comprehensively as an interactive
+                                tutor capable of smooth speech-to-text contextual conversions and organic audible
+                                responses.</p>
+                            <div class="card-tags" style="border-top: none; padding-top: 0; margin-top: 5px;"><span
+                                    class="tag">Python</span><span class="tag">NLP</span></div>
+                        </div>
+                        <div class="minor-card">
+                            <h4 class="minor-title">Structured Complaint Track System</h4>
+                            <p class="minor-desc">An issue-management tracking backbone enforcing guided workflow
+                                resolutions to drastically clarify issues while scaling up the system reliably.</p>
+                            <div class="card-tags" style="border-top: none; padding-top: 0; margin-top: 5px;"><span
+                                    class="tag">Internal Dev</span><span class="tag">Workflow Logic</span></div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
         </div>
-        <h2>Aabaan Rahil<br>Ghaffar</h2>
-        <div class="profile-divider"></div>
-        <p class="profile-role">STUDENT DEVELOPER</p>
-      </div>
-
-      <div class="section">
-        <h3>Details</h3>
-        <p>Dubai, UAE</p>
-        <p>Indian</p>
-      </div>
-
-      <div class="section">
-        <h3>Links</h3>
-        <a href="https://abaanrg.com">abaanrg.com</a>
-        <a href="https://neuroforge.online">neuroforge.online</a>
-        <a href="https://github.com/abaanrg321">GitHub Portfolio</a>
-      </div>
-
-      <div class="section">
-        <h3>Skills</h3>
-        <div class="skill">Python<div class="bar"><span style="width:85%"></span></div>
-        </div>
-        <div class="skill">HTML/CSS<div class="bar"><span style="width:80%"></span></div>
-        </div>
-        <div class="skill">AI Systems<div class="bar"><span style="width:82%"></span></div>
-        </div>
-        <div class="skill">Automation<div class="bar"><span style="width:78%"></span></div>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>Extracurricular Activities</h3>
-        <p>Swimming</p>
-        <p>Culinary Arts</p>
-        <p>Robotics Exploration</p>
-      </div>
     </div>
 
-    <div class="content">
-
-      <h2>Profile</h2>
-      <p>
-        I am a student developer interested in artificial intelligence, robotics, and building practical systems that
-        solve real‑world problems. My approach focuses on experimentation and hands‑on development, with an emphasis on
-        creating functional systems rather than purely theoretical work. Through independent projects and professional
-        experience, I have developed skills in AI agents, automation workflows, software development, and human‑centered
-        design.
-      </p>
-      <p>
-        I built NeuroForge, an AI platform exploring conversational interaction and intelligent automation, where I
-        designed workflows, integrated multiple technologies, and refined system behavior through testing and iteration.
-        Alongside this, my personal platform serves as a hub for projects demonstrating full‑cycle development — from
-        concept and design to deployment and continuous improvement.
-      </p>
-      <p>
-        My work reflects a learn‑by‑building mindset, strengthened through debugging complex systems, optimizing
-        performance, and structuring scalable architectures. I aim to pursue higher education to deepen my understanding
-        of AI and robotics while contributing to meaningful technological innovation.
-      </p>
-
-      <h3>Education</h3>
-      <p><strong>11th IGCSE, Providence English School, Sharjah</strong><br>
-        <span style="font-size:12px;color:var(--muted);">Completion date: Jun 2026</span>
-      </p>
-
-      <h3>Employment History</h3>
-      <p><strong>Junior Engineer, Agentyne, Dubai</strong><br>
-        <span style="font-size:12px;color:var(--muted);">Aug 2025 – Feb 2026</span><br>
-        I also completed a six‑month internship as a Junior Engineer at Agentyne, where I gained practical exposure to
-        real‑world development workflows, collaboration within technical teams, and applied problem‑solving in a
-        professional environment. This experience strengthened my understanding of how AI systems and software projects
-        move from concept to implementation, while improving my technical communication, adaptability, and ability to
-        work within structured engineering processes.
-      </p>
-
-      <h3 class="projects-section">Projects</h3>
-
-      <div class="project">
-        <h4>Gameverse – Gesture‑Controlled Interactive Gaming Platform</h4>
-        <ul>
-          <li>Created a browser‑based gaming ecosystem featuring 25+ original games.</li>
-          <li>Built real‑time gesture‑controlled experiences using hand and body tracking.</li>
-          <li>Designed modular architecture allowing scalable expansion and future integration.</li>
-          <li>Optimized gesture detection for smooth, low‑latency gameplay.</li>
-        </ul>
-      </div>
-
-      <div class="project">
-        <h4>Neuroforge AI – AI Platform</h4>
-        <ul>
-          <li>Developed an AI platform enabling conversational interaction and intelligent task execution.</li>
-          <li>Designed backend architecture and integrated AI workflows end‑to‑end.</li>
-          <li>Deployed and maintained a live production environment.</li>
-        </ul>
-      </div>
-
-      <div class="project">
-        <h4>Human‑Like Conversational AI Agent</h4>
-        <ul>
-          <li>Built a speech‑enabled AI capable of natural, context‑aware conversations.</li>
-          <li>Designed the system as an interactive digital tutor.</li>
-          <li>Integrated dialogue handling, response generation, and speech pipelines.</li>
-        </ul>
-      </div>
-
-      <div class="project">
-        <h4>Ticketing & Structured Complaint Management System</h4>
-        <ul>
-          <li>Developed a structured ticketing system improving clarity in issue reporting.</li>
-          <li>Implemented guided workflows and organized tracking logic.</li>
-        </ul>
-      </div>
-
-      <div class="project">
-        <h4>Personal Portfolio Website</h4>
-        <ul>
-          <li>Designed and deployed a responsive website showcasing AI projects and experiments.</li>
-          <li>Integrated live demonstrations and continuous updates.</li>
-        </ul>
-      </div>
-
-    </div>
-
-  </div>
-
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle('dark');
-    }
-  </script>
-
+    <script>
+        // Ensure image URL handles missing photo gracefully
+        document.addEventListener('DOMContentLoaded', () => {
+            const img = document.querySelector('.profile-img');
+            img.onerror = function () {
+                this.onerror = null; // Prevent infinite loops
+                this.src = "https://ui-avatars.com/api/?name=Aabaan+Rahil&size=200&background=2563eb&color=fff";
+            };
+        });
+    </script>
 </body>
 
 </html>
