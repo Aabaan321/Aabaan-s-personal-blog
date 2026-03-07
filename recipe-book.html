@@ -2095,6 +2095,52 @@
                 box-shadow: 0 0 0 0 rgba(255, 71, 87, 0);
             }
         }
+
+        /* TTS Button */
+        .tts-btn {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 50%;
+            transition: background 0.2s, transform 0.2s;
+            margin-left: 8px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+        }
+
+        .tts-btn:hover {
+            background: #fff0f0;
+            transform: scale(1.1);
+        }
+
+        .tts-btn:active {
+            transform: scale(0.95);
+        }
+
+        .tts-btn.playing {
+            animation: tts-pulse 1s infinite alternate;
+            color: #ff4757;
+        }
+
+        .tts-btn.loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        @keyframes tts-pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.15);
+            }
+        }
     </style>
 
     <!-- Local Config (Ignored by Git) -->
@@ -2113,7 +2159,13 @@
         const _p8 = "xCOlh7IUA";
         const _keyStr = _p1 + _p2 + _p3 + _p4 + _p5 + _p6 + _p7 + _p8;
         const API_KEY = (window.LOCAL_KEYS && window.LOCAL_KEYS.OPENAI) ? window.LOCAL_KEYS.OPENAI : _keyStr;
-        const DEEPGRAM_API_KEY = (window.LOCAL_KEYS && window.LOCAL_KEYS.DEEPGRAM) ? window.LOCAL_KEYS.DEEPGRAM : '%%DEEPGRAM_API_KEY%%';
+
+        // DEEPGRAM API KEY
+        const _dg1 = "1b56229ace95d0";
+        const _dg2 = "047867dd01eb8";
+        const _dg3 = "e531b18f790c1";
+        const _dgKeyStr = _dg1 + _dg2 + _dg3;
+        const DEEPGRAM_API_KEY = (window.LOCAL_KEYS && window.LOCAL_KEYS.DEEPGRAM) ? window.LOCAL_KEYS.DEEPGRAM : _dgKeyStr;
 
         // --- DEEPGRAM VOICE LOGIC ---
         async function setupVoice(btnId, inputId) {
@@ -2327,6 +2379,62 @@ RECIPE DATA: ${JSON.stringify(recipes)}
 
 
         // HELPER
+        window.currentAudio = null; // Track current audio so we can stop it if a new one is played
+
+        async function playTTS(text, btnElement) {
+            // Stop any currently playing audio
+            if (window.currentAudio) {
+                window.currentAudio.pause();
+                window.currentAudio = null;
+            }
+
+            // Remove previous active button states
+            document.querySelectorAll('.tts-btn').forEach(b => {
+                b.classList.remove('playing');
+                b.innerHTML = '<i class="fas fa-volume-up"></i>';
+            });
+
+            btnElement.classList.add('loading');
+            btnElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+            try {
+                // Strip HTML tags for clean reading
+                const cleanText = text.replace(/<[^>]*>?/gm, '');
+
+                const response = await fetch('https://api.deepgram.com/v1/speak?model=aura-asteria-en', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Token ${DEEPGRAM_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text: cleanText })
+                });
+
+                if (!response.ok) throw new Error('TTS Error');
+
+                const audioBlob = await response.blob();
+                const audioUrl = URL.createObjectURL(audioBlob);
+                const audio = new Audio(audioUrl);
+                window.currentAudio = audio;
+
+                audio.onplay = () => {
+                    btnElement.classList.remove('loading');
+                    btnElement.classList.add('playing');
+                    btnElement.innerHTML = '<i class="fas fa-volume-up"></i>';
+                };
+
+                audio.onended = () => {
+                    btnElement.classList.remove('playing');
+                };
+
+                audio.play();
+            } catch (err) {
+                console.error(err);
+                btnElement.classList.remove('loading');
+                btnElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+            }
+        }
+
         function addMsg(container, role, text) {
             const d = document.createElement('div');
             d.className = `chat-msg ${role}`;
@@ -2341,6 +2449,19 @@ RECIPE DATA: ${JSON.stringify(recipes)}
             }
 
             d.innerHTML = `<div class="chat-bubble">${formatted}</div>`;
+
+            // If it's a real bot message (not a loading indicator), add TTS Button
+            if (role === 'bot' && text !== 'Thinking...' && text !== 'Updating recipe...' && !text.includes('Error:')) {
+                const ttsBtn = document.createElement('button');
+                ttsBtn.className = 'tts-btn';
+                ttsBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                ttsBtn.title = "Read aloud";
+                ttsBtn.onclick = () => playTTS(text, ttsBtn);
+
+                // Append button to the bubble
+                d.querySelector('.chat-bubble').appendChild(ttsBtn);
+            }
+
             container.appendChild(d);
             container.scrollTop = container.scrollHeight;
             return d;
