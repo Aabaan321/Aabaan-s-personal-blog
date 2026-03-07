@@ -1838,10 +1838,20 @@
 
         let currentCat = '';
 
+        const categoryOrder = ['Appetizers', 'Mains', 'Sides & Bread', 'Sauces & Jams', 'Desserts'];
+
         function renderNav(filter = '') {
             navList.innerHTML = '';
             currentCat = '';
             const filtered = recipes.filter(r => r.title.toLowerCase().includes(filter.toLowerCase()));
+
+            filtered.sort((a, b) => {
+                let indexA = categoryOrder.indexOf(a.cat);
+                let indexB = categoryOrder.indexOf(b.cat);
+                if (indexA === -1) indexA = 99;
+                if (indexB === -1) indexB = 99;
+                return indexA - indexB;
+            });
 
             filtered.forEach(r => {
                 // Category Header
