@@ -2486,11 +2486,26 @@ RECIPE DATA: ${JSON.stringify(recipes)}
                 const ttsBtn = document.createElement('button');
                 ttsBtn.className = 'tts-btn';
                 ttsBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-                ttsBtn.title = "Read aloud";
+                ttsBtn.title = "Play / Pause playback";
                 ttsBtn.onclick = () => playTTS(text, ttsBtn);
 
-                // Append button to the bubble
-                d.querySelector('.chat-bubble').appendChild(ttsBtn);
+                const resetBtn = document.createElement('button');
+                resetBtn.className = 'tts-btn';
+                resetBtn.innerHTML = '<i class="fas fa-redo"></i>';
+                resetBtn.title = "Restart from beginning";
+                resetBtn.onclick = () => {
+                    if (ttsBtn.audioObj) {
+                        ttsBtn.audioObj.currentTime = 0;
+                        if (ttsBtn.audioObj.paused) ttsBtn.audioObj.play();
+                    } else {
+                        ttsBtn.click();
+                    }
+                };
+
+                // Append buttons to the bubble
+                const bubble = d.querySelector('.chat-bubble');
+                bubble.appendChild(ttsBtn);
+                bubble.appendChild(resetBtn);
             }
 
             container.appendChild(d);
