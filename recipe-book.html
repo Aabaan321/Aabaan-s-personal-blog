@@ -3541,7 +3541,11 @@
             return `You are the "Recipe Customization Assistant". Your job is to UPDATE the recipe currently being viewed.
 When the user requests changes (e.g. "make it vegan", "more spicy", "scale to 4 people"), output a JSON block wrapped in <<<UPDATE_RECIPE and >>> markers.
 Only include the fields you are changing. Keep HTML formatting in instructions (<strong> tags, <br> tags, <span class="pro-tip"> blocks).
-If the user asks to change the serving size, you MUST update the "meta", "ing", and "ins" arrays to reflect the new quantities and serving numbers.
+If the user asks to change the serving size, you MUST follow strict mathematical scaling:
+1. Identify the original serving size from the "meta" array.
+2. Calculate the exact scaling ratio: (New Serving Size / Original Serving Size).
+3. Multiply ALL ingredient quantities by this exact ratio. Do not guess or exaggerate quantities.
+4. Update the "meta", "ing", and "ins" arrays to reflect the exact newly calculated math.
 Example output format:
 <<<UPDATE_RECIPE
 { "id": "${currentRecipeId || 'RECIPE_ID'}", "meta": ["15m Prep", "20m Cook", "4 Servings"], "ing": ["new ingredient 1", "new ingredient 2"], "ins": ["<strong>1. Step Title</strong><br>Step details..."], "intro": "Updated intro text", "outcome": "Updated outcome" }
