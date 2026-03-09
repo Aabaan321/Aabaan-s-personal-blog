@@ -3608,7 +3608,10 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
         const mainInput = document.getElementById('chat-input-main');
         const mainSend = document.getElementById('chat-send-main');
         let mainOpen = false, mainHistory = [];
-        const MAIN_SYSTEM_PROMPT = `You are Aabaan's Sous-Chef. Answer general cooking questions. Context: ${document.body.innerText.substring(0, 2000)}`;
+        function getMainSystemPrompt() {
+            const recipeTitles = ORIGINAL_RECIPES.map(r => r.title).join(', ');
+            return `You are Aabaan's Sous-Chef. Answer general cooking questions. The recipe book currently contains ${ORIGINAL_RECIPES.length} recipes: ${recipeTitles}. Context: ${document.body.innerText.substring(0, 2000)}`;
+        }
 
         mainToggle.addEventListener('click', () => { mainOpen = !mainOpen; mainWindow.classList.toggle('open', mainOpen); });
         mainClose.addEventListener('click', () => { mainOpen = false; mainWindow.classList.remove('open'); });
@@ -3623,7 +3626,7 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
                 const res = await fetch('https://api.openai.com/v1/chat/completions', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API_KEY}` },
-                    body: JSON.stringify({ model: 'gpt-4o-mini', messages: [{ role: 'system', content: MAIN_SYSTEM_PROMPT }, ...mainHistory], max_tokens: 300 })
+                    body: JSON.stringify({ model: 'gpt-4o-mini', messages: [{ role: 'system', content: getMainSystemPrompt() }, ...mainHistory], max_tokens: 300 })
                 });
                 if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.error?.message || `API Error: ${res.status}`); }
                 const data = await res.json();
