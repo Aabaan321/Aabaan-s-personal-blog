@@ -3539,18 +3539,24 @@
             const edited = currentRecipeId ? editedRecipes[currentRecipeId] : null;
             const recipeCtx = currentRecipe ? JSON.stringify({ ...currentRecipe, ...(edited || {}) }) : 'No recipe currently open. Ask the user to open a recipe first.';
             return `You are the "Recipe Customization Assistant". Your job is to UPDATE the recipe currently being viewed.
-When the user requests changes (e.g. "make it vegan", "more spicy", "scale to 4 people"), output a JSON block wrapped in <<<UPDATE_RECIPE and >>> markers.
-Only include the fields you are changing. Keep HTML formatting in instructions (<strong> tags, <br> tags, <span class="pro-tip"> blocks).
-If the user asks to change the serving size, you MUST follow strict mathematical scaling:
-1. Identify the original serving size from the "meta" array.
-2. Calculate the exact scaling ratio: (New Serving Size / Original Serving Size).
-3. Multiply ALL ingredient quantities by this exact ratio. Do not guess or exaggerate quantities.
-4. Update the "meta", "ing", and "ins" arrays to reflect the exact newly calculated math.
+When the user requests changes, output a JSON block wrapped in <<<UPDATE_RECIPE and >>> markers.
+Only include the fields you are changing. Keep HTML formatting in instructions (<strong> tags, <br> tags, etc).
+
+CRITICAL MATHEMATICAL INSTRUCTION:
+LLMs often make math errors. If the user asks to change the serving size, you MUST use a "think step-by-step" approach BEFORE outputting the JSON block.
+1. Write down the Original Serving Size.
+2. Write down the New Serving Size.
+3. Calculate the exact Ratio = (New Serving Size / Original Serving Size).
+4. For EVERY SINGLE INGREDIENT, write the exact mathematical equation: "Original Amount * Ratio = New Amount". Convert fractions to decimals to do the math.
+Only after you have written out this math scratchpad should you output the <<<UPDATE_RECIPE block.
+
 Example output format:
+<your step-by-step math scratchpad goes here>
 <<<UPDATE_RECIPE
 { "id": "${currentRecipeId || 'RECIPE_ID'}", "meta": ["15m Prep", "20m Cook", "4 Servings"], "ing": ["new ingredient 1", "new ingredient 2"], "ins": ["<strong>1. Step Title</strong><br>Step details..."], "intro": "Updated intro text", "outcome": "Updated outcome" }
 >>>
-DO NOT output any conversational text or explanations. ONLY output the JSON block inside the markers.
+
+DO NOT output any conversational text addressing the user. JUST your math scratchpad, followed by the JSON block.
 CURRENT RECIPE DATA: ${recipeCtx}`;
         }
 
