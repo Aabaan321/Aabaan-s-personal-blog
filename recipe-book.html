@@ -1692,10 +1692,54 @@
             font-weight: 600;
             margin-bottom: 1rem;
         }
+
+        /* ===== CONTACT & FOOTER ===== */
+        .contact-bar {
+            background: var(--glass);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 10px 1rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-bar a {
+            color: var(--text);
+            font-weight: 600;
+            transition: color var(--transition);
+        }
+
+        .contact-bar a:hover {
+            color: var(--accent);
+        }
+
+        .site-footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .site-footer a {
+            color: var(--accent);
+            font-weight: 500;
+        }
     </style>
 </head>
 
 <body>
+    <!-- CONTACT BAR -->
+    <div class="contact-bar">
+        <span><i class="fas fa-envelope"></i> <a
+                href="mailto:aabaanrg@gmail.com?subject=Recipe%20Request%20-%20Aabaan's%20Kitchen&body=Hi%20Aabaan,%0A%0AI%20would%20love%20to%20request%20a%20recipe%20for..."
+                title="Send an email request">aabaanrg@gmail.com</a></span>
+        <span style="margin: 0 10px; opacity: 0.5">|</span>
+        <span><i class="fas fa-phone"></i> +971 551212310</span>
+    </div>
+
     <!-- TOAST -->
     <div class="toast" id="toast"></div>
 
@@ -1821,6 +1865,19 @@
             <p>Try a different search term or category.</p>
         </div>
     </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <h3>Aabaan's Kitchen</h3>
+        <p style="margin: 0.5rem 0 1rem;">Have a recipe request or questions about the AI?</p>
+        <p>
+            <a
+                href="mailto:aabaanrg@gmail.com?subject=Recipe%20Request&body=Hi%20Aabaan,%0A%0AI%20would%20love%20to%20request%20a%20recipe%20for..."><i
+                    class="fas fa-envelope"></i> aabaanrg@gmail.com</a>
+            &nbsp;|&nbsp;
+            <i class="fas fa-phone"></i> +971 551212310
+        </p>
+    </footer>
 
     <!-- RECIPE DETAIL OVERLAY -->
     <div class="detail-overlay" id="detail-overlay" role="dialog" aria-label="Recipe details">
@@ -3188,7 +3245,7 @@
         // ===== DETAIL VIEW =====
         const detailOverlay = document.getElementById('detail-overlay');
         const detailContent = document.getElementById('detail-content');
-        function openDetail(id, showOriginal) {
+        function openDetail(id, showOriginal = true) {
             currentRecipeId = id;
             scaleFactor = 1;
             stepModeActive = false;
@@ -3199,7 +3256,7 @@
             const sessionEdit = editedRecipes[id];
             const savedCustom = customRecipes[id];
             const hasAltVersion = !!(sessionEdit || savedCustom);
-            const isOriginalView = showOriginal === true;
+            const isOriginalView = showOriginal !== false;
             let r;
             if (isOriginalView || !hasAltVersion) {
                 r = { ...originalRecipe };
