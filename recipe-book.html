@@ -3500,7 +3500,12 @@
         async function saveCustomRecipe(id) {
             if (!currentUser) {
                 showToast('Sign in to save your custom recipe');
-                if (window._fbReady) { try { await window._fbSignInWithPopup(window._fbAuth, window._fbProvider); } catch (e) { return; } }
+                if (window._fbReady) {
+                    try {
+                        const result = await window._fbSignInWithPopup(window._fbAuth, window._fbProvider);
+                        currentUser = result.user; // Immediately capture user
+                    } catch (e) { return; }
+                }
                 if (!currentUser) return;
             }
             const edits = editedRecipes[id];
