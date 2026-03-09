@@ -1083,7 +1083,7 @@
             bottom: 70px;
             right: 0;
             width: 380px;
-            max-height: 520px;
+            max-height: min(520px, calc(100vh - 250px));
             background: var(--bg-card);
             border-radius: var(--radius);
             box-shadow: var(--shadow-lg);
@@ -1424,10 +1424,22 @@
             }
 
             .chatbot-window {
-                width: calc(100vw - 20px);
-                bottom: 65px;
-                right: -10px;
-                max-height: 70vh;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100vw;
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 0;
+                z-index: 10001;
+                display: none;
+                /* overrides the base class until .open is applied */
+            }
+
+            .chatbot-window.open {
+                display: flex;
             }
 
             .timer-widget {
