@@ -381,6 +381,132 @@
             display: block;
         }
 
+        /* ===== USER MANUAL ===== */
+        .manual-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 2rem 0;
+        }
+
+        .manual-section {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .manual-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(232, 101, 42, 0.1), rgba(232, 101, 42, 0.02));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background var(--transition);
+        }
+
+        .manual-header:hover {
+            background: linear-gradient(135deg, rgba(232, 101, 42, 0.15), rgba(232, 101, 42, 0.05));
+        }
+
+        .manual-header h2 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .manual-header h2 i {
+            color: var(--accent);
+        }
+
+        .manual-toggle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        .manual-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 0 1.5rem;
+            max-height: 0;
+            opacity: 0;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .manual-section.open .manual-content {
+            padding: 2rem 1.5rem;
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        .manual-section.open .manual-toggle {
+            transform: rotate(180deg);
+        }
+
+        .manual-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            transition: transform var(--transition);
+        }
+
+        .manual-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .manual-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .manual-card h3 .icon-wrap {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .manual-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .manual-card ul {
+            list-style: none;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .manual-card ul li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .manual-card ul li i {
+            color: var(--green);
+            margin-top: 3px;
+            font-size: 0.75rem;
+        }
+
         /* ===== RECIPE CARD GRID ===== */
         .grid-container {
             padding: 2rem;
@@ -1623,6 +1749,69 @@
         </p>
     </header>
 
+    <!-- USER MANUAL -->
+    <section class="manual-container" aria-label="User Manual">
+        <div class="manual-section" id="manual-section">
+            <div class="manual-header" id="manual-header" tabindex="0" role="button" aria-expanded="false">
+                <h2><i class="fas fa-book-open"></i> How to Use This Kitchen</h2>
+                <i class="fas fa-chevron-down manual-toggle"></i>
+            </div>
+            <div class="manual-content">
+                <div class="manual-card">
+                    <h3>
+                        <div class="icon-wrap" style="background:var(--purple)"><i class="fas fa-magic"></i></div>
+                        Recipe Editor AI
+                    </h3>
+                    <p>Click the <b>purple button</b> to ask the AI to modify any recipe you are viewing.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Make it vegan, spicy, or gluten-free</li>
+                        <li><i class="fas fa-check"></i> Say "Scale to 10 people" and it does the math automatically!
+                        </li>
+                        <li><i class="fas fa-check"></i> Changes are non-destructive—refresh to restore original.</li>
+                    </ul>
+                </div>
+                <div class="manual-card">
+                    <h3>
+                        <div class="icon-wrap" style="background:var(--green)"><i class="fas fa-floppy-disk"></i></div>
+                        Custom Recipes
+                    </h3>
+                    <p>When you like an AI-edited recipe, save it permanently to your account.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Sign in with Google to enable saving</li>
+                        <li><i class="fas fa-check"></i> Switch between <b>Original</b> and <b>My Version</b> tabs</li>
+                        <li><i class="fas fa-check"></i> Find all your variations in the "My Custom Recipes" dropdown
+                        </li>
+                    </ul>
+                </div>
+                <div class="manual-card">
+                    <h3>
+                        <div class="icon-wrap" style="background:var(--red)"><i class="fas fa-robot"></i></div> The
+                        Sous-Chef AI
+                    </h3>
+                    <p>Click the <b>red/orange button</b> for general cooking advice and troubleshooting.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Tap the microphone to talk hands-free while cooking!</li>
+                        <li><i class="fas fa-check"></i> Ask: "Why did my sauce break?" or "What's a substitute for
+                            butter?"</li>
+                        <li><i class="fas fa-check"></i> Can read replies out loud to you.</li>
+                    </ul>
+                </div>
+                <div class="manual-card">
+                    <h3>
+                        <div class="icon-wrap"><i class="fas fa-shoe-prints"></i></div> Step-by-Step & Timer
+                    </h3>
+                    <p>Focus on one step at a time without losing your place.</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Click "Step-by-Step" inside any recipe for focus mode</li>
+                        <li><i class="fas fa-check"></i> Use the floating <i class="fas fa-stopwatch"></i> button for
+                            quick timers</li>
+                        <li><i class="fas fa-check"></i> Sounds an alarm when your food is ready!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- RECIPE GRID -->
     <main class="grid-container" id="grid-container" role="main">
         <div class="recipe-grid" id="recipe-grid"></div>
@@ -2816,6 +3005,21 @@
                 currentFilter = btn.dataset.cat;
                 renderGrid();
             });
+        });
+
+        // ===== USER MANUAL TOGGLE =====
+        const manualHeader = document.getElementById('manual-header');
+        const manualSection = document.getElementById('manual-section');
+        manualHeader.addEventListener('click', () => {
+            manualSection.classList.toggle('open');
+            const isOpen = manualSection.classList.contains('open');
+            manualHeader.setAttribute('aria-expanded', isOpen);
+        });
+        manualHeader.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                manualHeader.click();
+            }
         });
 
         // ===== RENDER GRID =====
