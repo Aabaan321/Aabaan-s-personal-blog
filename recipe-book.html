@@ -64,6 +64,7 @@
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 80px;
         }
 
         body {
@@ -330,6 +331,8 @@
         .filter-pill:hover {
             border-color: var(--accent);
             color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
         }
 
         .filter-pill.active {
@@ -532,8 +535,12 @@
         }
 
         .recipe-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-lg);
+        }
+
+        .recipe-card:hover .card-img img {
+            transform: scale(1.05);
         }
 
         .card-img {
@@ -554,6 +561,7 @@
             position: absolute;
             top: 0;
             left: 0;
+            transition: transform 0.4s ease-out;
         }
 
         .card-cat {
@@ -1647,12 +1655,13 @@
             box-shadow: 0 4px 18px rgba(76, 175, 114, 0.4);
             cursor: pointer;
             transition: all var(--transition);
-            animation: saveGlow 2.5s ease-in-out infinite;
+            animation: saveGlow 2s ease-in-out infinite;
         }
 
         .save-custom-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(76, 175, 114, 0.55);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(76, 175, 114, 0.6);
+            animation: none;
         }
 
         @keyframes saveGlow {
@@ -1663,7 +1672,7 @@
             }
 
             50% {
-                box-shadow: 0 4px 28px rgba(76, 175, 114, 0.7);
+                box-shadow: 0 4px 28px rgba(76, 175, 114, 0.8), 0 0 15px rgba(76, 175, 114, 0.5);
             }
         }
 
@@ -3289,7 +3298,7 @@
                 ${tabsHtml}
                 ${customLabel}
                 <div class="detail-hero-img">
-                    ${imgUrl ? `<img src="${imgUrl}" alt="${r.title}">` : emoji}
+                    ${imgUrl ? `<img src="${imgUrl}" alt="${r.title}" loading="lazy" decoding="async">` : emoji}
                 </div>
                 <h2 class="detail-title">${r.title}</h2>
                 <div class="detail-meta">
