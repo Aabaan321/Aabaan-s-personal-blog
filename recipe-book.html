@@ -2884,7 +2884,7 @@
                 r = { ...originalRecipe };
             } else {
                 const edits = sessionEdit || savedCustom;
-                r = { ...originalRecipe, ing: edits.ing || originalRecipe.ing, ins: edits.ins || originalRecipe.ins, intro: edits.intro || originalRecipe.intro, outcome: edits.outcome || originalRecipe.outcome };
+                r = { ...originalRecipe, ing: edits.ing || originalRecipe.ing, ins: edits.ins || originalRecipe.ins, intro: edits.intro || originalRecipe.intro, outcome: edits.outcome || originalRecipe.outcome, meta: edits.meta || originalRecipe.meta };
             }
             const imgUrl = getImgUrl(r);
             const emoji = emojiMap[r.cat] || emojiMap[normCat(r.cat)] || '🍽️';
@@ -2914,11 +2914,6 @@
                     <div class="ing-header">
                         <h3><i class="fas fa-shopping-basket"></i> Ingredients</h3>
                         <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center">
-                            <div class="scaler">
-                                <button class="scaler-btn" id="scale-down">−</button>
-                                <span class="scaler-val" id="scale-val">1x</span>
-                                <button class="scaler-btn" id="scale-up">+</button>
-                            </div>
                             <button class="copy-ing-btn" id="copy-ing"><i class="fas fa-copy"></i> Copy</button>
                         </div>
                     </div>
@@ -2940,9 +2935,7 @@
             detailOverlay.classList.add('open');
             detailOverlay.scrollTop = 0;
             document.getElementById('step-controls').classList.remove('visible');
-            // Bind scaler
-            document.getElementById('scale-up').onclick = () => updateScale(1);
-            document.getElementById('scale-down').onclick = () => updateScale(-1);
+            // Bind buttons
             document.getElementById('copy-ing').onclick = copyIngredients;
             document.getElementById('step-mode-toggle').onclick = toggleStepMode;
             // Bind version tabs
@@ -2966,21 +2959,6 @@
             currentRecipeId = null;
             stepModeActive = false;
             document.getElementById('step-controls').classList.remove('visible');
-        }
-
-        // ===== SERVING SCALER =====
-        function updateScale(dir) {
-            scaleFactor = Math.max(0.5, Math.min(10, scaleFactor + dir * 0.5));
-            document.getElementById('scale-val').textContent = scaleFactor + 'x';
-            document.querySelectorAll('#ing-list li').forEach(li => {
-                const orig = li.dataset.original;
-                if (scaleFactor === 1) { li.textContent = orig; return; }
-                li.textContent = orig.replace(/(\d+\.?\d*)/g, (match) => {
-                    const n = parseFloat(match);
-                    const scaled = Math.round(n * scaleFactor * 100) / 100;
-                    return scaled % 1 === 0 ? scaled.toString() : scaled.toFixed(1);
-                });
-            });
         }
 
         // ===== COPY INGREDIENTS =====
@@ -3209,7 +3187,7 @@
             try {
                 const orig = ORIGINAL_RECIPES.find(r => r.id === id);
                 await window._fbSetDoc(window._fbDoc(window._fbDb, 'users', currentUser.uid, 'customRecipes', id),
-                    { ing: edits.ing || null, ins: edits.ins || null, intro: edits.intro || null, outcome: edits.outcome || null, savedAt: Date.now(), originalTitle: orig ? orig.title : id });
+                    { ing: edits.ing || null, ins: edits.ins || null, intro: edits.intro || null, outcome: edits.outcome || null, meta: edits.meta || null, savedAt: Date.now(), originalTitle: orig ? orig.title : id });
                 customRecipes[id] = { ...edits };
                 delete editedRecipes[id];
                 showToast('Custom recipe saved! ✅');
@@ -3240,11 +3218,12 @@
             const edited = currentRecipeId ? editedRecipes[currentRecipeId] : null;
             const recipeCtx = currentRecipe ? JSON.stringify({ ...currentRecipe, ...(edited || {}) }) : 'No recipe currently open. Ask the user to open a recipe first.';
             return `You are the "Recipe Customization Assistant". Your job is to UPDATE the recipe currently being viewed.
-When the user requests changes (e.g. "make it vegan", "more spicy", "scale to 2 people"), output a JSON block wrapped in <<<UPDATE_RECIPE and >>> markers.
+When the user requests changes (e.g. "make it vegan", "more spicy", "scale to 4 people"), output a JSON block wrapped in <<<UPDATE_RECIPE and >>> markers.
 Only include the fields you are changing. Keep HTML formatting in instructions (<strong> tags, <br> tags, <span class="pro-tip"> blocks).
+If the user asks to change the serving size, you MUST update the "meta", "ing", and "ins" arrays to reflect the new quantities and serving numbers.
 Example output format:
 <<<UPDATE_RECIPE
-{ "id": "${currentRecipeId || 'RECIPE_ID'}", "ing": ["new ingredient 1", "new ingredient 2"], "ins": ["<strong>1. Step Title</strong><br>Step details..."], "intro": "Updated intro text", "outcome": "Updated outcome" }
+{ "id": "${currentRecipeId || 'RECIPE_ID'}", "meta": ["15m Prep", "20m Cook", "4 Servings"], "ing": ["new ingredient 1", "new ingredient 2"], "ins": ["<strong>1. Step Title</strong><br>Step details..."], "intro": "Updated intro text", "outcome": "Updated outcome" }
 >>>
 Also provide a brief friendly explanation of what you changed OUTSIDE the JSON block.
 CURRENT RECIPE DATA: ${recipeCtx}`;
@@ -3284,6 +3263,7 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
                             if (update.ins) editedRecipes[targetId].ins = update.ins;
                             if (update.intro) editedRecipes[targetId].intro = update.intro;
                             if (update.outcome) editedRecipes[targetId].outcome = update.outcome;
+                            if (update.meta) editedRecipes[targetId].meta = update.meta;
                             if (currentRecipeId) openDetail(currentRecipeId, false);
                             showToast('Recipe updated! 💾 Save to keep your changes');
                             renderGrid();
