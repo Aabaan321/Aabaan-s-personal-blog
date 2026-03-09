@@ -3504,7 +3504,11 @@
                     try {
                         const result = await window._fbSignInWithPopup(window._fbAuth, window._fbProvider);
                         currentUser = result.user; // Immediately capture user
-                    } catch (e) { return; }
+                    } catch (e) {
+                        alert('Sign-in failed or your browser blocked the popup. Please try again or allow popups.');
+                        console.error('Sign-in error:', e);
+                        return;
+                    }
                 }
                 if (!currentUser) return;
             }
@@ -3513,13 +3517,18 @@
             try {
                 const orig = ORIGINAL_RECIPES.find(r => r.id === id);
                 await window._fbSetDoc(window._fbDoc(window._fbDb, 'users', currentUser.uid, 'customRecipes', id),
-                    { ing: edits.ing || null, ins: edits.ins || null, intro: edits.intro || null, outcome: edits.outcome || null, meta: edits.meta || null, savedAt: Date.now(), originalTitle: orig ? orig.title : id });
-                customRecipes[id] = { ...edits };
+                    { ing: edits.ing || null, ins: edits.ins || null, intro: edits.intro || null, outcome: edits.outcome || null, meta: edits.meta || null, savedAt: Date.now(), originalTitle: orig ? orig.title : id }, { merge: true });
+                // We keep the old values if they exist, but update local state
+                customRecipes[id] = { ...(customRecipes[id] || {}), ...edits };
                 delete editedRecipes[id];
                 showToast('Custom recipe saved! ✅');
                 renderGrid();
                 if (currentRecipeId === id) openDetail(id, false);
-            } catch (e) { console.error(e); showToast('Save failed: ' + e.message); }
+            } catch (e) {
+                console.error('Firestore Save Error:', e);
+                alert('Failed to save to database. Check the console or your Firestore rules.');
+                showToast('Save failed ❌');
+            }
         }
         async function loadCustomRecipes(uid) {
             try {
@@ -3552,7 +3561,8 @@ LLMs often make math errors. If the user asks to change the serving size, you MU
 1. Write down the Original Serving Size.
 2. Write down the New Serving Size.
 3. Calculate the exact Ratio = (New Serving Size / Original Serving Size).
-4. For EVERY SINGLE INGREDIENT, write the exact mathematical equation: "Original Amount * Ratio = New Amount". Convert fractions to decimals to do the math.
+4. For EVERY SINGLE INGREDIENT, write the exact mathematical equation: "Original Amount * Ratio = Exact Amount". Convert fractions to decimals to do the math.
+5. ROUND the newly calculated amounts to the CLOSEST USABLE COOKING MEASURE (e.g., 1/4, 1/3, 1/2, 2/3, 3/4) or whole integers. Do NOT output complex decimals like 0.33, 2.77, etc. Write "2 3/4 cups" or "1/3 tsp" instead. Use whole numbers for eggs.
 Only after you have written out this math scratchpad should you output the <<<UPDATE_RECIPE block.
 
 Example output format:
