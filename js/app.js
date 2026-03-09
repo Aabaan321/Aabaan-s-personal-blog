@@ -140,7 +140,7 @@ function renderGrid() {
 
             card.innerHTML = `
                 <div class="card-img-wrap">
-                    <img src="${recipe.image}" class="card-img" alt="${recipe.title}" loading="lazy">
+                    <img src="${recipe.img || recipe.image}" class="card-img" alt="${recipe.title}" loading="lazy">
                     <div class="card-category">${recipe.category}</div>
                     <button class="card-fav-btn ${isFav ? 'active' : ''}" data-id="${recipe.id || recipe.title}">
                         <i class="fa${isFav ? 's' : 'r'} fa-heart"></i>
@@ -213,7 +213,7 @@ function renderDetailHTML(recipe) {
 
     return `
         <div class="detail-hero">
-            <img src="${recipe.image}" alt="${recipe.title}">
+            <img src="${recipe.img || recipe.image}" alt="${recipe.title}">
             <div class="detail-hero-content">
                 <h1>${recipe.title}</h1>
                 <div class="detail-tags">
