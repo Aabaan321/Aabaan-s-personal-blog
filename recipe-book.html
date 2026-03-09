@@ -3237,7 +3237,7 @@ Example output format:
 <<<UPDATE_RECIPE
 { "id": "${currentRecipeId || 'RECIPE_ID'}", "meta": ["15m Prep", "20m Cook", "4 Servings"], "ing": ["new ingredient 1", "new ingredient 2"], "ins": ["<strong>1. Step Title</strong><br>Step details..."], "intro": "Updated intro text", "outcome": "Updated outcome" }
 >>>
-Also provide a brief friendly explanation of what you changed OUTSIDE the JSON block.
+DO NOT output any conversational text or explanations. ONLY output the JSON block inside the markers.
 CURRENT RECIPE DATA: ${recipeCtx}`;
         }
 
@@ -3260,11 +3260,11 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
                 const data = await res.json();
                 if (typing) typing.remove();
                 const reply = data.choices[0].message.content;
-                addMsg(customMsgs, 'bot', reply);
-                customHistory.push({ role: 'assistant', content: reply });
                 // Handle recipe update (non-destructive — writes to editedRecipes)
                 const updateMatch = reply.match(/<<<UPDATE_RECIPE\s*([\s\S]*?)>>>/);
                 if (updateMatch) {
+                    addMsg(customMsgs, 'bot', 'Edited the recipe ✨');
+                    customHistory.push({ role: 'assistant', content: reply });
                     try {
                         const update = JSON.parse(updateMatch[1]);
                         const targetId = update.id || currentRecipeId;
