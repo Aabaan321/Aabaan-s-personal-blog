@@ -4860,6 +4860,9 @@
             document.getElementById('step-exit').addEventListener('click', toggleStepMode);
 
             // ===== MULTI-TIMER =====
+            let timers = [];
+            let nextTimerId = 1;
+
             async function saveTimers() {
                 const data = { timers, nextTimerId };
                 if (currentUser && window._fbReady) {
@@ -5122,7 +5125,6 @@
 
             // ===== INIT GRID =====
             renderGrid();
-            renderTimers(); // Paint loaded timers
 
             // ===== API KEYS =====
             // OpenAI API key has been removed from the client to prevent security leaks.
