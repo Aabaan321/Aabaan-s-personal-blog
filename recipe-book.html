@@ -5666,6 +5666,7 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
                         }
 
                         addZestyMsg('assistant', greeting);
+                        zestyMemory = zestyMemory || [];
                         zestyMemory.push({ role: 'assistant', content: greeting });
                         saveAgentHistory('zesty', zestyMemory);
                         zestyPanel.style.display = 'none';
