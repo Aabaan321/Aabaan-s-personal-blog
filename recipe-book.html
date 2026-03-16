@@ -4860,26 +4860,48 @@
             document.getElementById('step-exit').addEventListener('click', toggleStepMode);
 
             // ===== MULTI-TIMER =====
-            function saveTimers() {
-                localStorage.setItem('cookingTimers', JSON.stringify({ timers, nextTimerId }));
+            async function saveTimers() {
+                const data = { timers, nextTimerId };
+                if (currentUser && window._fbReady) {
+                    try {
+                        const ref = window._fbDoc(window._fbDb, 'users', currentUser.uid, 'timers', 'current');
+                        await window._fbSetDoc(ref, { data, updatedAt: Date.now() }, { merge: true });
+                    } catch (e) { console.error('Error saving timers to fb', e); }
+                } else {
+                    localStorage.setItem('cookingTimers', JSON.stringify(data));
+                }
             }
 
-            let savedT = { timers: [], nextTimerId: 1 };
-            try {
-                const l = localStorage.getItem('cookingTimers');
-                if (l) savedT = JSON.parse(l);
-            } catch (e) { }
-
-            let timers = savedT.timers || [];
-            let nextTimerId = savedT.nextTimerId || 1;
-
-            const nowLoad = Date.now();
-            timers.forEach(t => {
-                if (t.state === 'running' && t.endTime) {
-                    t.remainingSecs = Math.max(0, (t.endTime - nowLoad) / 1000);
-                    if (t.remainingSecs <= 0) t.state = 'ringing';
+            async function loadTimers(user) {
+                let savedT = { timers: [], nextTimerId: 1 };
+                if (user && window._fbReady) {
+                    try {
+                        const ref = window._fbDoc(window._fbDb, 'users', user.uid, 'timers', 'current');
+                        const snap = await window._fbGetDoc(ref);
+                        if (snap.exists()) savedT = snap.data().data || savedT;
+                    } catch (e) { console.error('Error loading fb timers', e); }
+                } else {
+                    try {
+                        const l = localStorage.getItem('cookingTimers');
+                        if (l) savedT = JSON.parse(l);
+                    } catch (e) { }
                 }
-            });
+
+                timers = savedT.timers || [];
+                nextTimerId = savedT.nextTimerId || 1;
+
+                const nowLoad = Date.now();
+                timers.forEach(t => {
+                    if (t.state === 'running' && t.endTime) {
+                        t.remainingSecs = Math.max(0, (t.endTime - nowLoad) / 1000);
+                        if (t.remainingSecs <= 0) t.state = 'ringing';
+                    }
+                });
+                renderTimers();
+            }
+
+            // Also expose to global so the auth listener can call it
+            window._loadTimers = loadTimers;
 
             const timerWidget = document.getElementById('timer-widget');
             const timerList = document.getElementById('timer-list');
@@ -5493,7 +5515,6 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
             });
 
             // ===== ZESTY AI COMPANION ===========================
-            let zestySessionId = crypto.randomUUID();
             let zestyMemory = [];
             const zestyToggle = document.getElementById('zesty-toggle');
             const zestyPanel = document.getElementById('zesty-panel');
@@ -5525,13 +5546,7 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
             }
 
             async function saveZestyMessage(role, content) {
-                if (!currentUser || !window._fbReady) return;
-                try {
-                    const msgId = Date.now().toString() + Math.floor(Math.random() * 1000);
-                    const msgRef = window._fbDoc(window._fbDb, 'users', currentUser.uid, 'chats', zestySessionId, 'messages', msgId);
-                    // Using setDoc directly instead of addDoc to avoid needing another import
-                    await window._fbSetDoc(msgRef, { role, content, timestamp: Date.now() });
-                } catch (e) { console.error('Error saving zesty msg:', e); }
+                await saveAgentHistory('zesty', zestyMemory);
             }
 
             async function sendZesty(prefilled = null) {
@@ -5614,36 +5629,52 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
                 const firstName = (user && user.displayName) ? user.displayName.split(' ')[0] : 'Chef';
 
                 try {
-                    let isFirstTime = false;
-                    if (user) {
-                        const profSnap = await window._fbGetDocs(window._fbCollection(window._fbDb, 'users', user.uid, 'profile'));
-                        let pData = null;
-                        profSnap.forEach(d => { if (d.id === 'data') pData = d.data(); });
-                        isFirstTime = pData && pData.joinedAt > Date.now() - 60000;
-                    }
-                    let greeting = '';
+                    zestyMemory = await loadAgentHistory('zesty', user);
 
-                    if (isFirstTime) {
-                        greeting = `Hey ${firstName}! 👋 I'm Zesty, your personal kitchen buddy. I'll help you figure out what to eat, remember your favourites, and make cooking actually fun. What are you feeling like today? 🍽️`;
+                    if (zestyMemory && zestyMemory.length > 0) {
+                        // Restore previous chat instead of a new greeting
+                        zestyMsgs.innerHTML = '';
+                        zestyMemory.forEach(msg => {
+                            addZestyMsg(msg.role, msg.content, true); // true = skip scrolling until end
+                        });
+                        zestyMsgs.scrollTop = zestyMsgs.scrollHeight;
+                        zestyPanel.style.display = 'none';
                     } else {
-                        const hour = new Date().getHours();
-                        if (hour >= 5 && hour < 12) {
-                            greeting = `Good morning ${firstName}! ☀️ Ready for something delicious? What are we making today?`;
-                        } else if (hour >= 12 && hour < 18) {
-                            greeting = `Hey ${firstName}! Thinking about lunch or planning dinner already? 😄`;
-                        } else {
-                            greeting = `Evening ${firstName}! 🌙 Long day? I know some recipes that'll make it better.`;
+                        // First time or empty history, do greeting
+                        let isFirstTime = false;
+                        if (user) {
+                            const profSnap = await window._fbGetDocs(window._fbCollection(window._fbDb, 'users', user.uid, 'profile'));
+                            let pData = null;
+                            profSnap.forEach(d => { if (d.id === 'data') pData = d.data(); });
+                            isFirstTime = pData && pData.joinedAt > Date.now() - 60000;
                         }
-                    }
+                        let greeting = '';
 
-                    addZestyMsg('assistant', greeting);
-                    zestyMemory.push({ role: 'assistant', content: greeting });
-                    zestyPanel.style.display = 'none';
+                        if (isFirstTime) {
+                            greeting = `Hey ${firstName}! 👋 I'm Zesty, your personal kitchen buddy. I'll help you figure out what to eat, remember your favourites, and make cooking actually fun. What are you feeling like today? 🍽️`;
+                        } else {
+                            const hour = new Date().getHours();
+                            if (hour >= 5 && hour < 12) {
+                                greeting = `Good morning ${firstName}! ☀️ Ready for something delicious? What are we making today?`;
+                            } else if (hour >= 12 && hour < 18) {
+                                greeting = `Hey ${firstName}! Thinking about lunch or planning dinner already? 😄`;
+                            } else {
+                                greeting = `Evening ${firstName}! 🌙 Long day? I know some recipes that'll make it better.`;
+                            }
+                        }
+
+                        addZestyMsg('assistant', greeting);
+                        zestyMemory.push({ role: 'assistant', content: greeting });
+                        saveAgentHistory('zesty', zestyMemory);
+                        zestyPanel.style.display = 'none';
+                    }
 
                     setTimeout(() => {
                         if (!zestyOpen && zestyInitialized) {
                             zestyToggle.click();
                             addZestyMsg('assistant', `Stuck deciding ${firstName}? Let's play a quick game and I'll pick for you 🎮`);
+                            zestyMemory.push({ role: 'assistant', content: `Stuck deciding ${firstName}? Let's play a quick game and I'll pick for you 🎮` });
+                            saveAgentHistory('zesty', zestyMemory);
                         }
                     }, 120000);
 
@@ -6070,7 +6101,8 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
 
                         await loadCustomRecipes(user.uid);
 
-                        // 3. Initialize Zesty
+                        // 3. Initialize Zesty and Timers
+                        await window._loadTimers(user);
                         await initZesty(user);
 
                         // 4. Load Agent Histories
@@ -6107,12 +6139,16 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
                             setTimeout(() => splashLoader.style.display = 'none', 500);
                         }
 
-                        // Initialize Agent Histories for Guest
+                        // Initialize Agent Histories and Timers for Guest
+                        await window._loadTimers(null);
+
                         customHistory = await loadAgentHistory('editor', null);
                         renderAgentHistory(customHistory, customMsgs, 'Chat cleared. How can I help?');
 
                         mainHistory = await loadAgentHistory('sousChef', null);
                         renderAgentHistory(mainHistory, mainMsgs, 'Chat cleared. Ask me anything!');
+
+                        await initZesty(null);
                     }
                 });
             }
