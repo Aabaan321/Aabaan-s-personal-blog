@@ -2738,10 +2738,762 @@
             }
         }
 
-        .back-to-top {
-            bottom: 20px;
-            left: 20px;
-            right: auto;
+        /* ===== NEW FEATURES CSS (T1-T14) ===== */
+
+        /* Full-page overlay (Meal Planner, Cookbook, Leaderboard) */
+        .fullpage-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 50000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .fullpage-overlay.open {
+            display: flex;
+        }
+
+        .fullpage-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--glass-border);
+            background: var(--bg-nav);
+            backdrop-filter: blur(10px);
+            flex-shrink: 0;
+        }
+
+        .fullpage-header h2 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+        }
+
+        .fullpage-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        /* Modal overlay (Reviews, Remix, Photo, Fridge, Cookbook form, PDF gate) */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 60000;
+            padding: 16px;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 24px;
+            width: 100%;
+            max-width: 540px;
+            box-shadow: var(--shadow-lg);
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: fadeSlideDown 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .modal-header h3 {
+            font-size: 1.1rem;
+            font-family: var(--font-heading);
+        }
+
+        /* Feature button */
+        .feature-btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-pill);
+            background: linear-gradient(135deg, var(--accent), #c0392b);
+            color: #fff;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all var(--transition);
+        }
+
+        .feature-btn:hover {
+            opacity: 0.88;
+            transform: translateY(-1px);
+        }
+
+        /* Form inputs */
+        .form-input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass);
+            color: var(--text);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: var(--font-body);
+            box-sizing: border-box;
+            margin-top: 4px;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Meal Planner calendar */
+        .mp-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+        }
+
+        .mp-day-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 12px;
+            min-height: 200px;
+        }
+
+        .mp-day-header {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        .mp-slot {
+            background: var(--glass);
+            border: 1px dashed var(--glass-border);
+            border-radius: 10px;
+            padding: 8px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            min-height: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .mp-slot:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .mp-slot.filled {
+            background: linear-gradient(135deg, rgba(232, 101, 42, 0.12), rgba(240, 180, 100, 0.1));
+            border-style: solid;
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .mp-slot-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        .mp-slot-remove {
+            font-size: 0.65rem;
+            color: #e74c3c;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        .mp-actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .mp-shopping {
+            margin-top: 24px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px;
+        }
+
+        .mp-shopping-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .shopping-category {
+            margin-bottom: 16px;
+        }
+
+        .shopping-category h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .shopping-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .shopping-item:hover {
+            background: var(--glass);
+        }
+
+        .shopping-item.checked {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .shopping-item input[type=checkbox] {
+            accent-color: var(--accent);
+        }
+
+        /* Recipe picker list */
+        .recipe-picker-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 4px;
+        }
+
+        .recipe-picker-item:hover {
+            background: var(--glass);
+        }
+
+        .recipe-picker-img {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        /* Cookbook multi-step form */
+        .cookbook-form-box {
+            max-width: 600px;
+        }
+
+        .form-progress-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .form-step-indicator {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--glass-border);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .form-step-indicator.active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .form-step-indicator.done {
+            background: #2ecc71;
+            color: #fff;
+        }
+
+        .form-step-line {
+            flex: 1;
+            height: 2px;
+            background: var(--glass-border);
+        }
+
+        .form-zesty-hint {
+            background: linear-gradient(135deg, rgba(232, 101, 42, 0.1), rgba(247, 183, 51, 0.08));
+            border: 1px solid rgba(232, 101, 42, 0.2);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .cb-ingredient-tag,
+        .cb-step-tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--glass);
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .cb-remove-tag {
+            margin-left: auto;
+            cursor: pointer;
+            color: #e74c3c;
+            font-size: 0.85rem;
+        }
+
+        /* Leaderboard */
+        .lb-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border-radius: 14px;
+            margin-bottom: 10px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.2s;
+        }
+
+        .lb-row.current-user {
+            border-color: var(--accent);
+            background: rgba(232, 101, 42, 0.06);
+        }
+
+        .lb-rank {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            min-width: 32px;
+        }
+
+        .lb-rank.gold {
+            color: #f7b733;
+        }
+
+        .lb-rank.silver {
+            color: #b0bec5;
+        }
+
+        .lb-rank.bronze {
+            color: #cd7f32;
+        }
+
+        .lb-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--glass-border);
+        }
+
+        .lb-names {
+            flex: 1;
+        }
+
+        .lb-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .lb-pts-sub {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .lb-points {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        /* Nutrition Panel */
+        .nutrition-panel {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 20px 24px;
+        }
+
+        .nutrition-chart-wrap {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .nutrition-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nutrition-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+        }
+
+        .nut-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .health-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-top: 8px;
+        }
+
+        .health-badge.green {
+            background: rgba(46, 204, 113, 0.15);
+            color: #27ae60;
+        }
+
+        .health-badge.amber {
+            background: rgba(241, 196, 15, 0.15);
+            color: #f39c12;
+        }
+
+        .health-badge.red {
+            background: rgba(231, 76, 60, 0.15);
+            color: #e74c3c;
+        }
+
+        /* Recipe card stars */
+        .card-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.78rem;
+            color: #f7b733;
+            margin-top: 4px;
+        }
+
+        .detail-rating-bar {
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            background: var(--glass);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        /* Star rating input */
+        .star-input {
+            display: flex;
+            gap: 8px;
+            font-size: 2rem;
+        }
+
+        .star-btn {
+            cursor: pointer;
+            color: var(--glass-border);
+            transition: color 0.15s;
+        }
+
+        .star-btn.active,
+        .star-btn:hover {
+            color: #f7b733;
+        }
+
+        /* Remix cards */
+        .remix-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .remix-card {
+            border: 2px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .remix-card:hover,
+        .remix-card.selected {
+            border-color: var(--accent);
+            background: rgba(232, 101, 42, 0.06);
+        }
+
+        .remix-card h4 {
+            font-size: 0.9rem;
+            margin: 6px 0 4px;
+        }
+
+        .remix-card p {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .remix-recipe-view {
+            font-size: 0.85rem;
+            line-height: 1.7;
+        }
+
+        .remix-recipe-view h4 {
+            color: var(--accent);
+            margin: 10px 0 4px;
+        }
+
+        /* Upload dropzone */
+        .upload-dropzone {
+            border: 2px dashed var(--glass-border);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            transition: border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .upload-dropzone.dragover {
+            border-color: var(--accent);
+        }
+
+        .upload-dropzone p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Fridge tabs */
+        .fridge-tabs {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .fridge-tab {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .fridge-tab.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(232, 101, 42, 0.08);
+        }
+
+        /* Weekly Digest */
+        .digest-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 32px;
+            max-width: 560px;
+            width: 100%;
+            margin: auto;
+            animation: fadeSlideDown 0.4s ease;
+        }
+
+        .digest-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .digest-header h2 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            margin-top: 8px;
+        }
+
+        .digest-section {
+            margin-bottom: 20px;
+        }
+
+        .digest-section h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .digest-suggestion {
+            background: var(--glass);
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        #weekly-digest-overlay {
+            display: none;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        #weekly-digest-overlay.open {
+            display: flex;
+        }
+
+        /* Cook Together reaction floater */
+        .reaction-btn {
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .reaction-btn:hover {
+            transform: scale(1.4);
+        }
+
+        #cook-reactions-bar {
+            display: flex;
+        }
+
+        .floating-reaction {
+            position: fixed;
+            font-size: 2.5rem;
+            pointer-events: none;
+            animation: floatUp 2s ease-out forwards;
+            z-index: 999999;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-200px) scale(1.5);
+            }
+        }
+
+        /* My Recipe badge */
+        .my-recipe-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, #f7b733, #e8652a);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: var(--radius-pill);
+            z-index: 5;
+        }
+
+        /* Nutrition panel detail rating bar */
+        .detail-rating-bar {
+            padding: 8px 24px;
+            font-size: 0.85rem;
+        }
+
+        /* Custom session presence avatars */
+        .session-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            margin: 0 -4px;
+        }
+
+        /* Responsive nav — hide some buttons on mobile */
+        @media (max-width: 768px) {
+
+            #photo-recipe-btn,
+            #fridge-mode-btn,
+            #cookbook-btn,
+            #leaderboard-btn {
+                display: none;
+            }
+
+            .mp-calendar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .remix-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .fullpage-body[style*="grid-template-columns"] {
+                display: block !important;
+            }
+        }
+
+        /* Auth-gate google button */
+        .auth-btn-google {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            background: #fff;
+            color: #333;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+            transition: all var(--transition);
+        }
+
+        .auth-btn-google:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
@@ -2798,6 +3550,18 @@
             <div class="nav-actions">
                 <button class="nav-btn" id="fav-filter-btn" title="Show Favorites" aria-label="Filter favorites"><i
                         class="fas fa-heart"></i></button>
+                <button class="nav-btn" id="meal-planner-btn" title="Meal Planner" aria-label="Meal Planner"><i
+                        class="fas fa-calendar-alt"></i></button>
+                <button class="nav-btn" id="cookbook-btn" title="My Cookbook" aria-label="My Cookbook"><i
+                        class="fas fa-book-open"></i></button>
+                <button class="nav-btn" id="leaderboard-btn" title="Leaderboard" aria-label="Leaderboard"><i
+                        class="fas fa-trophy"></i></button>
+                <button class="nav-btn" id="photo-recipe-btn" title="Photo to Recipe" aria-label="Photo to Recipe"><i
+                        class="fas fa-camera"></i></button>
+                <button class="nav-btn" id="fridge-mode-btn" title="Fridge Mode" aria-label="Fridge Mode"><i
+                        class="fas fa-snowflake"></i></button>
+                <button class="nav-btn" id="pdf-download-btn" title="Download Recipe Book PDF"
+                    aria-label="Download PDF"><i class="fas fa-file-pdf"></i></button>
                 <button class="nav-btn" id="theme-toggle" title="Toggle Dark/Light Mode" aria-label="Toggle theme"><i
                         class="fas fa-moon"></i></button>
                 <button class="nav-btn games-nav-btn" id="games-nav-btn" title="Games" aria-label="Games Menu"><i
@@ -2831,6 +3595,7 @@
             <button class="filter-pill" data-cat="Birria">🌶️ Birria Masterclass</button>
             <button class="filter-pill" data-cat="Sauces & Jams">🫙 Sauces & Jams</button>
             <button class="filter-pill" data-cat="Desserts">🍰 Desserts</button>
+            <button class="filter-pill" id="my-cookbook-filter" data-cat="custom">⭐ My Cookbook</button>
             <button class="btn-surprise" id="btn-surprise" title="Surprise Me!">✨ Surprise Me!</button>
         </div>
 
@@ -2851,49 +3616,211 @@
                     <i class="fas fa-chevron-down manual-toggle"></i>
                 </div>
                 <div class="manual-content">
+
+                    <!-- AI Assistants -->
                     <div class="manual-card">
                         <h3>
                             <div class="icon-wrap" style="background:var(--purple)"><i class="fas fa-magic"></i></div>
-                            Recipe Editor AI
-                            <div class="icon-wrap" style="background:var(--accent)"><i class="fas fa-magic"></i></div>
-                            The
-                            AI Tools
+                            AI Assistants 🤖
                         </h3>
-                        <p>Your kitchen is powered by two specialized AI assistants.</p>
+                        <p>Three specialised AI helpers power your kitchen experience.</p>
                         <ul>
-                            <li><i class="fas fa-check"></i> <b>🎨 Recipe Editor:</b> Click the wand in any recipe to
-                                say "make it vegan" or "scale to 4 people".</li>
-                            <li><i class="fas fa-check"></i> <b>👨‍🍳 Sous-Chef:</b> Click the chef hat for general
-                                cooking advice, tips, and troubleshooting.</li>
+                            <li><i class="fas fa-check"></i> <b>🎨 Recipe Editor:</b> Open any recipe → tap the wand
+                                button → say "make it vegan", "scale to 8 servings" or "add more spice". The recipe
+                                updates live on screen.</li>
+                            <li><i class="fas fa-check"></i> <b>👨‍🍳 Sous-Chef:</b> Tap the chef hat floating button
+                                for cooking advice, ingredient swaps, wine pairings and troubleshooting — anytime.</li>
+                            <li><i class="fas fa-check"></i> <b>🍊 Zesty:</b> Your personal kitchen buddy at the
+                                bottom-right. Zesty remembers your sessions, cheers you on, and helps you plan your
+                                week.</li>
                         </ul>
                     </div>
+
+                    <!-- Voice Mode -->
                     <div class="manual-card">
                         <h3>
-                            <div class="icon-wrap" style="background:var(--red)"><i class="fas fa-gamepad"></i></div>
-                            Buddy & Games
+                            <div class="icon-wrap" style="background:var(--accent)"><i class="fas fa-microphone"></i>
+                            </div>
+                            Zesty Voice Mode 🎤
                         </h3>
-                        <p>Cooking should be actually fun, not a chore.</p>
+                        <p>Go completely hands-free while cooking — no touching the screen needed.</p>
                         <ul>
-                            <li><i class="fas fa-check"></i> <b>Zesty:</b> Your personalized kitchen buddy located at
-                                the bottom right. Zesty learns what you like!</li>
-                            <li><i class="fas fa-check"></i> <b>🎮 Games:</b> Click the gamepad icon in the top
-                                navigation to play food games when you can't decide what to eat!</li>
+                            <li><i class="fas fa-check"></i> <b>🔊 Voice Toggle:</b> Tap the speaker icon in Zesty's
+                                header. Every reply will be read aloud automatically.</li>
+                            <li><i class="fas fa-check"></i> <b>🎙️ Mic Button:</b> Tap the mic next to the text box,
+                                speak your question, Zesty answers — totally hands-free.</li>
+                            <li><i class="fas fa-check"></i> <b>Replay:</b> Each Zesty message shows a 🔊 icon — tap to
+                                hear it again.</li>
                         </ul>
                     </div>
+
+                    <!-- Meal Planner -->
                     <div class="manual-card">
                         <h3>
-                            <div class="icon-wrap"><i class="fas fa-stopwatch"></i></div> Multi-Timers
+                            <div class="icon-wrap" style="background:#3498db"><i class="fas fa-calendar-alt"></i></div>
+                            Meal Planner 📅
                         </h3>
-                        <p>Keep track of all your pots and pans simultaneously.</p>
+                        <p>Plan Breakfast, Lunch &amp; Dinner for every day of the week — in minutes.</p>
                         <ul>
-                            <li><i class="fas fa-check"></i> Use the floating <i class="fas fa-stopwatch"></i> button to
-                                open the timers menu.</li>
-                            <li><i class="fas fa-check"></i> Add multiple custom-named timers (e.g. "Baking",
-                                "Marinating").</li>
-                            <li><i class="fas fa-check"></i> Get visual and audio alerts when your food is ready!</li>
+                            <li><i class="fas fa-check"></i> Tap the <b>📅 calendar button</b> in the top bar to open
+                                the planner.</li>
+                            <li><i class="fas fa-check"></i> Click any meal slot → a search-able recipe picker opens.
+                                Tap a recipe to assign it.</li>
+                            <li><i class="fas fa-check"></i> Navigate weeks with the ← → arrows. Tap a slot's ✕ to
+                                remove a recipe.</li>
+                            <li><i class="fas fa-check"></i> <b>Generate Shopping List 🛒:</b> AI groups and
+                                de-duplicates all ingredients by category (Produce, Dairy, Pantry, Meat…).</li>
+                            <li><i class="fas fa-check"></i> Tick off items as you shop, copy to clipboard or share via
+                                WhatsApp.</li>
+                            <li><i class="fas fa-check"></i> Plans sync to your account — start on your phone, continue
+                                on your laptop.</li>
                         </ul>
                     </div>
+
+                    <!-- My Cookbook -->
+                    <div class="manual-card">
+                        <h3>
+                            <div class="icon-wrap" style="background:#f7b733"><i class="fas fa-book-open"></i></div>
+                            My Cookbook 📝
+                        </h3>
+                        <p>Create, publish and manage your own personal recipes inside the app.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Tap the <b>📖 book button</b> in the top bar to open your
+                                cookbook.</li>
+                            <li><i class="fas fa-check"></i> Tap <b>+ New Recipe</b> → 4-step guided form: Basic Info →
+                                Ingredients → Instructions → Review &amp; Publish.</li>
+                            <li><i class="fas fa-check"></i> <b>✨ Polish with AI:</b> Type a rough instruction step and
+                                AI rewrites it professionally.</li>
+                            <li><i class="fas fa-check"></i> Your recipes appear in the main grid with a <b>⭐ My
+                                    Recipe</b> badge. Filter them using the "My Cookbook" pill.</li>
+                            <li><i class="fas fa-check"></i> Tap any recipe in your cookbook to edit or delete it
+                                anytime.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Remix + Cook Together -->
+                    <div class="manual-card">
+                        <h3>
+                            <div class="icon-wrap" style="background:#9b59b6"><i class="fas fa-random"></i></div>
+                            Remix &amp; Cook Together 🔀👥
+                        </h3>
+                        <p>Transform any recipe or cook live with a friend in real-time.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> <b>🔀 Remix:</b> Open a recipe → tap Remix → choose to
+                                change the <em>cuisine</em>, <em>cooking method</em>, or <em>fully reinvent</em> the
+                                dish with AI.</li>
+                            <li><i class="fas fa-check"></i> The original and remixed versions appear side-by-side. Save
+                                the remix to your cookbook with one tap.</li>
+                            <li><i class="fas fa-check"></i> <b>👥 Cook Together:</b> Open a recipe → tap Cook Together
+                                → share the session link via WhatsApp or clipboard.</li>
+                            <li><i class="fas fa-check"></i> Send live emoji reactions (😍🔥😂👏🤤) that float across
+                                the screen — both of you see them in real-time!</li>
+                        </ul>
+                    </div>
+
+                    <!-- Nutrition + Reviews -->
+                    <div class="manual-card">
+                        <h3>
+                            <div class="icon-wrap" style="background:#2ecc71"><i class="fas fa-chart-pie"></i></div>
+                            Nutrition &amp; Reviews ⭐
+                        </h3>
+                        <p>Know exactly what you're eating — and tell others what you think.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> <b>🥗 Nutrition Analyser:</b> Open a recipe → tap the
+                                pie-chart icon → AI estimates calories, protein, carbs, fat &amp; fibre with a visual
+                                donut chart. Results are cached for instant reloads.</li>
+                            <li><i class="fas fa-check"></i> Each recipe gets a health score (1–10) with a green / amber
+                                / red badge. Zesty reacts with a comment based on the score!</li>
+                            <li><i class="fas fa-check"></i> <b>⭐ Rate It:</b> After visiting a recipe a few times, tap
+                                <b>Rate It</b> to leave a star rating (1–5) and a short note.</li>
+                            <li><i class="fas fa-check"></i> Average rating and review count are shown at the top of
+                                every recipe detail.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Leaderboard -->
+                    <div class="manual-card">
+                        <h3>
+                            <div class="icon-wrap" style="background:#f7b733"><i class="fas fa-trophy"></i></div>
+                            Leaderboard &amp; Points 🏆
+                        </h3>
+                        <p>Earn points for cooking and create — then see where you rank!</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Tap the <b>🏆 trophy button</b> in the top bar to open the
+                                leaderboard.</li>
+                            <li><i class="fas fa-check"></i> Toggle between <b>This Week</b> (fresh start every Monday)
+                                and <b>All Time</b>.</li>
+                            <li><i class="fas fa-check"></i> <b>How to earn points:</b>
+                                <br>⭐ Save a recipe = 5 pts
+                                <br>⭐ Leave a review = 10 pts
+                                <br>⭐ Publish a custom recipe = 20 pts
+                                <br>⭐ Complete a full weekly plan = 15 pts
+                            </li>
+                            <li><i class="fas fa-check"></i> Your rank is always shown even if you're outside the top
+                                10.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Photo to Recipe + Fridge Mode -->
+                    <div class="manual-card">
+                        <h3>
+                            <div class="icon-wrap" style="background:#e74c3c"><i class="fas fa-camera"></i></div>
+                            Photo to Recipe &amp; Fridge Mode 📷🧊
+                        </h3>
+                        <p>Let AI figure out what to cook from a photo or your fridge contents.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> <b>📷 Photo to Recipe:</b> Tap the camera button in the top
+                                bar → take or upload a food photo → AI identifies the dish and opens the matching recipe
+                                (or creates a brand new one!).</li>
+                            <li><i class="fas fa-check"></i> <b>🧊 Fridge Mode:</b> Tap the fridge button → type your
+                                ingredients OR snap a fridge photo → AI finds your top 3 best-matching recipes and shows
+                                which ingredients you're missing.</li>
+                            <li><i class="fas fa-check"></i> Tap any Fridge Mode result to jump straight to that recipe.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Timers + Games -->
+                    <div class="manual-card">
+                        <h3>
+                            <div class="icon-wrap"><i class="fas fa-stopwatch"></i></div>
+                            Timers &amp; Games ⏱️🎮
+                        </h3>
+                        <p>Keep every pot under control and have fun while you wait!</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> <b>Multi-Timers:</b> Tap the floating ⏱️ button → add
+                                multiple named timers (e.g. "Pasta 10m", "Sauce 25m"). Each one counts down
+                                independently, with a sound alert.</li>
+                            <li><i class="fas fa-check"></i> Timers sync across devices when signed in — start on your
+                                phone, check on your laptop.</li>
+                            <li><i class="fas fa-check"></i> <b>🎮 Games:</b> Tap the gamepad icon in the top bar. Try
+                                the <b>Recipe Spin Wheel</b> (random recipe picker) or <b>Ingredient Roulette</b>
+                                (mystery ingredient challenge)!</li>
+                        </ul>
+                    </div>
+
+                    <!-- PDF + Dark Mode + Weekly Digest -->
+                    <div class="manual-card">
+                        <h3>
+                            <div class="icon-wrap" style="background:#1a1a2e"><i class="fas fa-file-pdf"></i></div>
+                            PDF, Dark Mode &amp; Weekly Digest 🌙📖
+                        </h3>
+                        <p>Download your cookbook, set your theme, and get a Sunday surprise.</p>
+                        <ul>
+                            <li><i class="fas fa-check"></i> <b>📄 Download PDF:</b> Tap the PDF button in the top bar
+                                (sign-in required). Downloads the full recipe collection as a beautifully formatted A4
+                                book — cover page, table of contents, one page per recipe.</li>
+                            <li><i class="fas fa-check"></i> <b>🌙 Auto Dark Mode:</b> The app automatically matches
+                                your device's light/dark preference. Tap the moon/sun icon to override it — your choice
+                                is remembered.</li>
+                            <li><i class="fas fa-check"></i> <b>📊 Weekly Digest:</b> Every Sunday Zesty shows a
+                                personalised summary — points earned, your most-visited recipes, and 3 handpicked recipe
+                                suggestions for the week ahead.</li>
+                        </ul>
+                    </div>
+
                 </div>
+
             </div>
         </section>
 
@@ -2934,10 +3861,20 @@
                 <div class="detail-topbar-actions">
                     <button class="nav-btn" id="detail-fav-btn" title="Save to favorites"><i
                             class="fas fa-heart"></i></button>
+                    <button class="nav-btn" id="detail-nutrition-btn" title="Nutrition Analyser"><i
+                            class="fas fa-chart-pie"></i></button>
+                    <button class="nav-btn" id="detail-remix-btn" title="Remix This Recipe"><i
+                            class="fas fa-random"></i></button>
+                    <button class="nav-btn" id="detail-cook-together-btn" title="Cook Together"><i
+                            class="fas fa-users"></i></button>
                     <button class="nav-btn" id="detail-print-btn" title="Print recipe"><i
                             class="fas fa-print"></i></button>
                 </div>
             </div>
+            <!-- Star rating display bar -->
+            <div class="detail-rating-bar" id="detail-rating-bar" style="display:none;"></div>
+            <!-- Nutrition Panel (hidden by default) -->
+            <div class="nutrition-panel" id="nutrition-panel" style="display:none;"></div>
             <div class="detail-content" id="detail-content"></div>
             <div class="step-controls" id="step-controls">
                 <button class="step-prev" id="step-prev"><i class="fas fa-arrow-left"></i> Prev</button>
@@ -3047,6 +3984,8 @@
                     </div>
                 </div>
                 <div class="chat-header-actions">
+                    <button class="nav-btn" id="zesty-voice-toggle" title="Voice On/Off"
+                        style="width:28px;height:28px;font-size:0.7rem;"><i class="fas fa-volume-up"></i></button>
                     <button class="chat-close" id="chat-close-zesty" title="Close"><i class="fas fa-times"></i></button>
                 </div>
             </div>
@@ -3065,6 +4004,8 @@
 
             <div class="chat-input-area zesty-input-area">
                 <input type="text" id="zesty-input" placeholder="Chat with Zesty..." aria-label="Chat input">
+                <button id="zesty-mic-btn" class="mic-btn" title="Voice input"><i
+                        class="fas fa-microphone"></i></button>
                 <button id="zesty-send" class="send-btn" title="Send"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
@@ -3157,9 +4098,373 @@
             </div>
         </div>
 
+        <!-- ===== MEAL PLANNER OVERLAY (T1) ===== -->
+        <div class="fullpage-overlay" id="meal-planner-overlay">
+            <div class="fullpage-header">
+                <h2>📅 Meal Planner</h2>
+                <div style="display:flex;gap:8px;align-items:center;">
+                    <button class="nav-btn" id="mp-prev-week" title="Previous week"><i
+                            class="fas fa-chevron-left"></i></button>
+                    <span id="mp-week-label" style="font-weight:600;font-size:0.9rem;"></span>
+                    <button class="nav-btn" id="mp-next-week" title="Next week"><i
+                            class="fas fa-chevron-right"></i></button>
+                </div>
+                <button class="nav-btn" id="meal-planner-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="fullpage-body">
+                <div class="mp-calendar" id="mp-calendar"></div>
+                <div class="mp-actions">
+                    <button class="feature-btn" id="mp-generate-list"><i class="fas fa-shopping-cart"></i> Generate
+                        Shopping List 🛒</button>
+                </div>
+                <div class="mp-shopping" id="mp-shopping" style="display:none;">
+                    <div class="mp-shopping-header">
+                        <h3>🛒 Shopping List</h3>
+                        <div style="display:flex;gap:8px;">
+                            <button class="nav-btn" id="mp-share-wa" title="Share via WhatsApp"><i
+                                    class="fab fa-whatsapp"></i></button>
+                            <button class="nav-btn" id="mp-copy-list" title="Copy to Clipboard"><i
+                                    class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <div id="mp-shopping-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recipe Picker Modal (for Meal Planner) -->
+        <div class="modal-overlay" id="recipe-picker-modal">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h3>Pick a Recipe</h3>
+                    <button class="chat-close" id="recipe-picker-close"><i class="fas fa-times"></i></button>
+                </div>
+                <input type="search" id="recipe-picker-search" class="nav-search" placeholder="Search recipes..."
+                    style="margin:12px 0;width:100%;box-sizing:border-box;">
+                <div id="recipe-picker-list" style="max-height:50vh;overflow-y:auto;"></div>
+            </div>
+        </div>
+
+        <!-- ===== MY COOKBOOK OVERLAY (T3) ===== -->
+        <div class="fullpage-overlay" id="cookbook-overlay">
+            <div class="fullpage-header">
+                <h2>📝 My Cookbook</h2>
+                <div style="display:flex;gap:8px;">
+                    <button class="feature-btn" id="new-recipe-btn" style="font-size:0.85rem;padding:8px 16px;"><i
+                            class="fas fa-plus"></i> New Recipe</button>
+                    <button class="nav-btn" id="cookbook-close"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="fullpage-body">
+                <div id="cookbook-grid" class="recipe-grid"></div>
+            </div>
+        </div>
+
+        <!-- My Cookbook — Multi-step Form -->
+        <div class="modal-overlay" id="cookbook-form-modal">
+            <div class="modal-box cookbook-form-box">
+                <div class="modal-header">
+                    <h3 id="cookbook-form-title">New Recipe</h3>
+                    <button class="chat-close" id="cookbook-form-close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="form-progress-bar">
+                    <div class="form-step-indicator" id="form-step-1-indicator">1</div>
+                    <div class="form-step-line"></div>
+                    <div class="form-step-indicator" id="form-step-2-indicator">2</div>
+                    <div class="form-step-line"></div>
+                    <div class="form-step-indicator" id="form-step-3-indicator">3</div>
+                    <div class="form-step-line"></div>
+                    <div class="form-step-indicator" id="form-step-4-indicator">4</div>
+                </div>
+                <div class="form-zesty-hint" id="cookbook-zesty-hint"></div>
+                <!-- Step 1: Basic Info -->
+                <div class="form-step" id="form-step-1">
+                    <label>Recipe Name<input type="text" id="cb-name" placeholder="e.g. Grandma's Pasta"
+                            class="form-input"></label>
+                    <label>Category
+                        <select id="cb-category" class="form-input">
+                            <option>Mains</option>
+                            <option>Appetizers</option>
+                            <option>Sides &amp; Bread</option>
+                            <option>Desserts</option>
+                            <option>Sauces &amp; Jams</option>
+                            <option>Birria</option>
+                        </select>
+                    </label>
+                    <label>Servings<input type="number" id="cb-servings" value="4" min="1" class="form-input"></label>
+                    <label>Prep Time (mins)<input type="number" id="cb-prep" value="15" min="0"
+                            class="form-input"></label>
+                    <label>Cook Time (mins)<input type="number" id="cb-cook" value="30" min="0"
+                            class="form-input"></label>
+                    <label>Short Intro (optional)<textarea id="cb-intro" class="form-input" rows="2"
+                            placeholder="A brief description..."></textarea></label>
+                </div>
+                <!-- Step 2: Ingredients -->
+                <div class="form-step" id="form-step-2" style="display:none;">
+                    <div id="cb-ingredients-list"></div>
+                    <div style="display:flex;gap:8px;margin-top:8px;">
+                        <input type="text" id="cb-ing-input" class="form-input" placeholder="e.g. 2 cups flour"
+                            style="flex:1;">
+                        <button class="feature-btn" id="cb-add-ing" style="padding:8px 14px;"><i
+                                class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <!-- Step 3: Instructions -->
+                <div class="form-step" id="form-step-3" style="display:none;">
+                    <div id="cb-steps-list"></div>
+                    <div style="display:flex;gap:8px;margin-top:8px;flex-direction:column;">
+                        <textarea id="cb-step-input" class="form-input" rows="3"
+                            placeholder="Describe this step..."></textarea>
+                        <div style="display:flex;gap:8px;">
+                            <button class="feature-btn" id="cb-add-step" style="flex:1;"><i class="fas fa-plus"></i> Add
+                                Step</button>
+                            <button class="feature-btn" id="cb-polish-step"
+                                style="flex:1;background:linear-gradient(135deg,#667eea,#764ba2);"><i
+                                    class="fas fa-magic"></i> ✨ Polish with AI</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 4: Review -->
+                <div class="form-step" id="form-step-4" style="display:none;">
+                    <div id="cb-review-content" style="font-size:0.9rem;line-height:1.7;"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:16px;gap:8px;">
+                    <button class="nav-btn" id="cb-prev-step" style="display:none;"><i class="fas fa-arrow-left"></i>
+                        Back</button>
+                    <button class="feature-btn" id="cb-next-step" style="flex:1;">Next <i
+                            class="fas fa-arrow-right"></i></button>
+                    <button class="feature-btn" id="cb-publish"
+                        style="display:none;flex:1;background:linear-gradient(135deg,#f7b733,#e8652a);">🎉 Publish
+                        Recipe</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== LEADERBOARD OVERLAY (T7) ===== -->
+        <div class="fullpage-overlay" id="leaderboard-overlay">
+            <div class="fullpage-header">
+                <h2>🏆 Leaderboard</h2>
+                <div style="display:flex;gap:8px;">
+                    <button class="feature-btn" id="lb-week-btn" style="font-size:0.8rem;padding:6px 14px;">This
+                        Week</button>
+                    <button class="feature-btn" id="lb-alltime-btn"
+                        style="font-size:0.8rem;padding:6px 14px;background:var(--glass);color:var(--text);">All
+                        Time</button>
+                    <button class="nav-btn" id="leaderboard-close"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="fullpage-body">
+                <div id="leaderboard-list" style="max-width:600px;margin:0 auto;"></div>
+                <div id="my-rank-row" style="max-width:600px;margin:16px auto 0;"></div>
+            </div>
+        </div>
+
+        <!-- ===== PHOTO TO RECIPE OVERLAY (T8) ===== -->
+        <div class="modal-overlay" id="photo-recipe-modal">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h3>📷 Photo to Recipe</h3>
+                    <button class="chat-close" id="photo-recipe-close"><i class="fas fa-times"></i></button>
+                </div>
+                <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:16px;">Take or upload a photo of food
+                    and I'll find or create the recipe!</p>
+                <div class="upload-dropzone" id="photo-dropzone">
+                    <i class="fas fa-cloud-upload-alt"
+                        style="font-size:2rem;color:var(--accent);margin-bottom:8px;"></i>
+                    <p>Drag & drop an image here</p>
+                    <label class="feature-btn" style="margin-top:8px;cursor:pointer;">
+                        <i class="fas fa-camera"></i> Take / Upload Photo
+                        <input type="file" id="photo-file-input" accept="image/*" capture="environment"
+                            style="display:none;">
+                    </label>
+                </div>
+                <img id="photo-preview"
+                    style="display:none;width:100%;max-height:200px;object-fit:cover;border-radius:12px;margin-top:12px;">
+                <button class="feature-btn" id="photo-analyse-btn" style="display:none;width:100%;margin-top:12px;"><i
+                        class="fas fa-search"></i> Identify & Find Recipe</button>
+                <div id="photo-result" style="margin-top:12px;"></div>
+            </div>
+        </div>
+
+        <!-- ===== FRIDGE MODE OVERLAY (T9) ===== -->
+        <div class="modal-overlay" id="fridge-modal">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <h3>🧊 Fridge Mode</h3>
+                    <button class="chat-close" id="fridge-close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="fridge-tabs">
+                    <button class="fridge-tab active" id="fridge-tab-type">✏️ Type Ingredients</button>
+                    <button class="fridge-tab" id="fridge-tab-photo">📷 Photo of Fridge</button>
+                </div>
+                <div id="fridge-type-panel">
+                    <textarea id="fridge-ingredients-input" class="form-input" rows="4"
+                        placeholder="e.g. chicken, garlic, tomatoes, pasta, cheese..."
+                        style="margin-top:12px;"></textarea>
+                </div>
+                <div id="fridge-photo-panel" style="display:none;">
+                    <div class="upload-dropzone" id="fridge-dropzone" style="margin-top:12px;">
+                        <i class="fas fa-camera" style="font-size:2rem;color:var(--accent);margin-bottom:8px;"></i>
+                        <label class="feature-btn" style="cursor:pointer;">
+                            <i class="fas fa-camera"></i> Take / Upload Fridge Photo
+                            <input type="file" id="fridge-file-input" accept="image/*" capture="environment"
+                                style="display:none;">
+                        </label>
+                    </div>
+                    <img id="fridge-preview"
+                        style="display:none;width:100%;max-height:200px;object-fit:cover;border-radius:12px;margin-top:12px;">
+                </div>
+                <button class="feature-btn" id="fridge-find-btn" style="width:100%;margin-top:12px;"><i
+                        class="fas fa-search"></i> What Can I Make?</button>
+                <div id="fridge-result" style="margin-top:12px;"></div>
+            </div>
+        </div>
+
+        <!-- ===== REVIEW MODAL (T6) ===== -->
+        <div class="modal-overlay" id="review-modal">
+            <div class="modal-box" style="max-width:400px;">
+                <div class="modal-header">
+                    <h3>⭐ Rate This Recipe</h3>
+                    <button class="chat-close" id="review-close"><i class="fas fa-times"></i></button>
+                </div>
+                <p id="review-recipe-name" style="font-weight:600;margin-bottom:12px;color:var(--accent);"></p>
+                <div class="star-input" id="star-input">
+                    <span class="star-btn" data-val="1">★</span>
+                    <span class="star-btn" data-val="2">★</span>
+                    <span class="star-btn" data-val="3">★</span>
+                    <span class="star-btn" data-val="4">★</span>
+                    <span class="star-btn" data-val="5">★</span>
+                </div>
+                <textarea id="review-note" class="form-input" rows="3" placeholder="Optional note (max 150 chars)..."
+                    maxlength="150" style="margin-top:12px;"></textarea>
+                <button class="feature-btn" id="review-submit-btn" style="width:100%;margin-top:12px;">Submit
+                    Review</button>
+            </div>
+        </div>
+
+        <!-- ===== REMIX MODAL (T4) ===== -->
+        <div class="modal-overlay" id="remix-modal">
+            <div class="modal-box" style="max-width:500px;">
+                <div class="modal-header">
+                    <h3>🔀 Remix This Recipe</h3>
+                    <button class="chat-close" id="remix-close"><i class="fas fa-times"></i></button>
+                </div>
+                <p style="font-size:0.9rem;color:var(--text-muted);margin-bottom:16px;">Choose a remix style to
+                    transform this recipe:</p>
+                <div class="remix-cards">
+                    <div class="remix-card" data-remix="cuisine">
+                        <div style="font-size:2rem;">🌍</div>
+                        <h4>Change Cuisine</h4>
+                        <p>Make it Japanese, Italian, Mexican...</p>
+                    </div>
+                    <div class="remix-card" data-remix="method">
+                        <div style="font-size:2rem;">🔥</div>
+                        <h4>Change Method</h4>
+                        <p>Air fryer, slow cooker, BBQ...</p>
+                    </div>
+                    <div class="remix-card" data-remix="reinvent">
+                        <div style="font-size:2rem;">✨</div>
+                        <h4>Full Reinvention</h4>
+                        <p>Completely reimagine the dish!</p>
+                    </div>
+                </div>
+                <div id="remix-sub-prompt" style="display:none;margin-top:16px;">
+                    <label style="font-size:0.9rem;font-weight:600;">Specify your style:</label>
+                    <input type="text" id="remix-style-input" class="form-input"
+                        placeholder="e.g. Japanese fusion, BBQ smoked..." style="margin-top:6px;">
+                </div>
+                <button class="feature-btn" id="remix-go-btn" style="display:none;width:100%;margin-top:12px;"><i
+                        class="fas fa-magic"></i> Remix It!</button>
+                <div id="remix-loading" style="display:none;text-align:center;padding:20px;color:var(--text-muted);">🔄
+                    Remixing...</div>
+            </div>
+        </div>
+
+        <!-- Remix Result — side-by-side overlay -->
+        <div class="fullpage-overlay" id="remix-result-overlay">
+            <div class="fullpage-header">
+                <h2>🔀 Remixed Recipe</h2>
+                <div style="display:flex;gap:8px;">
+                    <button class="feature-btn" id="remix-save-btn" style="font-size:0.85rem;padding:8px 16px;">✨ Save
+                        as My Recipe</button>
+                    <button class="nav-btn" id="remix-result-close"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="fullpage-body" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+                <div>
+                    <h3 style="margin-bottom:12px;opacity:0.6;">Original</h3>
+                    <div id="remix-original-view"></div>
+                </div>
+                <div>
+                    <h3 style="margin-bottom:12px;color:var(--accent);">✨ Remixed</h3>
+                    <div id="remix-new-view"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== COOK TOGETHER MODAL (T5) ===== -->
+        <div class="modal-overlay" id="cook-together-modal">
+            <div class="modal-box" style="max-width:440px;">
+                <div class="modal-header">
+                    <h3>👥 Cook Together</h3>
+                    <button class="chat-close" id="cook-together-close"><i class="fas fa-times"></i></button>
+                </div>
+                <p style="text-align:center;color:var(--text-muted);font-size:0.9rem;">Share this session link with a
+                    friend to cook together in real-time!</p>
+                <div
+                    style="background:var(--glass);border:1px solid var(--glass-border);border-radius:12px;padding:12px;margin-top:16px;display:flex;gap:8px;align-items:center;">
+                    <input type="text" id="cook-session-url" readonly class="form-input"
+                        style="flex:1;font-size:0.8rem;background:transparent;border:none;padding:0;">
+                    <button class="nav-btn" id="cook-copy-link" title="Copy Link"><i class="fas fa-copy"></i></button>
+                    <a id="cook-wa-link" class="nav-btn" href="#" target="_blank" title="Share via WhatsApp"
+                        style="display:flex;align-items:center;justify-content:center;"><i
+                            class="fab fa-whatsapp"></i></a>
+                </div>
+                <div id="cook-sessions-avatars" style="margin-top:16px;text-align:center;"></div>
+            </div>
+        </div>
+
+        <!-- Cook Together floating reactions bar (shown in cooking mode) -->
+        <div id="cook-reactions-bar"
+            style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg-card);border:1px solid var(--glass-border);border-radius:50px;padding:8px 16px;display:none;gap:12px;z-index:100000;box-shadow:var(--shadow-lg);">
+            <button class="reaction-btn" data-emoji="😍">😍</button>
+            <button class="reaction-btn" data-emoji="🔥">🔥</button>
+            <button class="reaction-btn" data-emoji="😂">😂</button>
+            <button class="reaction-btn" data-emoji="👏">👏</button>
+            <button class="reaction-btn" data-emoji="🤤">🤤</button>
+        </div>
+
+        <!-- ===== WEEKLY DIGEST OVERLAY (T11) ===== -->
+        <div class="fullpage-overlay" id="weekly-digest-overlay" style="display:none;z-index:200000;">
+            <div class="digest-card">
+                <div class="digest-header">
+                    <div style="font-size:3rem;">🍽️</div>
+                    <h2 id="digest-heading"></h2>
+                </div>
+                <div id="digest-content"></div>
+                <button class="feature-btn" id="digest-dismiss" style="width:100%;margin-top:20px;font-size:1rem;">Let's
+                    Go! 🚀</button>
+            </div>
+        </div>
+
+        <!-- ===== PDF AUTH GATE MODAL (T14) ===== -->
+        <div class="modal-overlay" id="pdf-auth-modal">
+            <div class="modal-box" style="max-width:420px;text-align:center;">
+                <div style="font-size:3rem;margin-bottom:12px;">📖</div>
+                <h3 style="font-size:1.4rem;margin-bottom:8px;">Your Recipe Book Awaits 📖</h3>
+                <p style="color:var(--text-muted);margin-bottom:20px;font-size:0.95rem;">Sign in to download the full
+                    recipe collection as a beautifully designed PDF — yours to keep forever.</p>
+                <button class="auth-btn-google" id="pdf-auth-google-btn"><i class="fab fa-google"></i> Sign in with
+                    Google</button>
+                <div style="margin-top:12px;"><a href="#" id="pdf-auth-dismiss"
+                        style="color:var(--text-muted);font-size:0.85rem;">Maybe later</a></div>
+            </div>
+        </div>
+
         <!-- Back to Top Button -->
         <button id="back-to-top" class="back-to-top" title="Back to top" aria-label="Back to top"><i
                 class="fas fa-arrow-up"></i></button>
+
 
         <!-- FIREBASE (CDN, no npm) -->
         <script type="module">
@@ -6061,6 +7366,7 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
 
                 window._fbOnAuthStateChanged(window._fbAuth, async (user) => {
                     currentUser = user;
+                    window.currentUser = user; // expose for new feature scripts
                     const appContainer = document.getElementById('app-container');
                     const authGate = document.getElementById('auth-gate');
                     const splashLoader = document.getElementById('splash-loader');
@@ -6127,6 +7433,15 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
                         } else {
                             playAgentIntro();
                         }
+                        // New features: weekly digest + leaderboard
+                        if (typeof checkWeeklyDigest === 'function') checkWeeklyDigest(user).catch(() => { });
+                        if (typeof loadLeaderboard === 'function') loadLeaderboard().catch(() => { });
+                        // Load custom recipes into window.customRecipes
+                        try {
+                            const crSnap = await window._fbGetDocs(window._fbCollection(window._fbDb, 'users', user.uid, 'customRecipes'));
+                            window.customRecipes = [];
+                            crSnap.forEach(d => window.customRecipes.push(d.data()));
+                        } catch (e) { }
 
                     } else {
                         // Signed out — show auth gate, keep app hidden
@@ -6135,6 +7450,8 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
                         loginBtn.style.display = 'flex';
                         avatar.style.display = 'none';
                         currentUser = null;
+                        window.currentUser = null;
+                        window.customRecipes = JSON.parse(localStorage.getItem('localCustomRecipes') || '[]');
                         savedRecipes = JSON.parse(localStorage.getItem('savedRecipes') || '{}');
 
                         if (splashLoader) {
@@ -6180,7 +7497,1355 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
             }
 
         </script>
+
+        <!-- ===== jsPDF CDN (T14) ===== -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+        <!-- ===== NEW FEATURES JS (T1-T14) ===== -->
+        <script>
+            // ======================================================
+            // HELPERS shared across features
+            // ======================================================
+            function openModal(id) { document.getElementById(id).classList.add('open'); }
+            function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+            function openFullpage(id) { document.getElementById(id).classList.add('open'); }
+            function closeFullpage(id) { document.getElementById(id).classList.remove('open'); }
+
+            function getFirstName() {
+                if (window.currentUser && window.currentUser.displayName) return window.currentUser.displayName.split(' ')[0];
+                return 'Chef';
+            }
+
+            async function callAI(messages, maxTokens = 800) {
+                const res = await fetch('/api/openai', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ model: 'gpt-4o-mini', messages, max_tokens: maxTokens })
+                });
+                const data = await res.json();
+                return data.choices?.[0]?.message?.content || '';
+            }
+
+            function imageFileToBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = e => resolve(e.target.result.split(',')[1]);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            // ======================================================
+            // T13 — AUTO DARK / LIGHT MODE
+            // ======================================================
+            (function initAutoTheme() {
+                const mq = window.matchMedia('(prefers-color-scheme: dark)');
+                const savedOverride = localStorage.getItem('themeOverride');
+                if (savedOverride) {
+                    if (savedOverride === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+                    else document.documentElement.removeAttribute('data-theme');
+                } else {
+                    if (mq.matches) document.documentElement.setAttribute('data-theme', 'dark');
+                    else document.documentElement.removeAttribute('data-theme');
+                }
+                mq.addEventListener('change', e => {
+                    if (!localStorage.getItem('themeOverride')) {
+                        if (e.matches) document.documentElement.setAttribute('data-theme', 'dark');
+                        else document.documentElement.removeAttribute('data-theme');
+                    }
+                });
+                // Patch the existing manual toggle to save override
+                const toggle = document.getElementById('theme-toggle');
+                if (toggle) {
+                    toggle.addEventListener('click', () => {
+                        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                        if (isDark) {
+                            document.documentElement.removeAttribute('data-theme');
+                            localStorage.setItem('themeOverride', 'light');
+                        } else {
+                            document.documentElement.setAttribute('data-theme', 'dark');
+                            localStorage.setItem('themeOverride', 'dark');
+                        }
+                        const icon = toggle.querySelector('i');
+                        if (icon) icon.className = document.documentElement.getAttribute('data-theme') === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+                    }, { capture: true });
+                }
+            })();
+
+            // ======================================================
+            // T7 — POINTS / LEADERBOARD HELPERS
+            // ======================================================
+            async function awardPoints(action, pts) {
+                if (!window.currentUser || !window._fbReady) return;
+                try {
+                    const uid = window.currentUser.uid;
+                    // Log event
+                    const logRef = window._fbDoc(window._fbDb, 'users', uid, 'pointsLog', Date.now().toString());
+                    await window._fbSetDoc(logRef, { action, points: pts, timestamp: Date.now() });
+                    // Update profile total + leaderboard doc
+                    const profRef = window._fbDoc(window._fbDb, 'users', uid, 'profile', 'data');
+                    const profSnap = await window._fbGetDoc(profRef);
+                    const oldTotal = profSnap.exists() ? (profSnap.data().points || 0) : 0;
+                    await window._fbSetDoc(profRef, { points: oldTotal + pts }, { merge: true });
+                    const weekStart = getWeekStart();
+                    const lbRef = window._fbDoc(window._fbDb, 'leaderboard', uid);
+                    const lbSnap = await window._fbGetDoc(lbRef);
+                    const oldWeekly = lbSnap.exists() && lbSnap.data().weekStart === weekStart ? (lbSnap.data().weeklyPoints || 0) : 0;
+                    await window._fbSetDoc(lbRef, {
+                        displayName: window.currentUser.displayName || 'Chef',
+                        photoURL: window.currentUser.photoURL || '',
+                        totalPoints: oldTotal + pts,
+                        weeklyPoints: oldWeekly + pts,
+                        weekStart
+                    }, { merge: true });
+                } catch (e) { console.error('Points error', e); }
+            }
+
+            function getWeekStart() {
+                const d = new Date();
+                const day = d.getDay();
+                const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+                const mon = new Date(d.setDate(diff));
+                return mon.toISOString().split('T')[0];
+            }
+
+            // ======================================================
+            // T7 — LEADERBOARD UI
+            // ======================================================
+            document.getElementById('leaderboard-btn').addEventListener('click', () => openFullpage('leaderboard-overlay'));
+            document.getElementById('leaderboard-close').addEventListener('click', () => closeFullpage('leaderboard-overlay'));
+
+            let lbMode = 'week';
+            document.getElementById('lb-week-btn').addEventListener('click', () => { lbMode = 'week'; loadLeaderboard(); });
+            document.getElementById('lb-alltime-btn').addEventListener('click', () => { lbMode = 'all'; loadLeaderboard(); });
+
+            async function loadLeaderboard() {
+                if (!window._fbReady) return;
+                try {
+                    const snap = await window._fbGetDocs(window._fbCollection(window._fbDb, 'leaderboard'));
+                    let rows = [];
+                    snap.forEach(d => rows.push({ uid: d.id, ...d.data() }));
+                    const weekStart = getWeekStart();
+                    if (lbMode === 'week') rows = rows.filter(r => r.weekStart === weekStart).sort((a, b) => (b.weeklyPoints || 0) - (a.weeklyPoints || 0));
+                    else rows = rows.sort((a, b) => (b.totalPoints || 0) - (a.totalPoints || 0));
+                    const top10 = rows.slice(0, 10);
+                    const myUid = window.currentUser?.uid;
+                    const myRank = myUid ? rows.findIndex(r => r.uid === myUid) : -1;
+                    const list = document.getElementById('leaderboard-list');
+                    const myRow = document.getElementById('my-rank-row');
+                    list.innerHTML = top10.map((r, i) => lbRowHTML(r, i, myUid)).join('');
+                    if (myRank > 9) myRow.innerHTML = `<div style="text-align:center;font-size:0.85rem;color:var(--text-muted);">Your rank: #${myRank + 1}</div>` + lbRowHTML(rows[myRank], myRank, myUid);
+                    else myRow.innerHTML = '';
+                } catch (e) { console.error('LB error', e); }
+            }
+
+            function lbRowHTML(r, i, myUid) {
+                const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+                const pts = lbMode === 'week' ? (r.weeklyPoints || 0) : (r.totalPoints || 0);
+                const label = lbMode === 'week' ? 'weekly pts' : 'total pts';
+                const isMe = r.uid === myUid;
+                return `<div class="lb-row ${isMe ? 'current-user' : ''}">
+                <span class="lb-rank ${rankClass}">#${i + 1}</span>
+                ${r.photoURL ? `<img class="lb-avatar" src="${r.photoURL}" alt="">` : `<div class="lb-avatar" style="background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">${(r.displayName || 'U')[0]}</div>`}
+                <div class="lb-names"><div class="lb-name">${r.displayName || 'Anonymous'}${isMe ? ' 👈 You' : ''}</div><div class="lb-pts-sub">${label}</div></div>
+                <div class="lb-points">${pts}</div>
+            </div>`;
+            }
+
+            // ======================================================
+            // T6 — RECIPE VIEWS + REVIEWS
+            // ======================================================
+            const recipeViewCounts = {};
+            const recipeRatingsCache = {};
+
+            async function trackRecipeView(recipeId) {
+                if (!window.currentUser || !window._fbReady) return;
+                try {
+                    const uid = window.currentUser.uid;
+                    const ref = window._fbDoc(window._fbDb, 'users', uid, 'recipeViews', recipeId);
+                    const snap = await window._fbGetDoc(ref);
+                    const count = snap.exists() ? (snap.data().count || 0) + 1 : 1;
+                    await window._fbSetDoc(ref, { count, lastViewed: Date.now() });
+                    recipeViewCounts[recipeId] = count;
+                    if (count === 3) {
+                        const r = (window.RECIPES || []).find(x => x.id === recipeId);
+                        if (r) setTimeout(() => addZestyMsg('assistant', `You keep visiting **${r.title}** ${getFirstName()} — have you tried it yet? Rate it! ⭐`), 1500);
+                    }
+                } catch (e) { }
+            }
+
+            async function loadRecipeRating(recipeId) {
+                if (!window._fbReady) return null;
+                try {
+                    const snap = await window._fbGetDocs(window._fbCollection(window._fbDb, 'reviews', recipeId));
+                    if (snap.empty) return null;
+                    let total = 0, count = 0;
+                    snap.forEach(d => { total += d.data().rating || 0; count++; });
+                    const avg = (total / count).toFixed(1);
+                    recipeRatingsCache[recipeId] = { avg, count };
+                    return { avg, count };
+                } catch (e) { return null; }
+            }
+
+            // Review modal logic
+            let currentReviewRecipeId = null;
+            let selectedStars = 0;
+
+            document.querySelectorAll('.star-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectedStars = parseInt(btn.dataset.val);
+                    document.querySelectorAll('.star-btn').forEach((s, i) => s.classList.toggle('active', i < selectedStars));
+                });
+            });
+
+            document.getElementById('review-close').addEventListener('click', () => closeModal('review-modal'));
+            document.getElementById('review-submit-btn').addEventListener('click', async () => {
+                if (!selectedStars) { if (typeof showToast === 'function') showToast('Please select a rating', 'error'); return; }
+                if (!window.currentUser) { if (typeof showToast === 'function') showToast('Please sign in to leave a review', 'error'); return; }
+                try {
+                    const uid = window.currentUser.uid;
+                    const ref = window._fbDoc(window._fbDb, 'reviews', currentReviewRecipeId, uid);
+                    await window._fbSetDoc(ref, {
+                        rating: selectedStars,
+                        note: document.getElementById('review-note').value.slice(0, 150),
+                        authorName: window.currentUser.displayName || 'Chef',
+                        authorPhoto: window.currentUser.photoURL || '',
+                        createdAt: Date.now()
+                    });
+                    closeModal('review-modal');
+                    if (typeof showToast === 'function') showToast('Review saved! ⭐');
+                    await awardPoints('review', 10);
+                    recipeRatingsCache[currentReviewRecipeId] = null;
+                } catch (e) { if (typeof showToast === 'function') showToast('Could not save review', 'error'); }
+            });
+
+            function openReviewModal(recipeId, title) {
+                currentReviewRecipeId = recipeId;
+                document.getElementById('review-recipe-name').textContent = title;
+                selectedStars = 0;
+                document.querySelectorAll('.star-btn').forEach(s => s.classList.remove('active'));
+                document.getElementById('review-note').value = '';
+                openModal('review-modal');
+            }
+        </script>
+
+        <!-- T2 Nutrition + T4 Remix + T8 Photo to Recipe -->
+        <script>
+            // ======================================================
+            // T2 — NUTRITION ANALYSER
+            // ======================================================
+            document.getElementById('detail-nutrition-btn').addEventListener('click', () => {
+                const panel = document.getElementById('nutrition-panel');
+                if (panel.style.display !== 'none') { panel.style.display = 'none'; return; }
+                const rid = window.currentDetailRecipeId;
+                if (!rid) return;
+                const rec = (window.RECIPES || []).find(r => r.id === rid) || (window.customRecipes || []).find(r => r.id === rid);
+                if (rec) loadNutrition(rec);
+            });
+
+            async function loadNutrition(recipe) {
+                const panel = document.getElementById('nutrition-panel');
+                panel.style.display = 'block';
+                panel.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted)">🔍 Analysing nutrition...</div>';
+                // Check cache
+                if (window.currentUser && window._fbReady) {
+                    try {
+                        const cRef = window._fbDoc(window._fbDb, 'users', window.currentUser.uid, 'nutritionCache', recipe.id);
+                        const cSnap = await window._fbGetDoc(cRef);
+                        if (cSnap.exists()) { renderNutrition(cSnap.data(), recipe); return; }
+                    } catch (e) { }
+                }
+                const ings = Array.isArray(recipe.ingredients) ? recipe.ingredients.join('\n') : recipe.ingredients || '';
+                const prompt = `You are a nutrition expert. Given these recipe ingredients for "${recipe.title}", estimate per-serving nutritional values. Reply ONLY with minified JSON: {"calories":0,"protein":0,"carbs":0,"fat":0,"fibre":0,"healthScore":7,"summary":"..."}. Ingredients:\n${ings}`;
+                try {
+                    const raw = await callAI([{ role: 'user', content: prompt }], 300);
+                    const clean = raw.replace(/```json|```/g, '').trim();
+                    const data = JSON.parse(clean);
+                    renderNutrition(data, recipe);
+                    if (window.currentUser && window._fbReady) {
+                        const cRef = window._fbDoc(window._fbDb, 'users', window.currentUser.uid, 'nutritionCache', recipe.id);
+                        window._fbSetDoc(cRef, data).catch(() => { });
+                    }
+                    // Zesty reaction
+                    const fn = getFirstName();
+                    const score = data.healthScore || 5;
+                    let reaction = '';
+                    if (score >= 7) reaction = `That's actually pretty healthy ${fn}! 💪 Great choice.`;
+                    else if (score >= 4) reaction = `Not bad ${fn} 😄 Solid comfort food energy!`;
+                    else reaction = `Okay ${fn} this one's a treat 😂 Worth every calorie though!`;
+                    setTimeout(() => { if (typeof addZestyMsg === 'function') addZestyMsg('assistant', reaction); }, 800);
+                } catch (e) { panel.innerHTML = '<div style="padding:16px;color:#e74c3c;">Could not analyse nutrition. Try again.</div>'; }
+            }
+
+            function renderNutrition(d, recipe) {
+                const panel = document.getElementById('nutrition-panel');
+                const badgeClass = d.healthScore >= 7 ? 'green' : d.healthScore >= 4 ? 'amber' : 'red';
+                const macros = [
+                    { label: 'Carbs', val: d.carbs, color: '#3498db' },
+                    { label: 'Protein', val: d.protein, color: '#2ecc71' },
+                    { label: 'Fat', val: d.fat, color: '#e8652a' },
+                    { label: 'Fibre', val: d.fibre, color: '#9b59b6' }
+                ];
+                const total = macros.reduce((s, m) => s + (m.val || 0), 0) || 1;
+                panel.innerHTML = `
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                    <strong>🥗 Nutrition per serving</strong>
+                    <span class="health-badge ${badgeClass}">Health Score: ${d.healthScore}/10</span>
+                </div>
+                <div class="nutrition-chart-wrap">
+                    <canvas id="nut-donut" width="140" height="140"></canvas>
+                    <div class="nutrition-legend">
+                        <div style="font-weight:700;font-size:1.2rem;margin-bottom:4px;">${d.calories} kcal</div>
+                        ${macros.map(m => `<div class="nutrition-legend-item"><div class="nut-dot" style="background:${m.color};"></div>${m.label}: <strong>${m.val}g</strong></div>`).join('')}
+                    </div>
+                </div>
+                <p style="font-size:0.82rem;color:var(--text-muted);margin-top:10px;">${d.summary || ''}</p>
+            `;
+                // Draw donut
+                const canvas = document.getElementById('nut-donut');
+                const ctx = canvas.getContext('2d');
+                let startAngle = -Math.PI / 2;
+                macros.forEach(m => {
+                    const slice = ((m.val || 0) / total) * 2 * Math.PI;
+                    ctx.beginPath();
+                    ctx.moveTo(70, 70);
+                    ctx.arc(70, 70, 60, startAngle, startAngle + slice);
+                    ctx.closePath();
+                    ctx.fillStyle = m.color;
+                    ctx.fill();
+                    startAngle += slice;
+                });
+                ctx.beginPath();
+                ctx.arc(70, 70, 35, 0, 2 * Math.PI);
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--bg-card').trim() || '#fff';
+                ctx.fill();
+            }
+
+            // ======================================================
+            // T4 — RECIPE REMIXER
+            // ======================================================
+            let remixSelectedType = null;
+            let remixCurrentRecipe = null;
+            let remixedResult = null;
+
+            document.getElementById('detail-remix-btn').addEventListener('click', () => {
+                remixCurrentRecipe = window.currentDetailRecipeId
+                    ? (window.RECIPES || []).find(r => r.id === window.currentDetailRecipeId) || (window.customRecipes || []).find(r => r.id === window.currentDetailRecipeId)
+                    : null;
+                if (!remixCurrentRecipe) return;
+                remixSelectedType = null;
+                document.querySelectorAll('.remix-card').forEach(c => c.classList.remove('selected'));
+                document.getElementById('remix-sub-prompt').style.display = 'none';
+                document.getElementById('remix-go-btn').style.display = 'none';
+                document.getElementById('remix-loading').style.display = 'none';
+                openModal('remix-modal');
+            });
+
+            document.querySelectorAll('.remix-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.remix-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    remixSelectedType = card.dataset.remix;
+                    const needsSub = remixSelectedType === 'cuisine' || remixSelectedType === 'method';
+                    document.getElementById('remix-sub-prompt').style.display = needsSub ? 'block' : 'none';
+                    document.getElementById('remix-go-btn').style.display = 'block';
+                });
+            });
+
+            document.getElementById('remix-close').addEventListener('click', () => closeModal('remix-modal'));
+            document.getElementById('remix-result-close').addEventListener('click', () => closeFullpage('remix-result-overlay'));
+
+            document.getElementById('remix-go-btn').addEventListener('click', async () => {
+                if (!remixCurrentRecipe || !remixSelectedType) return;
+                const styleInput = document.getElementById('remix-style-input').value.trim();
+                document.getElementById('remix-loading').style.display = 'block';
+                document.getElementById('remix-go-btn').style.display = 'none';
+                let instruction = '';
+                if (remixSelectedType === 'cuisine') instruction = `Change the cuisine to ${styleInput || 'a different world cuisine'} while keeping the core ingredients.`;
+                else if (remixSelectedType === 'method') instruction = `Change the cooking method to ${styleInput || 'a different method (e.g. air fryer)'} while keeping the core ingredients.`;
+                else instruction = 'Completely reimagine and reinvent this dish creatively while keeping its soul.';
+                const recipeJSON = JSON.stringify({ title: remixCurrentRecipe.title, ingredients: remixCurrentRecipe.ingredients, steps: remixCurrentRecipe.steps });
+                const prompt = `You are a creative chef. ${instruction}\n\nOriginal recipe:\n${recipeJSON}\n\nReturn ONLY a JSON object with: {"title":"...","intro":"...","ingredients":["..."],"steps":[{"title":"...","detail":"..."}]}`;
+                try {
+                    const raw = await callAI([{ role: 'user', content: prompt }], 1200);
+                    const clean = raw.replace(/```json|```/g, '').trim();
+                    remixedResult = JSON.parse(clean);
+                    closeModal('remix-modal');
+                    renderRemixResult(remixCurrentRecipe, remixedResult);
+                    openFullpage('remix-result-overlay');
+                } catch (e) {
+                    document.getElementById('remix-loading').style.display = 'none';
+                    document.getElementById('remix-go-btn').style.display = 'block';
+                    if (typeof showToast === 'function') showToast('Remix failed. Try again.', 'error');
+                }
+            });
+
+            function renderRemixResult(original, remixed) {
+                document.getElementById('remix-original-view').innerHTML = `
+                <div class="remix-recipe-view">
+                    <h4>Ingredients</h4>${(original.ingredients || []).map(i => `<div>• ${i}</div>`).join('')}
+                    <h4 style="margin-top:12px;">Instructions</h4>${(original.steps || []).map((s, i) => `<div><strong>${i + 1}. ${s.title || ''}</strong><br>${s.detail || s}</div>`).join('<br>')}
+                </div>`;
+                document.getElementById('remix-new-view').innerHTML = `
+                <div class="remix-recipe-view">
+                    <h3 style="color:var(--accent);margin-bottom:8px;">${remixed.title}</h3>
+                    ${remixed.intro ? `<em style="font-size:0.82rem;color:var(--text-muted);">${remixed.intro}</em>` : ''}
+                    <h4>Ingredients</h4>${(remixed.ingredients || []).map(i => `<div>• ${i}</div>`).join('')}
+                    <h4 style="margin-top:12px;">Instructions</h4>${(remixed.steps || []).map((s, i) => `<div><strong>${i + 1}. ${s.title || ''}</strong><br>${s.detail || s}</div>`).join('<br>')}
+                </div>`;
+            }
+
+            document.getElementById('remix-save-btn').addEventListener('click', async () => {
+                if (!remixedResult || !window.currentUser) { if (typeof showToast === 'function') showToast('Sign in to save remixed recipes', 'error'); return; }
+                try {
+                    const id = 'custom_' + Date.now();
+                    const ref = window._fbDoc(window._fbDb, 'users', window.currentUser.uid, 'customRecipes', id);
+                    await window._fbSetDoc(ref, {
+                        id, title: remixedResult.title, category: 'Mains',
+                        intro: remixedResult.intro || '', ingredients: remixedResult.ingredients || [],
+                        steps: remixedResult.steps || [], isRemixed: true,
+                        authorName: window.currentUser.displayName, authorPhoto: window.currentUser.photoURL || '',
+                        createdAt: Date.now(), meta: { servings: 4, prep: 20, cook: 30 }
+                    });
+                    if (!window.customRecipes) window.customRecipes = [];
+                    window.customRecipes.push({ id, title: remixedResult.title, category: 'Mains', ingredients: remixedResult.ingredients, steps: remixedResult.steps, isRemixed: true, meta: { servings: 4, prep: 20, cook: 30 } });
+                    closeFullpage('remix-result-overlay');
+                    if (typeof showToast === 'function') showToast('Saved to My Cookbook! ✨');
+                    await awardPoints('publish_custom', 20);
+                } catch (e) { if (typeof showToast === 'function') showToast('Save failed', 'error'); }
+            });
+
+            // ======================================================
+            // T8 — PHOTO TO RECIPE
+            // ======================================================
+            document.getElementById('photo-recipe-btn').addEventListener('click', () => {
+                document.getElementById('photo-preview').style.display = 'none';
+                document.getElementById('photo-analyse-btn').style.display = 'none';
+                document.getElementById('photo-result').innerHTML = '';
+                openModal('photo-recipe-modal');
+            });
+            document.getElementById('photo-recipe-close').addEventListener('click', () => closeModal('photo-recipe-modal'));
+
+            let photoBase64 = null;
+            document.getElementById('photo-file-input').addEventListener('change', async e => {
+                const file = e.target.files[0];
+                if (!file) return;
+                photoBase64 = await imageFileToBase64(file);
+                const prev = document.getElementById('photo-preview');
+                prev.src = 'data:' + file.type + ';base64,' + photoBase64;
+                prev.style.display = 'block';
+                document.getElementById('photo-analyse-btn').style.display = 'block';
+            });
+
+            ['dragover', 'dragleave', 'drop'].forEach(ev => {
+                document.getElementById('photo-dropzone').addEventListener(ev, e => {
+                    e.preventDefault();
+                    if (ev === 'drop') document.getElementById('photo-file-input').dispatchEvent(Object.assign(new Event('change'), { target: { files: e.dataTransfer.files } }));
+                });
+            });
+
+            document.getElementById('photo-analyse-btn').addEventListener('click', async () => {
+                if (!photoBase64) return;
+                const resultEl = document.getElementById('photo-result');
+                resultEl.innerHTML = '<div style="text-align:center;color:var(--text-muted);">🔍 Identifying dish...</div>';
+                const titles = (window.RECIPES || []).map(r => r.id + ':' + r.title).join(', ');
+                try {
+                    const raw = await callAI([{
+                        role: 'user', content: [
+                            { type: 'text', text: `Identify the food dish in this image. Then search this recipe list for the closest match: [${titles}]. If a match exists return {"found":true,"id":"recipe_id"}. If no match, return {"found":false,"recipe":{"title":"...","ingredients":["..."],"steps":[{"title":"...","detail":"..."}]}}` },
+                            { type: 'image_url', image_url: { url: 'data:image/jpeg;base64,' + photoBase64 } }
+                        ]
+                    }], 1000);
+                    const clean = raw.replace(/```json|```/g, '').trim();
+                    const data = JSON.parse(clean);
+                    if (data.found && data.id) {
+                        const recipe = (window.RECIPES || []).find(r => r.id === data.id);
+                        if (recipe) {
+                            closeModal('photo-recipe-modal');
+                            if (typeof openRecipeDetail === 'function') openRecipeDetail(recipe, true);
+                            if (typeof addZestyMsg === 'function') addZestyMsg('assistant', `Ooh I know that one ${getFirstName()}! 👀 Here's what I found.`);
+                            return;
+                        }
+                    }
+                    // No match - show generated recipe
+                    const gen = data.recipe || {};
+                    resultEl.innerHTML = `
+                    <div style="background:var(--glass);border-radius:12px;padding:16px;font-size:0.88rem;">
+                        <div style="font-size:0.75rem;color:var(--accent);font-weight:700;margin-bottom:4px;">NEW RECIPE CREATED 🍳</div>
+                        <h4 style="margin-bottom:8px;">${gen.title || 'Unknown Dish'}</h4>
+                        <strong>Ingredients:</strong><ul style="margin:6px 0 10px 16px;">${(gen.ingredients || []).map(i => `<li>${i}</li>`).join('')}</ul>
+                        <button class="feature-btn" id="photo-save-new" style="font-size:0.82rem;padding:7px 14px;">Save to My Cookbook</button>
+                    </div>`;
+                    document.getElementById('photo-save-new')?.addEventListener('click', async () => {
+                        if (!window.currentUser) { if (typeof showToast === 'function') showToast('Sign in to save', 'error'); return; }
+                        const id = 'custom_' + Date.now();
+                        const ref = window._fbDoc(window._fbDb, 'users', window.currentUser.uid, 'customRecipes', id);
+                        await window._fbSetDoc(ref, { id, ...gen, category: 'Mains', createdAt: Date.now(), authorName: window.currentUser.displayName, isPhotoGenerated: true, meta: { servings: 4, prep: 20, cook: 30 } });
+                        if (typeof showToast === 'function') showToast('Saved to My Cookbook!');
+                        closeModal('photo-recipe-modal');
+                    });
+                    if (typeof addZestyMsg === 'function') addZestyMsg('assistant', `Interesting dish ${getFirstName()}! I've never seen that in the book — I've created it for you though 🍳`);
+                } catch (e) { resultEl.innerHTML = '<div style="color:#e74c3c;">Could not identify image. Try a clearer photo.</div>'; }
+            });
+        </script>
+
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+        <!-- T9 Fridge + T5 Cook Together + T1 Meal Planner + T3 Cookbook -->
+        <script>
+            // ======================================================
+            // T9 — FRIDGE MODE
+            // ======================================================
+            document.getElementById('fridge-mode-btn').addEventListener('click', () => {
+                document.getElementById('fridge-result').innerHTML = '';
+                document.getElementById('fridge-ingredients-input').value = '';
+                openModal('fridge-modal');
+                if (typeof addZestyMsg === 'function') addZestyMsg('assistant', `Okay let's see what we're working with ${getFirstName()} 🧊`);
+            });
+            document.getElementById('fridge-close').addEventListener('click', () => closeModal('fridge-modal'));
+
+            document.getElementById('fridge-tab-type').addEventListener('click', () => {
+                document.getElementById('fridge-tab-type').classList.add('active');
+                document.getElementById('fridge-tab-photo').classList.remove('active');
+                document.getElementById('fridge-type-panel').style.display = 'block';
+                document.getElementById('fridge-photo-panel').style.display = 'none';
+            });
+            document.getElementById('fridge-tab-photo').addEventListener('click', () => {
+                document.getElementById('fridge-tab-photo').classList.add('active');
+                document.getElementById('fridge-tab-type').classList.remove('active');
+                document.getElementById('fridge-photo-panel').style.display = 'block';
+                document.getElementById('fridge-type-panel').style.display = 'none';
+            });
+
+            let fridgePhotoBase64 = null;
+            document.getElementById('fridge-file-input').addEventListener('change', async e => {
+                const file = e.target.files[0];
+                if (!file) return;
+                fridgePhotoBase64 = await imageFileToBase64(file);
+                const prev = document.getElementById('fridge-preview');
+                prev.src = 'data:' + file.type + ';base64,' + fridgePhotoBase64;
+                prev.style.display = 'block';
+            });
+
+            document.getElementById('fridge-find-btn').addEventListener('click', async () => {
+                const resultEl = document.getElementById('fridge-result');
+                resultEl.innerHTML = '<div style="text-align:center;color:var(--text-muted);">🔍 Finding best recipes...</div>';
+                let ingredients = document.getElementById('fridge-ingredients-input').value.trim();
+
+                // Photo mode: extract ingredients first
+                if (document.getElementById('fridge-tab-photo').classList.contains('active') && fridgePhotoBase64) {
+                    try {
+                        const raw = await callAI([{
+                            role: 'user', content: [
+                                { type: 'text', text: 'List all the food ingredients you can see in this fridge/kitchen photo. Reply with a simple comma-separated list only.' },
+                                { type: 'image_url', image_url: { url: 'data:image/jpeg;base64,' + fridgePhotoBase64 } }
+                            ]
+                        }], 300);
+                        ingredients = raw.trim();
+                    } catch (e) { resultEl.innerHTML = '<div style="color:#e74c3c;">Could not detect ingredients from photo.</div>'; return; }
+                }
+
+                if (!ingredients) { if (typeof showToast === 'function') showToast('Enter or photo your ingredients first'); return; }
+
+                const recipeSummaries = (window.RECIPES || []).slice(0, 40).map(r =>
+                    r.id + ':' + r.title + ' [' + (r.ingredients || []).slice(0, 6).join(', ') + ']'
+                ).join('\n');
+
+                const prompt = `Given these available ingredients: ${ingredients}\nFind the best matching recipes from this list:\n${recipeSummaries}\nReturn ONLY JSON: [{"id":"...","title":"...","missing":["missing ingredient 1"]}] — top 3 matches, best first.`;
+                try {
+                    const raw = await callAI([{ role: 'user', content: prompt }], 600);
+                    const clean = raw.replace(/```json|```/g, '').trim();
+                    const matches = JSON.parse(clean);
+                    resultEl.innerHTML = matches.map((m, idx) => {
+                        const rec = (window.RECIPES || []).find(r => r.id === m.id);
+                        const missing = m.missing || [];
+                        return `<div style="background:var(--glass);border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;border:${idx === 0 ? '2px solid var(--accent)' : '1px solid var(--glass-border)'};" onclick="closeModal('fridge-modal');setTimeout(()=>{const r=(window.RECIPES||[]).find(x=>x.id==='${m.id}');if(r&&typeof openRecipeDetail==='function')openRecipeDetail(r)},100)">
+                        ${idx === 0 ? '<div style="font-size:0.7rem;color:var(--accent);font-weight:700;margin-bottom:4px;">BEST MATCH ✓</div>' : ''}
+                        <div style="font-weight:600;font-size:0.95rem;margin-bottom:6px;">${rec ? rec.title : m.title}</div>
+                        ${missing.length ? `<div style="font-size:0.8rem;color:#e74c3c;">You're missing: ${missing.join(', ')}</div>` : '<div style="font-size:0.8rem;color:#2ecc71;">You have all ingredients! ✓</div>'}
+                    </div>`;
+                    }).join('');
+                    const fn = getFirstName();
+                    if (typeof addZestyMsg === 'function') addZestyMsg('assistant', `${fn}, I found ${matches.length} recipes from what you've got 🧊 The best match is **${matches[0]?.title}** — check it out!`);
+                } catch (e) { resultEl.innerHTML = '<div style="color:#e74c3c;">Could not find matches. Try again.</div>'; }
+            });
+
+            // ======================================================
+            // T5 — COOK TOGETHER
+            // ======================================================
+            let cookSessionId = null;
+
+            document.getElementById('detail-cook-together-btn').addEventListener('click', () => {
+                cookSessionId = crypto.randomUUID();
+                const url = window.location.origin + window.location.pathname + '?session=' + cookSessionId;
+                document.getElementById('cook-session-url').value = url;
+                document.getElementById('cook-wa-link').href = 'https://wa.me/?text=' + encodeURIComponent('Cook with me! 👨‍🍳 Join my kitchen session: ' + url);
+                document.getElementById('cook-sessions-avatars').innerHTML = `<div style="font-size:0.85rem;color:var(--text-muted);">Share the link and see who joins!</div>`;
+                openModal('cook-together-modal');
+            });
+            document.getElementById('cook-together-close').addEventListener('click', () => closeModal('cook-together-modal'));
+            document.getElementById('cook-copy-link').addEventListener('click', () => {
+                navigator.clipboard.writeText(document.getElementById('cook-session-url').value).then(() => {
+                    if (typeof showToast === 'function') showToast('Session link copied! 🔗');
+                });
+            });
+
+            // Emoji reactions floating animation
+            document.querySelectorAll('.reaction-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    spawnReaction(btn.dataset.emoji);
+                    if (cookSessionId && window._fbRtdb) {
+                        try {
+                            const reactionRef = window._fbRtdbRef(window._fbRtdb, 'sessions/' + cookSessionId + '/reactions');
+                            window._fbRtdbPush(reactionRef, { emoji: btn.dataset.emoji, t: Date.now() });
+                        } catch (e) { }
+                    }
+                });
+            });
+
+            function spawnReaction(emoji) {
+                const el = document.createElement('div');
+                el.className = 'floating-reaction';
+                el.textContent = emoji;
+                el.style.left = (20 + Math.random() * 60) + 'vw';
+                el.style.bottom = '80px';
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 2100);
+            }
+
+            // ======================================================
+            // T1 — MEAL PLANNER
+            // ======================================================
+            let mpWeekOffset = 0;
+            let mpPlan = {};
+            let mpPickingDay = null;
+            let mpPickingMeal = null;
+
+            document.getElementById('meal-planner-btn').addEventListener('click', async () => {
+                openFullpage('meal-planner-overlay');
+                await loadMealPlan();
+                renderMealCalendar();
+                const fn = getFirstName();
+                if (typeof addZestyMsg === 'function') {
+                    addZestyMsg('assistant', `Let me help you plan the week ${fn}! Want me to suggest a balanced mix of recipes? 📅`);
+                }
+            });
+            document.getElementById('meal-planner-close').addEventListener('click', () => closeFullpage('meal-planner-overlay'));
+            document.getElementById('mp-prev-week').addEventListener('click', () => { mpWeekOffset--; renderMealCalendar(); });
+            document.getElementById('mp-next-week').addEventListener('click', () => { mpWeekOffset++; renderMealCalendar(); });
+
+            function getMpWeekStart(offset = 0) {
+                const d = new Date();
+                const day = d.getDay();
+                const diff = d.getDate() - day + (day === 0 ? -6 : 1) + offset * 7;
+                const mon = new Date(d);
+                mon.setDate(diff);
+                return mon.toISOString().split('T')[0];
+            }
+
+            async function loadMealPlan() {
+                const weekKey = getMpWeekStart(mpWeekOffset);
+                if (!window.currentUser || !window._fbReady) {
+                    const saved = localStorage.getItem('mealPlan_' + weekKey);
+                    mpPlan = saved ? JSON.parse(saved) : {};
+                    return;
+                }
+                try {
+                    const ref = window._fbDoc(window._fbDb, 'users', window.currentUser.uid, 'mealPlans', weekKey);
+                    const snap = await window._fbGetDoc(ref);
+                    mpPlan = snap.exists() ? snap.data() : {};
+                } catch (e) { mpPlan = {}; }
+            }
+
+            async function saveMealPlan() {
+                const weekKey = getMpWeekStart(mpWeekOffset);
+                if (!window.currentUser || !window._fbReady) {
+                    localStorage.setItem('mealPlan_' + weekKey, JSON.stringify(mpPlan));
+                    return;
+                }
+                try {
+                    const ref = window._fbDoc(window._fbDb, 'users', window.currentUser.uid, 'mealPlans', weekKey);
+                    await window._fbSetDoc(ref, mpPlan);
+                } catch (e) { }
+            }
+
+            function renderMealCalendar() {
+                const weekKey = getMpWeekStart(mpWeekOffset);
+                const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                const meals = ['Breakfast', 'Lunch', 'Dinner'];
+                const startDate = new Date(weekKey);
+                document.getElementById('mp-week-label').textContent =
+                    startDate.toLocaleDateString('en-GB', { month: 'short', day: 'numeric' }) + ' – ' +
+                    new Date(startDate.getTime() + 6 * 86400000).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' });
+                const cal = document.getElementById('mp-calendar');
+                cal.innerHTML = days.map((day, di) => {
+                    const dayKey = day;
+                    return `<div class="mp-day-card">
+                    <div class="mp-day-header">${day}</div>
+                    ${meals.map(meal => {
+                        const slotKey = dayKey + '_' + meal;
+                        const filled = mpPlan[slotKey];
+                        return `<div class="mp-slot ${filled ? 'filled' : ''}" data-slot="${slotKey}">
+                            <span class="mp-slot-label">${meal}</span>
+                            ${filled ? `<span style="font-size:0.8rem;font-weight:600;">${filled.title}</span><span class="mp-slot-remove" data-remove="${slotKey}">✕ Remove</span>` : '<span style="font-size:1.2rem;">+</span>'}
+                        </div>`;
+                    }).join('')}
+                </div>`;
+                }).join('');
+                cal.querySelectorAll('.mp-slot').forEach(slot => {
+                    slot.addEventListener('click', e => {
+                        const removeBtn = e.target.closest('[data-remove]');
+                        if (removeBtn) { delete mpPlan[removeBtn.dataset.remove]; saveMealPlan(); renderMealCalendar(); return; }
+                        const slotKey = slot.dataset.slot;
+                        const [day, meal] = slotKey.split('_');
+                        mpPickingDay = day; mpPickingMeal = meal;
+                        openRecipePicker();
+                    });
+                });
+                document.getElementById('mp-shopping').style.display = 'none';
+            }
+
+            function openRecipePicker() {
+                const list = document.getElementById('recipe-picker-list');
+                const allRecipes = [...(window.RECIPES || []), ...(window.customRecipes || [])];
+                function renderPicker(query) {
+                    const filtered = query ? allRecipes.filter(r => r.title.toLowerCase().includes(query.toLowerCase())) : allRecipes;
+                    list.innerHTML = filtered.map(r => `
+                    <div class="recipe-picker-item" data-id="${r.id}">
+                        ${r.image ? `<img class="recipe-picker-img" src="${r.image}" alt="">` : `<div class="recipe-picker-img" style="background:var(--glass);display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🍽️</div>`}
+                        <div><div style="font-weight:600;font-size:0.9rem;">${r.title}</div><div style="font-size:0.78rem;color:var(--text-muted);">${r.category || ''}</div></div>
+                    </div>`).join('');
+                    list.querySelectorAll('.recipe-picker-item').forEach(item => {
+                        item.addEventListener('click', () => {
+                            const rec = allRecipes.find(r => r.id === item.dataset.id);
+                            if (rec && mpPickingDay && mpPickingMeal) {
+                                mpPlan[mpPickingDay + '_' + mpPickingMeal] = { id: rec.id, title: rec.title };
+                                saveMealPlan();
+                                renderMealCalendar();
+                                closeModal('recipe-picker-modal');
+                            }
+                        });
+                    });
+                }
+                document.getElementById('recipe-picker-search').value = '';
+                renderPicker('');
+                document.getElementById('recipe-picker-search').oninput = e => renderPicker(e.target.value);
+                document.getElementById('recipe-picker-close').onclick = () => closeModal('recipe-picker-modal');
+                openModal('recipe-picker-modal');
+            }
+
+            document.getElementById('mp-generate-list').addEventListener('click', async () => {
+                const slotKeys = Object.keys(mpPlan);
+                if (!slotKeys.length) { if (typeof showToast === 'function') showToast('Add some recipes to plan first'); return; }
+                const allRecipes = [...(window.RECIPES || []), ...(window.customRecipes || [])];
+                const ingredients = slotKeys.flatMap(k => {
+                    const rec = allRecipes.find(r => r.id === mpPlan[k]?.id);
+                    return rec ? (rec.ingredients || []) : [];
+                });
+                const prompt = `Group these shopping list ingredients by category (Produce, Dairy, Pantry, Meat, Spices etc). Merge duplicates. Reply ONLY with JSON: {"Produce":["..."],"Dairy":["..."]}.\n\nIngredients:\n${ingredients.join('\n')}`;
+                const mpShopping = document.getElementById('mp-shopping');
+                const mpContent = document.getElementById('mp-shopping-content');
+                mpShopping.style.display = 'block';
+                mpContent.innerHTML = '<div style="color:var(--text-muted);">🛒 Generating shopping list...</div>';
+                try {
+                    const raw = await callAI([{ role: 'user', content: prompt }], 600);
+                    const clean = raw.replace(/```json|```/g, '').trim();
+                    const grouped = JSON.parse(clean);
+                    const savedChecks = JSON.parse(localStorage.getItem('shoppingChecks') || '{}');
+                    mpContent.innerHTML = Object.entries(grouped).map(([cat, items]) => `
+                    <div class="shopping-category">
+                        <h4>${cat}</h4>
+                        ${items.map((item, i) => {
+                        const key = cat + '_' + i;
+                        const checked = savedChecks[key] ? 'checked' : '';
+                        return `<div class="shopping-item ${checked ? 'checked' : ''}" data-key="${key}">
+                                <input type="checkbox" ${checked} onchange="toggleShopItem(this,'${key}')"> ${item}
+                            </div>`;
+                    }).join('')}
+                    </div>`).join('');
+                    window._shoppingListGrouped = grouped;
+                    // Award points if full week planned
+                    if (slotKeys.length >= 18) awardPoints('meal_plan_complete', 15);
+                } catch (e) { mpContent.innerHTML = '<div style="color:#e74c3c;">Could not generate list. Try again.</div>'; }
+            });
+
+            window.toggleShopItem = (el, key) => {
+                const saved = JSON.parse(localStorage.getItem('shoppingChecks') || '{}');
+                saved[key] = el.checked;
+                localStorage.setItem('shoppingChecks', JSON.stringify(saved));
+                el.closest('.shopping-item').classList.toggle('checked', el.checked);
+            };
+
+            document.getElementById('mp-copy-list').addEventListener('click', () => {
+                if (!window._shoppingListGrouped) return;
+                const text = Object.entries(window._shoppingListGrouped).map(([c, items]) => c + ':\n' + items.map(i => '- ' + i).join('\n')).join('\n\n');
+                navigator.clipboard.writeText(text).then(() => { if (typeof showToast === 'function') showToast('Copied to clipboard!'); });
+            });
+
+            document.getElementById('mp-share-wa').addEventListener('click', () => {
+                if (!window._shoppingListGrouped) return;
+                const text = '🛒 Shopping List\n\n' + Object.entries(window._shoppingListGrouped).map(([c, items]) => c + ':\n' + items.map(i => '- ' + i).join('\n')).join('\n\n');
+                window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+            });
+
+            // ======================================================
+            // T3 — MY COOKBOOK
+            // ======================================================
+            let cbStep = 1;
+            let cbIngredients = [];
+            let cbSteps = [];
+            let cbEditId = null;
+            const cbZestyHints = [
+                "What's the name of your recipe? I'll help you format everything perfectly 🍳",
+                "Add your ingredients one by one — I'll organise them properly!",
+                "Tell me the first step in your own words — don't worry about formatting, I'll clean it up.",
+                "This looks amazing! Ready to publish it to your cookbook? 🎉"
+            ];
+
+            document.getElementById('cookbook-btn').addEventListener('click', () => {
+                openFullpage('cookbook-overlay');
+                renderCookbookGrid();
+            });
+            document.getElementById('cookbook-close').addEventListener('click', () => closeFullpage('cookbook-overlay'));
+            document.getElementById('new-recipe-btn').addEventListener('click', () => openCookbookForm());
+            document.getElementById('cookbook-form-close').addEventListener('click', () => closeModal('cookbook-form-modal'));
+
+            function openCookbookForm(editRecipe = null) {
+                cbStep = 1; cbIngredients = []; cbSteps = []; cbEditId = null;
+                if (editRecipe) {
+                    cbEditId = editRecipe.id;
+                    cbIngredients = Array.isArray(editRecipe.ingredients) ? [...editRecipe.ingredients] : [];
+                    cbSteps = Array.isArray(editRecipe.steps) ? [...editRecipe.steps] : [];
+                    document.getElementById('cb-name').value = editRecipe.title || '';
+                    document.getElementById('cb-category').value = editRecipe.category || 'Mains';
+                    document.getElementById('cb-servings').value = editRecipe.meta?.servings || 4;
+                    document.getElementById('cb-prep').value = editRecipe.meta?.prep || 15;
+                    document.getElementById('cb-cook').value = editRecipe.meta?.cook || 30;
+                    document.getElementById('cb-intro').value = editRecipe.intro || '';
+                    document.getElementById('cookbook-form-title').textContent = 'Edit Recipe';
+                } else {
+                    document.getElementById('cb-name').value = '';
+                    document.getElementById('cb-intro').value = '';
+                    document.getElementById('cookbook-form-title').textContent = 'New Recipe';
+                }
+                renderCbIngredients(); renderCbSteps(); updateCbStep(1);
+                openModal('cookbook-form-modal');
+            }
+
+            function updateCbStep(step) {
+                cbStep = step;
+                for (let i = 1; i <= 4; i++) {
+                    document.getElementById('form-step-' + i).style.display = i === step ? 'block' : 'none';
+                    const ind = document.getElementById('form-step-' + i + '-indicator');
+                    ind.classList.toggle('active', i === step);
+                    ind.classList.toggle('done', i < step);
+                }
+                const hint = document.getElementById('cookbook-zesty-hint');
+                hint.textContent = '👨‍🍳 Zesty: ' + cbZestyHints[step - 1].replace('[firstName]', getFirstName());
+                hint.style.display = 'block';
+                document.getElementById('cb-prev-step').style.display = step > 1 ? 'inline-flex' : 'none';
+                document.getElementById('cb-next-step').style.display = step < 4 ? 'inline-flex' : 'none';
+                document.getElementById('cb-publish').style.display = step === 4 ? 'inline-flex' : 'none';
+                if (step === 4) renderCbReview();
+            }
+
+            document.getElementById('cb-next-step').addEventListener('click', () => { if (cbStep < 4) updateCbStep(cbStep + 1); });
+            document.getElementById('cb-prev-step').addEventListener('click', () => { if (cbStep > 1) updateCbStep(cbStep - 1); });
+
+            document.getElementById('cb-add-ing').addEventListener('click', () => {
+                const val = document.getElementById('cb-ing-input').value.trim();
+                if (val) { cbIngredients.push(val); document.getElementById('cb-ing-input').value = ''; renderCbIngredients(); }
+            });
+            document.getElementById('cb-ing-input').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('cb-add-ing').click(); });
+
+            document.getElementById('cb-add-step').addEventListener('click', () => {
+                const val = document.getElementById('cb-step-input').value.trim();
+                if (val) { cbSteps.push({ title: 'Step ' + (cbSteps.length + 1), detail: val }); document.getElementById('cb-step-input').value = ''; renderCbSteps(); }
+            });
+
+            document.getElementById('cb-polish-step').addEventListener('click', async () => {
+                const raw = document.getElementById('cb-step-input').value.trim();
+                if (!raw) return;
+                document.getElementById('cb-polish-step').textContent = '⏳ Polishing...';
+                const polished = await callAI([{ role: 'user', content: 'Polish and professionally format this recipe instruction step. Keep it clear and concise. Return only the improved text:\n' + raw }], 200);
+                document.getElementById('cb-step-input').value = polished.trim();
+                document.getElementById('cb-polish-step').innerHTML = '<i class="fas fa-magic"></i> ✨ Polish with AI';
+            });
+
+            function renderCbIngredients() {
+                document.getElementById('cb-ingredients-list').innerHTML = cbIngredients.map((ing, i) =>
+                    `<div class="cb-ingredient-tag">🔸 ${ing} <span class="cb-remove-tag" onclick="cbIngredients.splice(${i},1);renderCbIngredients()">✕</span></div>`
+                ).join('');
+            }
+            function renderCbSteps() {
+                document.getElementById('cb-steps-list').innerHTML = cbSteps.map((s, i) =>
+                    `<div class="cb-step-tag"><strong>${i + 1}.</strong> ${s.detail || s.title} <span class="cb-remove-tag" onclick="cbSteps.splice(${i},1);renderCbSteps()">✕</span></div>`
+                ).join('');
+            }
+            function renderCbReview() {
+                document.getElementById('cb-review-content').innerHTML = `
+                <h4 style="color:var(--accent);">${document.getElementById('cb-name').value || 'Unnamed'}</h4>
+                <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;">${document.getElementById('cb-category').value} · ${document.getElementById('cb-servings').value} servings · ${document.getElementById('cb-prep').value}m prep · ${document.getElementById('cb-cook').value}m cook</div>
+                ${document.getElementById('cb-intro').value ? `<p style="font-style:italic;">${document.getElementById('cb-intro').value}</p>` : ''}
+                <strong>Ingredients (${cbIngredients.length})</strong>
+                <ul style="margin:6px 0 10px 16px;">${cbIngredients.map(i => `<li>${i}</li>`).join('')}</ul>
+                <strong>Steps (${cbSteps.length})</strong>
+                <ol style="margin:6px 0 0 16px;">${cbSteps.map(s => `<li>${s.detail || s.title}</li>`).join('')}</ol>`;
+            }
+
+            document.getElementById('cb-publish').addEventListener('click', async () => {
+                const title = document.getElementById('cb-name').value.trim();
+                if (!title) { if (typeof showToast === 'function') showToast('Recipe needs a name!', 'error'); return; }
+                const id = cbEditId || ('custom_' + Date.now());
+                const recipeData = {
+                    id, title, category: document.getElementById('cb-category').value,
+                    intro: document.getElementById('cb-intro').value,
+                    ingredients: cbIngredients, steps: cbSteps,
+                    meta: { servings: parseInt(document.getElementById('cb-servings').value), prep: parseInt(document.getElementById('cb-prep').value), cook: parseInt(document.getElementById('cb-cook').value) },
+                    authorName: window.currentUser?.displayName || 'Guest', authorPhoto: window.currentUser?.photoURL || '',
+                    createdAt: Date.now(), isCustom: true
+                };
+                try {
+                    if (window.currentUser && window._fbReady) {
+                        const ref = window._fbDoc(window._fbDb, 'users', window.currentUser.uid, 'customRecipes', id);
+                        await window._fbSetDoc(ref, recipeData);
+                    } else {
+                        const local = JSON.parse(localStorage.getItem('localCustomRecipes') || '[]');
+                        const idx = local.findIndex(r => r.id === id);
+                        if (idx >= 0) local[idx] = recipeData; else local.push(recipeData);
+                        localStorage.setItem('localCustomRecipes', JSON.stringify(local));
+                    }
+                    if (!window.customRecipes) window.customRecipes = [];
+                    const idx = window.customRecipes.findIndex(r => r.id === id);
+                    if (idx >= 0) window.customRecipes[idx] = recipeData; else window.customRecipes.push(recipeData);
+                    closeModal('cookbook-form-modal');
+                    closeFullpage('cookbook-overlay');
+                    if (typeof renderGrid === 'function') renderGrid();
+                    if (typeof showToast === 'function') showToast('Recipe published! 🎉');
+                    if (!cbEditId) awardPoints('publish_custom', 20);
+                } catch (e) { if (typeof showToast === 'function') showToast('Could not save recipe', 'error'); }
+            });
+
+            function renderCookbookGrid() {
+                const grid = document.getElementById('cookbook-grid');
+                const recipes = window.customRecipes || [];
+                if (!recipes.length) { grid.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);">No custom recipes yet. Create your first!</div>'; return; }
+                grid.innerHTML = recipes.map(r => `
+                <div class="recipe-card" style="position:relative;">
+                    <div class="my-recipe-badge">My Recipe ⭐</div>
+                    <div class="card-body" onclick="openCookbookForm(window.customRecipes.find(x=>x.id==='${r.id}'))">
+                        <h3 class="card-title">${r.title}</h3>
+                        <div style="font-size:0.8rem;color:var(--text-muted);">${r.category} · ${r.meta?.servings || 4} servings</div>
+                    </div>
+                    <button onclick="deleteCookbookRecipe('${r.id}')" style="position:absolute;top:10px;right:10px;background:#e74c3c;color:#fff;border:none;border-radius:50%;width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.7rem;"><i class='fas fa-trash'></i></button>
+                </div>`).join('');
+            }
+
+            window.deleteCookbookRecipe = async (id) => {
+                if (!confirm('Delete this recipe?')) return;
+                try {
+                    if (window.currentUser && window._fbReady) {
+                        const ref = window._fbDoc(window._fbDb, 'users', window.currentUser.uid, 'customRecipes', id);
+                        await window._fbDeleteDoc(ref);
+                    }
+                    window.customRecipes = (window.customRecipes || []).filter(r => r.id !== id);
+                    renderCookbookGrid();
+                    if (typeof renderGrid === 'function') renderGrid();
+                    if (typeof showToast === 'function') showToast('Recipe deleted');
+                } catch (e) { }
+            };
+        </script>
+        <!-- T10 Voice + T11 Digest + T12 FCM + T14 PDF + detail hooks -->
+        <script>
+            // ======================================================
+            // T10 — VOICE MODE FOR ZESTY
+            // ======================================================
+            let zestyVoiceEnabled = false;
+            let voiceRecognition = null;
+
+            const zestyVoiceToggle = document.getElementById('zesty-voice-toggle');
+            if (zestyVoiceToggle) {
+                zestyVoiceToggle.addEventListener('click', () => {
+                    zestyVoiceEnabled = !zestyVoiceEnabled;
+                    zestyVoiceToggle.style.background = zestyVoiceEnabled ? 'var(--accent)' : '';
+                    zestyVoiceToggle.style.color = zestyVoiceEnabled ? '#fff' : '';
+                    if (typeof showToast === 'function') showToast(zestyVoiceEnabled ? 'Voice On 🔊' : 'Voice Off 🔇');
+                });
+            }
+
+            function zestySpeak(text) {
+                if (!zestyVoiceEnabled) return;
+                window.speechSynthesis.cancel();
+                const stripped = text.replace(/\*\*|__|\*|_|`|#/g, '');
+                const utt = new SpeechSynthesisUtterance(stripped);
+                utt.pitch = 1.1; utt.rate = 0.95;
+                const voices = speechSynthesis.getVoices();
+                const preferred = voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('female'))
+                    || voices.find(v => v.lang.startsWith('en'))
+                    || voices[0];
+                if (preferred) utt.voice = preferred;
+                speechSynthesis.speak(utt);
+            }
+
+            // Mic button for Zesty
+            const zestyMicBtn = document.getElementById('zesty-mic-btn');
+            if (zestyMicBtn && ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+                const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+                zestyMicBtn.addEventListener('click', () => {
+                    if (voiceRecognition) { voiceRecognition.stop(); voiceRecognition = null; zestyMicBtn.classList.remove('active'); return; }
+                    voiceRecognition = new SR();
+                    voiceRecognition.lang = 'en-US';
+                    voiceRecognition.onresult = e => {
+                        const text = e.results[0][0].transcript;
+                        const inp = document.getElementById('zesty-input');
+                        if (inp) { inp.value = text; document.getElementById('zesty-send')?.click(); }
+                    };
+                    voiceRecognition.onend = () => { voiceRecognition = null; zestyMicBtn.classList.remove('active'); };
+                    voiceRecognition.start();
+                    zestyMicBtn.classList.add('active');
+                });
+            }
+
+            // Patch addZestyMsg to add speaker icon and auto-speak
+            const _origAddZestyMsg = typeof addZestyMsg === 'function' ? addZestyMsg : null;
+            window.addZestyMsg = function (role, content, noScroll) {
+                if (_origAddZestyMsg) _origAddZestyMsg(role, content, noScroll);
+                if (role === 'assistant') {
+                    zestySpeak(content);
+                    const msgs = document.getElementById('zesty-messages');
+                    if (msgs) {
+                        const lastMsg = msgs.querySelector('.chat-msg.bot:last-child .chat-bubble');
+                        if (lastMsg && !lastMsg.querySelector('.speak-btn')) {
+                            const btn = document.createElement('button');
+                            btn.className = 'speak-btn';
+                            btn.title = 'Replay audio';
+                            btn.innerHTML = '🔊';
+                            btn.style.cssText = 'background:none;border:none;cursor:pointer;font-size:0.85rem;margin-left:6px;';
+                            btn.onclick = () => { zestyVoiceEnabled = true; zestySpeak(content); zestyVoiceEnabled = zestyVoiceToggle.style.background !== ''; };
+                            lastMsg.appendChild(btn);
+                        }
+                    }
+                }
+            };
+
+            // ======================================================
+            // T11 — WEEKLY DIGEST
+            // ======================================================
+            async function checkWeeklyDigest(user) {
+                if (!user || !window._fbReady) return;
+                const now = new Date();
+                if (now.getDay() !== 0) return; // Only Sunday
+                const todayStr = now.toISOString().split('T')[0];
+                try {
+                    const profRef = window._fbDoc(window._fbDb, 'users', user.uid, 'profile', 'data');
+                    const snap = await window._fbGetDoc(profRef);
+                    if (snap.exists() && snap.data().weeklyDigestSent === todayStr) return;
+                    // Show digest after 3 second delay
+                    setTimeout(() => showWeeklyDigest(user, todayStr), 3000);
+                } catch (e) { }
+            }
+
+            async function showWeeklyDigest(user, todayStr) {
+                const fn = getFirstName();
+                document.getElementById('digest-heading').textContent = `Your Week in the Kitchen 🍽️ ${fn}`;
+                const digestEl = document.getElementById('digest-content');
+                digestEl.innerHTML = '<div style="text-align:center;color:var(--text-muted);">Loading your week...</div>';
+                document.getElementById('weekly-digest-overlay').classList.add('open');
+
+                let savedThisWeek = [], points = 0;
+                try {
+                    const profRef = window._fbDoc(window._fbDb, 'users', user.uid, 'profile', 'data');
+                    const profSnap = await window._fbGetDoc(profRef);
+                    points = profSnap.exists() ? (profSnap.data().points || 0) : 0;
+                } catch (e) { }
+
+                // AI suggestions
+                const allTitles = (window.RECIPES || []).map(r => r.title).join(', ');
+                let suggestions = [];
+                try {
+                    const aiRaw = await callAI([{ role: 'user', content: `Based on a food lover's history, suggest 3 varied recipe names from this list for next week: ${allTitles}. Reply ONLY with a JSON array of 3 strings.` }], 200);
+                    suggestions = JSON.parse(aiRaw.replace(/```json|```/g, '').trim());
+                } catch (e) { suggestions = ['Try something new!', 'Cook a classic', 'Explore a new cuisine']; }
+
+                digestEl.innerHTML = `
+                <div class="digest-section"><h4>✨ Points This Week</h4><div class="digest-suggestion">You've earned <strong>${points} total points</strong> so far. Keep cooking! 🏆</div></div>
+                <div class="digest-section"><h4>🤖 Zesty's Picks for Next Week</h4>${suggestions.map(s => `<div class="digest-suggestion">👨‍🍳 ${s}</div>`).join('')}</div>
+                <div class="digest-section" style="text-align:center;color:var(--text-muted);font-style:italic;">"Keep exploring flavours ${fn} — every meal is a new adventure. See you in the kitchen! 🍳"<br><strong>— Zesty</strong></div>`;
+
+                document.getElementById('digest-dismiss').addEventListener('click', async () => {
+                    document.getElementById('weekly-digest-overlay').classList.remove('open');
+                    try {
+                        const profRef = window._fbDoc(window._fbDb, 'users', user.uid, 'profile', 'data');
+                        await window._fbSetDoc(profRef, { weeklyDigestSent: todayStr }, { merge: true });
+                    } catch (e) { }
+                }, { once: true });
+            }
+
+            // Hook into auth state change — expose for the existing auth listener
+            window._checkWeeklyDigest = checkWeeklyDigest;
+
+            // ======================================================
+            // T12 — PUSH NOTIFICATIONS (FCM)
+            // ======================================================
+            async function setupFCM(user) {
+                if (!user || !window._fbReady) return;
+                try {
+                    // Import FCM module lazily
+                    const { getMessaging, getToken } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging.js');
+                    if (!window._fbApp) return;
+                    const messaging = getMessaging(window._fbApp);
+                    const perm = await Notification.requestPermission();
+                    if (perm !== 'granted') return;
+                    const token = await getToken(messaging, {
+                        vapidKey: 'BLBz0EzgG7FO5RyW_oedMH5hMvAHpF7zN2KGHyqREIjDsgj4K_QnLzInp2d5JW5P5VOmXYl4zWaFv-XJTl5k1UE'
+                    });
+                    if (token) {
+                        const profRef = window._fbDoc(window._fbDb, 'users', user.uid, 'profile', 'data');
+                        await window._fbSetDoc(profRef, { fcmToken: token }, { merge: true });
+                        if (typeof addZestyMsg === 'function') addZestyMsg('assistant', `Want me to remind you about dinner? I'll send you a nudge at 6pm 🍕`);
+                    }
+                } catch (e) { console.log('FCM not available', e); }
+            }
+            window._setupFCM = setupFCM;
+
+            // ======================================================
+            // T14 — PDF RECIPE BOOK DOWNLOAD
+            // ======================================================
+            document.getElementById('pdf-download-btn').addEventListener('click', () => {
+                if (!window.currentUser) {
+                    openModal('pdf-auth-modal');
+                } else {
+                    generateRecipePDF();
+                }
+            });
+
+            document.getElementById('pdf-auth-google-btn').addEventListener('click', () => {
+                if (window._fbSignInWithPopup && window._fbAuth && window._fbProvider) {
+                    window._fbSignInWithPopup(window._fbAuth, window._fbProvider)
+                        .then(() => { closeModal('pdf-auth-modal'); setTimeout(generateRecipePDF, 1000); })
+                        .catch(e => console.error(e));
+                }
+            });
+            document.getElementById('pdf-auth-dismiss').addEventListener('click', e => { e.preventDefault(); closeModal('pdf-auth-modal'); });
+
+            async function generateRecipePDF() {
+                if (!window.jspdf) { if (typeof showToast === 'function') showToast('PDF library loading...'); await new Promise(r => setTimeout(r, 1500)); }
+                if (typeof showToast === 'function') showToast('Generating your recipe book... 📖');
+                const btn = document.getElementById('pdf-download-btn');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+                const recipes = window.RECIPES || [];
+                const W = 210, H = 297;
+                const accent = [232, 101, 42];
+                const charcoal = [26, 26, 46];
+                const fn = getFirstName();
+
+                // ---- COVER PAGE ----
+                doc.setFillColor(...charcoal);
+                doc.rect(0, 0, W, H, 'F');
+                doc.setFillColor(...accent);
+                doc.rect(0, H - 4, W, 4, 'F');
+                doc.rect(0, H / 2 - 2, W, 4, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFont('times', 'bold');
+                doc.setFontSize(28);
+                doc.text("Aabaan's Kitchen", W / 2, 110, { align: 'center' });
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(14);
+                doc.setTextColor(...accent);
+                doc.text('A Personal Recipe Collection', W / 2, 125, { align: 'center' });
+                doc.setTextColor(200, 200, 200);
+                doc.setFontSize(11);
+                doc.text(`Compiled for ${fn}`, W / 2, 140, { align: 'center' });
+                doc.setFontSize(9);
+                doc.text(new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }), W / 2, H - 20, { align: 'center' });
+
+                // ---- TABLE OF CONTENTS ----
+                doc.addPage();
+                doc.setFillColor(...accent);
+                doc.rect(0, 0, W, 18, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFont('times', 'bold');
+                doc.setFontSize(16);
+                doc.text('Contents', 14, 12);
+                let tocY = 28;
+                let currentCat = '';
+                const pageNumOffset = 3; // cover + TOC + starts at page 3
+                recipes.forEach((r, i) => {
+                    if (r.category !== currentCat) {
+                        currentCat = r.category;
+                        if (tocY > 270) { doc.addPage(); tocY = 20; }
+                        doc.setTextColor(...accent);
+                        doc.setFont('helvetica', 'bold');
+                        doc.setFontSize(9);
+                        doc.text(currentCat.toUpperCase(), 14, tocY);
+                        tocY += 6;
+                    }
+                    if (tocY > 275) { doc.addPage(); tocY = 20; }
+                    doc.setTextColor(...charcoal);
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(10);
+                    const pageNum = i + pageNumOffset;
+                    doc.text(r.title, 18, tocY);
+                    const titleWidth = doc.getTextWidth(r.title);
+                    const pageStr = pageNum.toString();
+                    const pageWidth = doc.getTextWidth(pageStr);
+                    const dotStart = 18 + titleWidth + 2;
+                    const dotEnd = W - 20 - pageWidth - 2;
+                    let dots = '';
+                    let dw = 0;
+                    while (dw < dotEnd - dotStart) { dots += '.'; dw += doc.getTextWidth('.'); }
+                    doc.setTextColor(150, 150, 150);
+                    doc.text(dots, dotStart, tocY);
+                    doc.setTextColor(...charcoal);
+                    doc.text(pageStr, W - 18, tocY, { align: 'right' });
+                    tocY += 7;
+                });
+
+                // ---- RECIPE PAGES ----
+                recipes.forEach((r, idx) => {
+                    doc.addPage();
+                    const pageNum = idx + pageNumOffset;
+                    // Orange left accent bar
+                    doc.setFillColor(...accent);
+                    doc.rect(0, 0, 5, H, 'F');
+                    // Cream header band
+                    doc.setFillColor(253, 246, 236);
+                    doc.rect(5, 0, W - 5, 32, 'F');
+                    // Category badge
+                    doc.setFillColor(...accent);
+                    doc.roundedRect(10, 4, 38, 7, 2, 2, 'F');
+                    doc.setTextColor(255, 255, 255);
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(7);
+                    doc.text((r.category || '').toUpperCase(), 29, 9, { align: 'center' });
+                    // Recipe title
+                    doc.setTextColor(...charcoal);
+                    doc.setFont('times', 'bold');
+                    doc.setFontSize(20);
+                    doc.text(r.title, 10, 22);
+                    // Meta row
+                    const meta = r.meta || {};
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(8);
+                    doc.setTextColor(100, 100, 100);
+                    doc.text(`Prep: ${meta.prep || '?'}m  ·  Cook: ${meta.cook || '?'}m  ·  Serves: ${meta.servings || '?'}`, 10, 30);
+                    // Orange divider
+                    doc.setDrawColor(...accent);
+                    doc.setLineWidth(0.5);
+                    doc.line(10, 34, W - 10, 34);
+                    let y = 42;
+                    // Intro quote
+                    if (r.intro) {
+                        doc.setFont('helvetica', 'italic');
+                        doc.setFontSize(9);
+                        doc.setTextColor(120, 120, 120);
+                        const introLines = doc.splitTextToSize(r.intro, W - 30);
+                        doc.text(introLines, 15, y);
+                        y += introLines.length * 5 + 4;
+                    }
+                    // Ingredients
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(11);
+                    doc.setTextColor(...accent);
+                    doc.text('Ingredients', 10, y); y += 6;
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(9);
+                    doc.setTextColor(...charcoal);
+                    (r.ingredients || []).forEach(ing => {
+                        if (y > H - 20) { doc.addPage(); doc.setFillColor(...accent); doc.rect(0, 0, 5, H, 'F'); y = 20; }
+                        const lines = doc.splitTextToSize('• ' + ing, W - 25);
+                        doc.text(lines, 14, y); y += lines.length * 5;
+                    });
+                    y += 4;
+                    // Instructions
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(11);
+                    doc.setTextColor(...accent);
+                    if (y > H - 30) { doc.addPage(); doc.setFillColor(...accent); doc.rect(0, 0, 5, H, 'F'); y = 20; }
+                    doc.text('Instructions', 10, y); y += 6;
+                    (r.steps || []).forEach((step, si) => {
+                        if (y > H - 20) { doc.addPage(); doc.setFillColor(...accent); doc.rect(0, 0, 5, H, 'F'); y = 20; }
+                        const title = step.title || `Step ${si + 1}`;
+                        doc.setFont('helvetica', 'bold');
+                        doc.setFontSize(9);
+                        doc.setTextColor(...charcoal);
+                        doc.text(`${si + 1}. ${title}`, 10, y); y += 5;
+                        if (step.detail) {
+                            doc.setFont('helvetica', 'normal');
+                            doc.setFontSize(9);
+                            doc.setTextColor(60, 60, 60);
+                            const lines = doc.splitTextToSize(step.detail, W - 24);
+                            if (y + lines.length * 4.5 > H - 15) { doc.addPage(); doc.setFillColor(...accent); doc.rect(0, 0, 5, H, 'F'); y = 20; }
+                            doc.text(lines, 16, y); y += lines.length * 4.5 + 3;
+                        }
+                    });
+                    // Footer
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(8);
+                    doc.setTextColor(150, 150, 150);
+                    doc.text("Aabaan's Kitchen", 10, H - 8);
+                    doc.text(pageNum.toString(), W - 10, H - 8, { align: 'right' });
+                });
+
+                doc.save("Aabaans-Kitchen-Recipes.pdf");
+                btn.innerHTML = '<i class="fas fa-file-pdf"></i>';
+                if (typeof showToast === 'function') showToast('Your recipe book is ready! 🎉');
+            }
+
+            // ======================================================
+            // WIRE UP: currentDetailRecipeId + view tracking + rating
+            // ======================================================
+            // Patch openRecipeDetail to set current recipe ID and track view
+            const _origOpenRecipeDetail = typeof openRecipeDetail === 'function' ? openRecipeDetail : null;
+            window.openRecipeDetail = function (recipe, fromPhotoMatch) {
+                if (recipe) window.currentDetailRecipeId = recipe.id || recipe._id || null;
+                if (_origOpenRecipeDetail) _origOpenRecipeDetail.apply(this, arguments);
+                if (recipe?.id) {
+                    trackRecipeView(recipe.id).catch(() => { });
+                    loadRecipeRating(recipe.id).then(rating => {
+                        const bar = document.getElementById('detail-rating-bar');
+                        if (bar && rating) {
+                            bar.style.display = 'flex';
+                            bar.innerHTML = `<span style="color:#f7b733;">★★★★★</span> <strong>${rating.avg}</strong> <span style="color:var(--text-muted);">(${rating.count} review${rating.count !== 1 ? 's' : ''})</span> <button class="feature-btn" id="write-review-btn" style="font-size:0.78rem;padding:5px 12px;margin-left:auto;" onclick="openReviewModal('${recipe.id}','${(recipe.title || '').replace(/'/g, "\\'")}')">⭐ Rate It</button>`;
+                        } else if (bar) {
+                            bar.style.display = 'flex';
+                            bar.innerHTML = `<span style="color:var(--text-muted);font-size:0.85rem;">No reviews yet</span> <button class="feature-btn" id="write-review-btn" style="font-size:0.78rem;padding:5px 12px;margin-left:auto;" onclick="openReviewModal('${recipe.id}','${(recipe.title || '').replace(/'/g, "\\'")}')">⭐ Rate It</button>`;
+                        }
+                        // Reset nutrition panel
+                        const nutPanel = document.getElementById('nutrition-panel');
+                        if (nutPanel) nutPanel.style.display = 'none';
+                    }).catch(() => { });
+                }
+            };
+
+            // Custom recipe filter in filter bar
+            document.getElementById('my-cookbook-filter')?.addEventListener('click', function () {
+                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                const grid = document.getElementById('recipe-grid');
+                if (grid && typeof renderGrid === 'function') {
+                    window._filterCat = 'custom';
+                    renderGrid();
+                }
+            });
+
+            // Hook into auth: weekly digest + FCM after sign-in
+            document.addEventListener('userSignedIn', e => {
+                if (e.detail) {
+                    checkWeeklyDigest(e.detail).catch(() => { });
+                    // Uncomment to enable FCM: setupFCM(e.detail).catch(()=>{});
+                }
+            });
+
+            // Also call weekly digest from existing auth state change
+            // Expose it so the main script can call: window._checkWeeklyDigest(user)
+            // The existing onAuthStateChanged in main script will need to call this.
+            // We patch it safely here:
+            const _origInitAuthUI = typeof initAuthUI === 'function' ? initAuthUI : null;
+        </script>
+
 </body>
 
 </html>
