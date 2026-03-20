@@ -4777,38 +4777,40 @@
         </div>
 
         <!-- ===== FRIDGE MODE OVERLAY (T9) ===== -->
-        <div class="modal-overlay" id="fridge-modal">
-            <div class="modal-box">
-                <div class="modal-header">
-                    <h3>🧊 Fridge Mode</h3>
-                    <button class="chat-close" id="fridge-close"><i class="fas fa-times"></i></button>
-                </div>
-                <div class="fridge-tabs">
+        <div class="fullpage-overlay" id="fridge-modal">
+            <div class="fullpage-header">
+                <h2>🧊 Fridge Mode — What Can I Make?</h2>
+                <button class="chat-close" id="fridge-close" style="width:36px;height:36px;border-radius:50%;background:var(--glass);border:1px solid var(--glass-border);color:var(--text);cursor:pointer;"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="fullpage-body" style="max-width:800px;margin:0 auto;">
+                <p style="color:var(--text-muted);margin-bottom:16px;">Tell me what's in your fridge — by typing or taking a photo — and I'll find the best recipes you can make right now.</p>
+                <div class="fridge-tabs" style="margin-bottom:16px;">
                     <button class="fridge-tab active" id="fridge-tab-type">✏️ Type Ingredients</button>
                     <button class="fridge-tab" id="fridge-tab-photo">📷 Photo of Fridge</button>
                 </div>
                 <div id="fridge-type-panel">
-                    <textarea id="fridge-ingredients-input" class="form-input" rows="4"
-                        placeholder="e.g. chicken, garlic, tomatoes, pasta, cheese..."
-                        style="margin-top:12px;"></textarea>
+                    <label style="font-size:0.9rem;font-weight:600;margin-bottom:8px;display:block;">What ingredients do you have?</label>
+                    <textarea id="fridge-ingredients-input" class="form-input" rows="5"
+                        placeholder="e.g. chicken breast, garlic, tomatoes, pasta, parmesan, butter, eggs..."
+                        style="resize:vertical;"></textarea>
+                    <p style="font-size:0.78rem;color:var(--text-muted);margin-top:6px;">Separate ingredients with commas or new lines.</p>
                 </div>
                 <div id="fridge-photo-panel" style="display:none;">
-                    <div class="upload-dropzone" id="fridge-dropzone" style="margin-top:12px;">
-                        <i class="fas fa-camera" style="font-size:2rem;color:var(--accent);margin-bottom:8px;"></i>
-                        <label class="feature-btn" style="cursor:pointer;">
-                            <i class="fas fa-camera"></i> Take / Upload Fridge Photo
-                            <input type="file" id="fridge-file-input" accept="image/*" capture="environment"
-                                style="display:none;">
+                    <div class="upload-dropzone" id="fridge-dropzone" style="height:200px;justify-content:center;">
+                        <i class="fas fa-camera" style="font-size:3rem;color:var(--accent);margin-bottom:12px;"></i>
+                        <p>Take a photo of your fridge or upload one</p>
+                        <label class="feature-btn" style="cursor:pointer;margin-top:8px;">
+                            <i class="fas fa-camera"></i> Take / Upload Photo
+                            <input type="file" id="fridge-file-input" accept="image/*" capture="environment" style="display:none;">
                         </label>
                     </div>
-                    <img id="fridge-preview"
-                        style="display:none;width:100%;max-height:200px;object-fit:cover;border-radius:12px;margin-top:12px;">
+                    <img id="fridge-preview" style="display:none;width:100%;max-height:280px;object-fit:cover;border-radius:14px;margin-top:14px;">
                 </div>
-                <button class="feature-btn" id="fridge-find-btn" style="width:100%;margin-top:12px;"><i
-                        class="fas fa-search"></i> What Can I Make?</button>
-                <div id="fridge-result" style="margin-top:12px;"></div>
+                <button class="feature-btn" id="fridge-find-btn" style="width:100%;margin-top:20px;padding:14px;font-size:1rem;"><i class="fas fa-search"></i> Find What I Can Make!</button>
+                <div id="fridge-result" style="margin-top:20px;"></div>
             </div>
         </div>
+
 
         <!-- ===== REVIEW MODAL (T6) ===== -->
         <div class="modal-overlay" id="review-modal">
@@ -6341,8 +6343,11 @@
                     ]
                 }
             ];
+            // Expose for new feature scripts
+            window.RECIPES = recipes;
+            if (!Array.isArray(window.customRecipes)) window.customRecipes = [];
 
-            // ===== EMOJI MAP =====
+
             const emojiMap = {
                 'Appetizers': '🍗', 'Mains': '🥩', 'Ch 3: Chicken': '🍗',
                 'Ch 4: Seafood & Pasta': '🍝', 'Sides & Bread': '🍞',
@@ -8026,41 +8031,42 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
             }
 
             // ======================================================
-            // T13 — AUTO DARK / LIGHT MODE
+            // T13 — AUTO DARK / LIGHT MODE (patched - no duplicate listener)
             // ======================================================
             (function initAutoTheme() {
                 const mq = window.matchMedia('(prefers-color-scheme: dark)');
-                const savedOverride = localStorage.getItem('themeOverride');
-                if (savedOverride) {
-                    if (savedOverride === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-                    else document.documentElement.removeAttribute('data-theme');
-                } else {
-                    if (mq.matches) document.documentElement.setAttribute('data-theme', 'dark');
-                    else document.documentElement.removeAttribute('data-theme');
+                // Only apply system theme if user hasn't manually chosen one
+                if (!localStorage.getItem('themeOverride') && !localStorage.getItem('theme')) {
+                    if (typeof setTheme === 'function') {
+                        setTheme(mq.matches);
+                    }
                 }
+                // When system preference changes, only follow it if no manual override
                 mq.addEventListener('change', e => {
-                    if (!localStorage.getItem('themeOverride')) {
-                        if (e.matches) document.documentElement.setAttribute('data-theme', 'dark');
-                        else document.documentElement.removeAttribute('data-theme');
+                    if (!localStorage.getItem('themeOverride') && !localStorage.getItem('theme')) {
+                        if (typeof setTheme === 'function') setTheme(e.matches);
                     }
                 });
-                // Patch the existing manual toggle to save override
-                const toggle = document.getElementById('theme-toggle');
-                if (toggle) {
-                    toggle.addEventListener('click', () => {
-                        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-                        if (isDark) {
-                            document.documentElement.removeAttribute('data-theme');
-                            localStorage.setItem('themeOverride', 'light');
-                        } else {
-                            document.documentElement.setAttribute('data-theme', 'dark');
-                            localStorage.setItem('themeOverride', 'dark');
-                        }
-                        const icon = toggle.querySelector('i');
-                        if (icon) icon.className = document.documentElement.getAttribute('data-theme') === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-                    }, { capture: true });
+                // Patch setTheme so manual toggle also saves themeOverride
+                const origSetTheme = window.setTheme || (typeof setTheme !== 'undefined' ? setTheme : null);
+                if (origSetTheme) {
+                    // Wrap to also sync themeOverride key
+                    const _patchedSetTheme = function(dark) {
+                        origSetTheme(dark);
+                        localStorage.setItem('themeOverride', dark ? 'dark' : 'light');
+                    };
+                    // Don't reassign — just let the override key get saved by
+                    // adding a one-time click listener that checks after setTheme runs
+                    const toggle = document.getElementById('theme-toggle');
+                    if (toggle) {
+                        toggle.addEventListener('click', () => {
+                            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                            localStorage.setItem('themeOverride', isDark ? 'dark' : 'light');
+                        });
+                    }
                 }
             })();
+
 
             // ======================================================
             // T7 — POINTS / LEADERBOARD HELPERS
@@ -8488,10 +8494,11 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
             document.getElementById('fridge-mode-btn').addEventListener('click', () => {
                 document.getElementById('fridge-result').innerHTML = '';
                 document.getElementById('fridge-ingredients-input').value = '';
-                openModal('fridge-modal');
+                openFullpage('fridge-modal');
                 if (typeof addZestyMsg === 'function') addZestyMsg('assistant', `Okay let's see what we're working with ${getFirstName()} 🧊`);
             });
-            document.getElementById('fridge-close').addEventListener('click', () => closeModal('fridge-modal'));
+            document.getElementById('fridge-close').addEventListener('click', () => closeFullpage('fridge-modal'));
+
 
             document.getElementById('fridge-tab-type').addEventListener('click', () => {
                 document.getElementById('fridge-tab-type').classList.add('active');
@@ -8820,6 +8827,7 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
                 renderCbIngredients(); renderCbSteps(); updateCbStep(1);
                 openModal('cookbook-form-modal');
             }
+            window.openCookbookForm = openCookbookForm; // expose for inline onclick
 
             function updateCbStep(step) {
                 cbStep = step;
