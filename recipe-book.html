@@ -7333,8 +7333,9 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
                 const firstName = currentUser.displayName ? currentUser.displayName.split(' ')[0] : 'Chef';
                 const recipeTitles = ORIGINAL_RECIPES.map(r => r.title).join(', ');
                 const now = new Date();
-                return `You are Zesty, a warm, fun and genuinely helpful kitchen companion. You know the user personally — their name is ${firstName}. You have memory of your past conversations with them. Always use their first name naturally, be casual and friendly, use emojis sparingly but warmly. You know their recipe book contains these recipes: ${recipeTitles}. When recommending recipes always reference ones that exist in their book. Never be robotic. If they mention a mood, suggest food that matches it emotionally, not just nutritionally. Keep responses under 3 sentences unless they ask a detailed question. Current time: ${now.toLocaleTimeString()}. Current date: ${now.toLocaleDateString()}.`;
+                return `You are Zesty, a warm, fun and genuinely helpful kitchen companion. You know the user personally — their name is ${firstName}. You have memory of your past conversations with them. Always use their first name naturally, be casual and friendly, use emojis sparingly but warmly. You know their recipe book contains these recipes: ${recipeTitles}. When recommending recipes always reference ones that exist in their book. Never be robotic. If they mention a mood, suggest food that matches it emotionally, not just nutritionally. Keep responses under 3 sentences unless they ask a detailed question. Current time: ${now.toLocaleTimeString()}. Current date: ${now.toLocaleDateString()}.${typeof window.getFridgeContextString === 'function' ? ' ' + window.getFridgeContextString() : ''} If the user asks what they can cook or what's in their fridge, use the fridge inventory to suggest recipes.`;
             }
+
 
             function addZestyMsg(role, content) {
                 const div = document.createElement('div');
@@ -8020,6 +8021,9 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
                 const data = await res.json();
                 return data.choices?.[0]?.message?.content || '';
             }
+            window.callAI = callAI; // expose for feature scripts
+            window.getFirstName = getFirstName; // expose for feature scripts
+
 
             function imageFileToBase64(file) {
                 return new Promise((resolve, reject) => {
@@ -8555,11 +8559,12 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
                     resultEl.innerHTML = matches.map((m, idx) => {
                         const rec = (window.RECIPES || []).find(r => r.id === m.id);
                         const missing = m.missing || [];
-                        return `<div style="background:var(--glass);border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;border:${idx === 0 ? '2px solid var(--accent)' : '1px solid var(--glass-border)'};" onclick="closeModal('fridge-modal');setTimeout(()=>{const r=(window.RECIPES||[]).find(x=>x.id==='${m.id}');if(r&&typeof openRecipeDetail==='function')openRecipeDetail(r)},100)">
+                        return `<div style="background:var(--glass);border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer;border:${idx === 0 ? '2px solid var(--accent)' : '1px solid var(--glass-border)'};" onclick="closeFullpage('fridge-modal');setTimeout(()=>{const r=(window.RECIPES||[]).find(x=>x.id==='${m.id}');if(r&&typeof openRecipeDetail==='function')openRecipeDetail(r)},100)">
                         ${idx === 0 ? '<div style="font-size:0.7rem;color:var(--accent);font-weight:700;margin-bottom:4px;">BEST MATCH ✓</div>' : ''}
                         <div style="font-weight:600;font-size:0.95rem;margin-bottom:6px;">${rec ? rec.title : m.title}</div>
                         ${missing.length ? `<div style="font-size:0.8rem;color:#e74c3c;">You're missing: ${missing.join(', ')}</div>` : '<div style="font-size:0.8rem;color:#2ecc71;">You have all ingredients! ✓</div>'}
                     </div>`;
+
                     }).join('');
                     const fn = getFirstName();
                     if (typeof addZestyMsg === 'function') addZestyMsg('assistant', `${fn}, I found ${matches.length} recipes from what you've got 🧊 The best match is **${matches[0]?.title}** — check it out!`);
@@ -8567,7 +8572,166 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
             });
 
             // ======================================================
+            // PERSISTENT FRIDGE INVENTORY ENGINE
+            // ======================================================
+            window.fridgeInventory = [];
+
+            async function loadFridgeInventory() {
+                const uid = window.currentUser?.uid;
+                if (uid && window._fbReady) {
+                    try {
+                        const ref = window._fbDoc(window._fbDb, 'users', uid, 'fridge', 'inventory');
+                        const snap = await window._fbGetDoc(ref);
+                        window.fridgeInventory = snap.exists() ? (snap.data().items || []) : [];
+                    } catch (e) { window.fridgeInventory = JSON.parse(localStorage.getItem('fridgeInventory') || '[]'); }
+                } else {
+                    window.fridgeInventory = JSON.parse(localStorage.getItem('fridgeInventory') || '[]');
+                }
+                renderFridgeInventory();
+            }
+
+            async function saveFridgeInventory() {
+                localStorage.setItem('fridgeInventory', JSON.stringify(window.fridgeInventory));
+                const uid = window.currentUser?.uid;
+                if (uid && window._fbReady) {
+                    try {
+                        const ref = window._fbDoc(window._fbDb, 'users', uid, 'fridge', 'inventory');
+                        await window._fbSetDoc(ref, { items: window.fridgeInventory, updatedAt: Date.now() });
+                    } catch (e) {}
+                }
+            }
+
+            function renderFridgeInventory() {
+                let inv = document.getElementById('fridge-inventory-section');
+                if (!inv) {
+                    // Create inventory section inside the fridge fullpage body
+                    const body = document.querySelector('#fridge-modal .fullpage-body');
+                    if (!body) return;
+                    inv = document.createElement('div');
+                    inv.id = 'fridge-inventory-section';
+                    body.appendChild(inv);
+                }
+                if (!window.fridgeInventory.length) {
+                    inv.innerHTML = `
+                        <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--glass-border);">
+                            <h4 style="margin-bottom:10px;display:flex;align-items:center;gap:8px;"><span>🥕</span> My Fridge Inventory</h4>
+                            <p style="color:var(--text-muted);font-size:0.9rem;">Your fridge is empty. Items bought from your shopping list will appear here automatically!</p>
+                            <div id="fridge-add-row" style="display:flex;gap:8px;margin-top:12px;">
+                                <input id="fridge-add-input" class="form-input" placeholder="Add an item manually..." style="flex:1;">
+                                <button class="feature-btn" onclick="window.addToFridge(document.getElementById('fridge-add-input').value)"><i class="fas fa-plus"></i> Add</button>
+                            </div>
+                        </div>`;
+                    return;
+                }
+                inv.innerHTML = `
+                    <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--glass-border);">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+                            <h4 style="display:flex;align-items:center;gap:8px;"><span>🥕</span> My Fridge Inventory <span style="font-size:0.75rem;background:var(--accent);color:#fff;padding:2px 8px;border-radius:var(--radius-pill);font-weight:600;">${window.fridgeInventory.length} items</span></h4>
+                            <button class="feature-btn" style="font-size:0.75rem;padding:5px 10px;background:transparent;border:1px solid var(--glass-border);color:var(--text-muted);" onclick="window.clearFridge()"><i class="fas fa-trash"></i> Clear All</button>
+                        </div>
+                        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+                            ${window.fridgeInventory.map((item, i) => `
+                            <div style="display:flex;align-items:center;gap:6px;background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius-pill);padding:5px 12px;font-size:0.85rem;">
+                                ${item}
+                                <span onclick="window.removeFromFridge(${i})" style="cursor:pointer;color:#e74c3c;font-size:0.75rem;margin-left:2px;" title="Remove">✕</span>
+                            </div>`).join('')}
+                        </div>
+                        <div id="fridge-add-row" style="display:flex;gap:8px;">
+                            <input id="fridge-add-input" class="form-input" placeholder="Add another item..." style="flex:1;" onkeydown="if(event.key==='Enter')window.addToFridge(this.value)">
+                            <button class="feature-btn" onclick="window.addToFridge(document.getElementById('fridge-add-input').value)"><i class="fas fa-plus"></i> Add</button>
+                        </div>
+                        <p style="font-size:0.75rem;color:var(--text-muted);margin-top:6px;">Zesty knows what's here — just ask "What can I make with my fridge?" 🍊</p>
+                    </div>`;
+            }
+
+            window.addToFridge = function(item) {
+                item = (item || '').trim();
+                if (!item) return;
+                if (!window.fridgeInventory.includes(item)) {
+                    window.fridgeInventory.push(item);
+                    saveFridgeInventory();
+                    renderFridgeInventory();
+                    const inp = document.getElementById('fridge-add-input');
+                    if (inp) inp.value = '';
+                    if (typeof showToast === 'function') showToast(`Added "${item}" to fridge ✓`);
+                }
+            };
+
+            window.removeFromFridge = function(idx) {
+                window.fridgeInventory.splice(idx, 1);
+                saveFridgeInventory();
+                renderFridgeInventory();
+            };
+
+            window.clearFridge = function() {
+                if (!confirm('Clear all fridge items?')) return;
+                window.fridgeInventory = [];
+                saveFridgeInventory();
+                renderFridgeInventory();
+            };
+
+            // Load fridge inventory when fridge page opens
+            document.getElementById('fridge-mode-btn').addEventListener('click', () => {
+                loadFridgeInventory();
+            });
+
+            // Also auto-fill fridge ingredients into the text area when opening
+            document.getElementById('fridge-mode-btn').addEventListener('click', () => {
+                setTimeout(() => {
+                    const inp = document.getElementById('fridge-ingredients-input');
+                    if (inp && window.fridgeInventory.length && !inp.value) {
+                        inp.value = window.fridgeInventory.join(', ');
+                    }
+                }, 200);
+            });
+
+            // Load on login
+            window.addEventListener('firebase-ready', () => loadFridgeInventory());
+            window.addEventListener('DOMContentLoaded', () => loadFridgeInventory());
+            setTimeout(loadFridgeInventory, 3000); // fallback
+
+            // ======================================================
+            // SHOPPING LIST → FRIDGE CONNECTION
+            // ======================================================
+            window.toggleShopItem = (el, key) => {
+                const saved = JSON.parse(localStorage.getItem('shoppingChecks') || '{}');
+                saved[key] = el.checked;
+                localStorage.setItem('shoppingChecks', JSON.stringify(saved));
+                const row = el.closest('.shopping-item');
+                if (row) row.classList.toggle('checked', el.checked);
+                // If checking (bought), offer to add to fridge
+                if (el.checked) {
+                    const itemText = row ? row.textContent.trim().replace(/^✓?\s*/, '') : '';
+                    if (itemText) {
+                        const clean = itemText.replace(/\s+/g, ' ').trim();
+                        if (!window.fridgeInventory.includes(clean)) {
+                            window.fridgeInventory.push(clean);
+                            saveFridgeInventory();
+                            if (typeof showToast === 'function') showToast(`✓ Added "${clean}" to your fridge 🧊`);
+                        }
+                    }
+                }
+            };
+
+            // ======================================================
+            // ZESTY FRIDGE AWARENESS
+            // ======================================================
+            // Patch addZestyMsg so Zesty always has fridge context
+            // when user asks about what to cook / what's in fridge
+            window._zestyFridgeContext = () => {
+                if (!window.fridgeInventory.length) return '';
+                return `\n\n[Current fridge inventory: ${window.fridgeInventory.join(', ')}]`;
+            };
+
+            // Expose fridge context for Zesty queries
+            window.getFridgeContextString = () => {
+                if (!window.fridgeInventory?.length) return 'The fridge is currently empty.';
+                return `The user has these items in their fridge: ${window.fridgeInventory.join(', ')}.`;
+            };
+
+            // ======================================================
             // T5 — COOK TOGETHER
+
             // ======================================================
             let cookSessionId = null;
 
@@ -9108,22 +9272,17 @@ CURRENT RECIPE DATA: ${recipeCtx}`;
             // ======================================================
             // T14 — PDF RECIPE BOOK DOWNLOAD
             // ======================================================
-            document.getElementById('pdf-download-btn').addEventListener('click', () => {
-                if (!window.currentUser) {
-                    openModal('pdf-auth-modal');
-                } else {
-                    generateRecipePDF();
-                }
-            });
+            document.getElementById('pdf-download-btn').addEventListener('click', generateRecipePDF);
 
-            document.getElementById('pdf-auth-google-btn').addEventListener('click', () => {
+            document.getElementById('pdf-auth-google-btn')?.addEventListener('click', () => {
                 if (window._fbSignInWithPopup && window._fbAuth && window._fbProvider) {
                     window._fbSignInWithPopup(window._fbAuth, window._fbProvider)
                         .then(() => { closeModal('pdf-auth-modal'); setTimeout(generateRecipePDF, 1000); })
                         .catch(e => console.error(e));
                 }
             });
-            document.getElementById('pdf-auth-dismiss').addEventListener('click', e => { e.preventDefault(); closeModal('pdf-auth-modal'); });
+            document.getElementById('pdf-auth-dismiss')?.addEventListener('click', e => { e.preventDefault(); closeModal('pdf-auth-modal'); });
+
 
             async function generateRecipePDF() {
                 if (!window.jspdf) { if (typeof showToast === 'function') showToast('PDF library loading...'); await new Promise(r => setTimeout(r, 1500)); }
